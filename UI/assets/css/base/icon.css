@@ -1,0 +1,27 @@
+.item__icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+    
+}
+.icon{
+    background-position: center;
+    background-size: contain;
+}
+.icon__24{
+  width: 24px;
+  height: 24px;
+}
+.icon__18{
+    width: 18px;
+    height: 18px;
+}
+.icon__setting{
+    background: url('../../img/Sprites.64af8f61.svg') no-repeat -33px -144px;
+	
+}
+.icon__close{
+    background: url('../../img/Sprites.64af8f61.svg') no-repeat -147px -147px;
+}

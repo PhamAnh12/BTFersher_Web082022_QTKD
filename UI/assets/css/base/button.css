@@ -1,0 +1,9 @@
+.btn{
+    background-color: var(--primary-color);
+    border-radius: 4px;
+    height: 36px; 
+    min-width: 80px;
+    color: var( --white-color);
+    line-height: 20px;
+
+}
