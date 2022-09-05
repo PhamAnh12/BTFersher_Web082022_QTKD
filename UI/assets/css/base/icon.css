@@ -6,22 +6,36 @@
   height: 24px;
     
 }
-.icon{
-    background-position: center;
-    background-size: contain;
-}
+
 .icon__24{
   width: 24px;
   height: 24px;
 }
+.icon__20{
+  width: 20px;
+  height: 20px;
+}
+
 .icon__18{
     width: 18px;
     height: 18px;
 }
+.icon__16{
+  width: 16px;
+  height: 16px;
+}
+
 .icon__setting{
     background: url('../../img/Sprites.64af8f61.svg') no-repeat -33px -144px;
 	
 }
 .icon__close{
     background: url('../../img/Sprites.64af8f61.svg') no-repeat -147px -147px;
+}
+.icon__search{
+  background: url('../../img/search.png') no-repeat;
+  background-position:  center right 6px ;
+  padding-right: 32px;
+  background-size: contain;
+
 }

@@ -1,39 +1,42 @@
 @import url(./base/icon.css);
 @import url(./base/button.css);
+@import url(./base/radio.css);
+@import url(./base/checkbox.css);
+@import url(./base/input.css);
 :root {
-    --primary-color: #50B83C;
-    --white-color: #fff;
-    --border-color:#bbbbbb;
-   
+  --primary-color: #50b83c;
+  --hover-color: #5dc748;
+  --white-color: #ffffff;
+  --border-color: #e0e0e0;
 }
 
 body {
-    color: #000000;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: GoogleSans-Regular;
-    font-size: 14px; 
-   
-   
+  color: #1f1f1f;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: GoogleSans-Regular;
+  font-size: 14px;
 }
-
-
 
 @font-face {
-    font-family: GoogleSans-Regular;
-    src: url(../fonts/notosans-regular.2cb88a13.woff2);
+  font-family: GoogleSans-Regular;
+  src: url(../fonts/notosans-regular.2cb88a13.woff2);
+}
+@font-face {
+  font-family: GoogleSans-Medium;
+  src: url(../fonts/notosans-semibold.df3e6dc4.woff2);
 }
 
-.align-center{
-    text-align: center;
-   }
- .align-right{
-    text-align: right;
-   }
-.content__center{
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+.align-center {
+  text-align: center;
+}
+.align-right {
+  text-align: right;
+}
+.content__center {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,0 +1,32 @@
+@import url(../layout/navbar.css);
+.container{
+    display: grid;
+    grid-template-columns: 200px  auto;
+    height:100vh;
+}
+.navbar{
+ 
+  grid-row-start: 1;
+  grid-row-end: 3;
+  background-color: #041434;
+  border: 1px solid #041434;
+ 
+  
+}
+.main{
+   grid-row-start: 1;
+   grid-row-end: 3;
+}
+.header{
+    height: 56px;
+    background-color: blueviolet;
+    
+}
+.content{
+   height: calc(100vh - 56px);
+   padding-top: 24px;
+   padding-left: 24px;
+   background-color: blue;
+   
+}
+
