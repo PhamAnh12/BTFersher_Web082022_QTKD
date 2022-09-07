@@ -4,8 +4,8 @@
 @import url(./base/checkbox.css);
 @import url(./base/input.css);
 :root {
-  --primary-color: #50b83c;
-  --hover-color: #5dc748;
+  --primary-color: #089740;
+  --hover-color: rgba(8, 151, 64,0.85);
   --white-color: #ffffff;
   --border-color: #e0e0e0;
 }
@@ -14,11 +14,12 @@ body {
   color: #1f1f1f;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: GoogleSans-Regular;
   font-size: 14px;
 }
-
+*{
+  box-sizing: border-box;
+}
 @font-face {
   font-family: GoogleSans-Regular;
   src: url(../fonts/notosans-regular.2cb88a13.woff2);

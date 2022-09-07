@@ -1,0 +1,17 @@
+.header{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    box-shadow:  3px 0 px 0px rgba(23,27,42,0.059);
+
+}
+.headder__title{
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+
+}
+select{
+    border: none;
+    outline: none;
+}

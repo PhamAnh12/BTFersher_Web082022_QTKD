@@ -2,7 +2,7 @@ input[ type=checkbox] {
     width: 24px;
     height: 24px;
     cursor: pointer;
-    accent-color: #409330;
+    accent-color: var(--primary-color);
 
 }
 
