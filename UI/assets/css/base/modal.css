@@ -1,0 +1,81 @@
+.modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.45);
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal__content {
+  min-height: 600px;
+  min-width: 1000px;
+  overflow: scroll;
+  background-color: #ffff;
+  border-radius: 4px;
+
+  z-index: 999;
+ position: relative;
+  padding: 32px;
+}
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal__header__left{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.header__title{
+    margin: 0;
+}
+.modal__header__left input[type="checkbox"]{
+   margin-left: 16px;
+   margin-right: 8px;
+}
+.header_icon_help{
+    position: absolute;
+    top:0;
+    right: 0;
+}
+.header_icon_close{
+    position: absolute;
+    top:42px;
+    right: 4px;
+}
+
+.modal__body {
+
+}
+.modal__body label{
+    margin-bottom: 8px;
+}
+.modal__body__row1{
+    display: flex;
+
+}
+.modal__body__row1  .body__row1__left{
+    display: flex;
+    width: 50%;
+}
+
+.modal__body__row1 .input__name{
+    flex:  1;
+    margin-left: 6px;
+} 
+.body__row1__rigth{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    margin-left:32px;
+}
+.container__gender{
+    height: 1000%;
+    padding: 8px;
+}
+.modal__footer {
+}

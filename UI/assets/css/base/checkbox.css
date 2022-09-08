@@ -1,9 +1,12 @@
 input[ type=checkbox] {
-    width: 24px;
-    height: 24px;
+ 
     cursor: pointer;
     accent-color: var(--primary-color);
 
+}
+.checkbox__24{
+    height: 24px;
+    width: 24px;
 }
 
     

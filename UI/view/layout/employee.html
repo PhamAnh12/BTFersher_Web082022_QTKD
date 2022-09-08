@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,166 +9,418 @@
     <link rel="stylesheet" href="../../assets/css/main.css" />
     <link rel="stylesheet" href="../../assets/css/layout/employee.css" />
     <title>Hệ thống quản lý nhân viên Quản lý nhân viên</title>
-  </head>
+</head>
 
-  <body>
-    <div class="navbar">
-      <div class="navbar__header">
-        <div class="item__icon">
-          <div class="icon__18 icon__total"></div>
-        </div>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar__header">
+                <div class="item__icon">
+                    <div class="icon__18 icon__total"></div>
+                </div>
 
-        <div class="navbar__header__content">
-          <img
-            class="item__logo"
-            src="../../assets/img/Logo_Module_TiengViet_White.66947422.svg"
-            alt=""
-          />
-          <div class="item__logo"></div>
-        </div>
-      </div>
-      <div class="navbar__main">
-        <div class="navbar__item navbar__item--active">
-          <div class="item__icon">
-            <div class="icon__18 icon__overview"></div>
-          </div>
-          <div class="navbar__item-text">Tổng quan</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__monney"></div>
-          </div>
-          <div class="navbar__item-text">Tiền mặt</div>
-        </div>
-
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__deposits"></div>
-          </div>
-          <div class="navbar__item-text">Tiền gửi</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon_purchase"></div>
-          </div>
-          <div class="navbar__item-text">Mua hàng</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__sale"></div>
-          </div>
-          <div class="navbar__item-text">Bán hàng</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__management"></div>
-          </div>
-          <div class="navbar__item-text">Quản lý hóa đơn</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__warehouse"></div>
-          </div>
-          <div class="navbar__item-text">Kho</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__tool"></div>
-          </div>
-          <div class="navbar__item-text">Công cụ dụng cụ</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__fixed-assets"></div>
-          </div>
-          <div class="navbar__item-text">Tài sản cố định</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__tax"></div>
-          </div>
-          <div class="navbar__item-text">Thuế</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__pice"></div>
-          </div>
-          <div class="navbar__item-text">Giá thành</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__synthetic"></div>
-          </div>
-          <div class="navbar__item-text">Tổng hợp</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__budget"></div>
-          </div>
-          <div class="navbar__item-text">Ngân sách</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__report"></div>
-          </div>
-          <div class="navbar__item-text">Báo cáo</div>
-        </div>
-        <div class="navbar__item">
-          <div class="item__icon">
-            <div class="icon__18 icon__analysis"></div>
-          </div>
-          <div class="navbar__item-text">Phân tích tài chính</div>
-        </div>
-      </div>
-      <!-- <div class="navbar__footer">
+                <div class="navbar__header__content">
+                    <img class="item__logo" src="../../assets/img/Logo_Module_TiengViet_White.66947422.svg" alt="" />
+                    <div class="item__logo"></div>
+                </div>
+            </div>
+            <div class="navbar__main">
+                <div class="navbar__item navbar__item--active">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__overview"></div>
+                    </div>
+                    <div class="navbar__item-text">Tổng quan</div>
+                </div>
                 <div class="navbar__item">
                     <div class="item__icon">
-                        <div class=" icon__18 icon__collapse"></div>
+                        <div class="icon__18 icon__monney"></div>
                     </div>
-                    <div class="navbar__item-text">Thu gọn</div>
+                    <div class="navbar__item-text">Tiền mặt</div>
                 </div>
-            </div> -->
-    </div>
-    <div class="main">
-      <div class="header">
-        <div class="headder__title">
-          <div class="item__icon">
-            <div class="icon__16 icon__menu"></div>
-          </div>
-          <select name="" id="">
-            <option value="">
-              CÔNG TY TNHH SẢN XUẤT-THƯƠNG MẠI-DỊCH VỤ QUI PHÚC
-            </option>
-          </select>
-        </div>
-        <div class="headder__account">
-          <div class="headder__account__notification">
-            <div class="item__icon">
-              <div class="icon__24 icon__notification"></div>
+
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__deposits"></div>
+                    </div>
+                    <div class="navbar__item-text">Tiền gửi</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon_purchase"></div>
+                    </div>
+                    <div class="navbar__item-text">Mua hàng</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__sale"></div>
+                    </div>
+                    <div class="navbar__item-text">Bán hàng</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__management"></div>
+                    </div>
+                    <div class="navbar__item-text">Quản lý hóa đơn</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__warehouse"></div>
+                    </div>
+                    <div class="navbar__item-text">Kho</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__tool"></div>
+                    </div>
+                    <div class="navbar__item-text">Công cụ dụng cụ</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__fixed-assets"></div>
+                    </div>
+                    <div class="navbar__item-text">Tài sản cố định</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__tax"></div>
+                    </div>
+                    <div class="navbar__item-text">Thuế</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__pice"></div>
+                    </div>
+                    <div class="navbar__item-text">Giá thành</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__synthetic"></div>
+                    </div>
+                    <div class="navbar__item-text">Tổng hợp</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__budget"></div>
+                    </div>
+                    <div class="navbar__item-text">Ngân sách</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__report"></div>
+                    </div>
+                    <div class="navbar__item-text">Báo cáo</div>
+                </div>
+                <div class="navbar__item">
+                    <div class="item__icon">
+                        <div class="icon__18 icon__analysis"></div>
+                    </div>
+                    <div class="navbar__item-text">Phân tích tài chính</div>
+                </div>
             </div>
-          </div>
-          <div class="account__container">
-            <div class="account__img icon__acc__img"></div>
-            <div class="account__text">Phạm Công Tuấn Anh</div>
-            <div class="icon__account__down"></div>
-          </div>
+            <!-- <div class="navbar__footer">
+                      <div class="navbar__item">
+                          <div class="item__icon">
+                              <div class=" icon__18 icon__collapse"></div>
+                          </div>
+                          <div class="navbar__item-text">Thu gọn</div>
+                      </div>
+                  </div> -->
         </div>
-      </div>
-      <div class="content">
-        <div class="content__header">
-          <h3>Nhân viên</h3>
-          <div class="btn content__center">Thêm mới nhân viên</div>
-        </div>
-        <div class="content__body">
-          <div class="content__body__wrapper"></div>
-          <div class="content__footer">
-            <div class="content__footer_letf">
-              Tổng số <span>999</span> bản ghi
+        <div class="main">
+            <div class="header">
+                <div class="headder__title">
+                    <div class="item__icon">
+                        <div class="icon__16 icon__menu"></div>
+                    </div>
+                    <select name="" id="">
+                        <option value="">
+                            CÔNG TY TNHH SẢN XUẤT-THƯƠNG MẠI-DỊCH VỤ QUI PHÚC
+                        </option>
+                    </select>
+                </div>
+                <div class="headder__account">
+                    <div class="headder__account__notification">
+                        <div class="item__icon">
+                            <div class="icon__24 icon__notification"></div>
+                        </div>
+                    </div>
+                    <div class="account__container">
+                        <div class="account__img icon__acc__img"></div>
+                        <div class="account__text">Phạm Công Tuấn Anh</div>
+                        <div class="icon__account__down"></div>
+                    </div>
+                </div>
             </div>
-            <div class="content__footer__right"></div>
-          </div>
+            <div class="content">
+                <div class="content__header">
+                    <h3>Nhân viên</h3>
+                    <div class="btn content__center">Thêm mới nhân viên</div>
+                </div>
+                <div class="content__body">
+                    <div class="content__body__wrapper">
+                        <div class="content__body__wrapper">
+                            <div class="container__sidebar">
+                                <div class="container__input input__search">
+                                    <input id="search" class="input input__icon" type="text"
+                                    placeholder="Tìm theo mã, tên nhân viên " />
+                                        <div class=" icon__18 icon__search"></div>
+                                </div>
+                                <div class="item__icon">
+                                    <div class=" icon__24 icon__load"></div>
+                                  </div>
+                            </div>
+                            <div class="container__table">
+                              <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="center__checkbox"><input type="checkbox" ></th>
+                                        <th class="" style="min-width:100px;">MÃ NHÂN VIÊN</th>
+                                        <th class="" style="min-width:250px;">TÊN NHÂN VIÊN</th>
+                                        <th class="" style="min-width:100px;">GIỚI TÍNH</th>
+                                        <th class="align-center" style="min-width:100px;">NGÀY SINH</th>
+                                        <th class="" style="min-width:150px;">SỐ CMND</th>
+                                        <th class="" style="min-width:100px;">CHỨC DANH</th>
+                                        <th class="" style="min-width:100px;">TÊN ĐƠN VỊ</th>
+                                        <th class="" style="min-width:150px;">SỐ TÀI KHOẢN</th>
+                                        <th class="" style="min-width:100px;">TÊN NGÂN HÀNG</th>
+                                        <th class="" style="min-width:150px;">CHI NHÁNH NGÂN HÀNG</th>
+                                        <th class="" style="min-width:100px;">CHỨC NĂNG</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center__checkbox"><input type="checkbox" ></td>
+                                        <td class="">NV001</td>
+                                        <td class="">Phạm Công Tuấn Anh</td>
+                                        <td class="">Nam</td>
+                                        <td class="align-center">28/09/1999</td>
+                                        <td class="">030099003034</td>
+                                        <td class="">Nhân Viên</td>
+                                        <td class="" >QTKD</td>
+                                        <td class="">12345678</td>
+                                        <td class="" >ACB</td>
+                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="align-center">Sửa</td>
+                                    </tr>
+                             
+                               
+                            
+              
+                                    
+                                </tbody>
+                              </table>
+                            </div>
+                    </div>
+                    <div class="content__footer">
+                        <div class="content__footer_letf">
+                            Tổng số <b>999</b> bản ghi
+                        </div>
+                        <div class="content__footer__right">
+                            <div class="select__page">
+                                <select name="" id="">
+                                    <option value=""> 10 bản ghi trên 1 trang</option>
+                                    <option value=""> 20 bản ghi trên 1 trang</option>
+                                    <option value=""> 30 bản ghi trên 1 trang</option>
+                                    <option value=""> 50 bản ghi trên 1 trang</option>
+                                    <option value=""> 100 bản ghi trên 1 trang</option>
+                                 
+                                </select>
+                            </div>
+                            <div class="page">
+                                <div class="page--dislabel page__text"> Trước </div>
+                                <div class="page__number pageing__number--active">1</div>
+                                <div class="page__number  pageing__number--active">2</div>
+                                <div class="page__number">3</div>
+                                <div class="page__icon">...</div>
+                                <div class="page__number">52</div>
+                                <div class="page__text"> Sau </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </body>
+    <div class="modal" style="display: none;">
+        <div class="modal__content">
+         <div class="modal__header">
+            <div class="modal__header__left">
+                <h1 class="header__title">Thông tin nhân viên </h1>                  
+                    <input class="" type="checkbox" id="" />
+                    <label for="">Là khách hàng</label>
+                    <input class="" type="checkbox" id="" />
+                    <label for="">Là nhà cung cấp</label>
+            </div>
+            <div class="modal__header__rigth">
+                <div class="item__icon header_icon_help">
+                    <div class=" icon__24  icon__help"></div>
+                  </div>
+                  <div class="item__icon header_icon_close">
+                    <div class="  icon__24 icon__close"></div>
+                  </div>
+            </div>
+           
+
+         </div>
+         <div class="modal__body">
+            <div class="modal__body__row1">
+                <div class="body__row1__left">
+                    <div class="container__input">
+                        <label class="input__label" for="">Mã <span
+                          class="required">*</span> </label>
+                        <input class="input" type="text" placeholder="Mã nhân viên" />
+                      </div>
+                      <div class="container__input input__name">
+                        <label class="input__label" for="">Họ và tên <span
+                          class="required">*</span></label>
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="Họ tên đấy đủ"
+                        />
+                      </div>
+                </div>
+                <div class="body__row1__rigth">
+                    <div class="container__input">
+                        <label class="input__label" for=""> Ngày sinh </label>
+                        <input  class="input" type="date" placeholder="Mã nhân viên" />
+                    </div>
+                    <div>
+                        <label  class="input__label " for=""> Giới tính </label>
+                        <div class="container__gender">
+                            <input type="radio" name="" id="" />
+                            <label for="">Nam</label>
+                           <input type="radio" name="" id="" />
+                           <label for="">Nữ</label>
+                           <input type="radio" name="" id="" />
+                           <label for="">Khác</label>
+                        </div>
+                      
+                    </div>
+                  
+   
+                </div>
+            </div>
+
+         </div>
+         <div class="modal__footer">
+
+         </div>
+        </div>
+    </div>
+</body>
+
 </html>

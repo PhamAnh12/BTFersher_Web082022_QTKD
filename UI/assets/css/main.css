@@ -3,9 +3,12 @@
 @import url(./base/radio.css);
 @import url(./base/checkbox.css);
 @import url(./base/input.css);
+@import url(./base/table.css);
+@import url(./base/page.css);
+@import url(./base/modal.css);
 :root {
   --primary-color: #089740;
-  --hover-color: rgba(8, 151, 64,0.85);
+  --hover-color: rgba(8, 151, 64, 0.85);
   --white-color: #ffffff;
   --border-color: #e0e0e0;
 }
@@ -17,7 +20,7 @@ body {
   font-family: GoogleSans-Regular;
   font-size: 14px;
 }
-*{
+* {
   box-sizing: border-box;
 }
 @font-face {
@@ -29,9 +32,6 @@ body {
   src: url(../fonts/notosans-semibold.df3e6dc4.woff2);
 }
 
-.align-center {
-  text-align: center;
-}
 .align-right {
   text-align: right;
 }
@@ -40,4 +40,23 @@ body {
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

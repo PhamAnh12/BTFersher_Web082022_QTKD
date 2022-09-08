@@ -10,8 +10,7 @@
 .container__input{
     position: relative;
     display: flex;
-    width: 30%;
-    margin-top: 16px;
+
     flex-direction: column;
 }
 .required{
@@ -37,8 +36,8 @@
   }
   
 .input__icon{
-    padding-right: 20px;
-    height: 24px;
+    padding-right: 40px;
+    height: 36px;
     padding-left: 8px;
     
 }
@@ -67,4 +66,8 @@
 .input__error{
     border: 1px solid #ff4747;
 }
+.input__search{
+    width: 240px;
+    margin-right: 6px;
 
+}

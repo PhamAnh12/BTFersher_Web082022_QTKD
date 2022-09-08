@@ -7,6 +7,7 @@
   justify-content: center;
   width: 24px;
   height: 24px;
+  cursor: pointer;
 }
 
 .icon__24 {
@@ -42,11 +43,12 @@
   background: url("../../img/Sprites.64af8f61.svg") no-repeat -147px -147px;
 }
 .icon__search {
-  background: url("../../img/search.png") no-repeat;
-  background-position: center right 6px;
-  padding-right: 32px;
-  background-size: contain;
+  background: url("../../img/Sprites.64af8f61.svg")no-repeat -316px -148px;
 
+	position: absolute;
+  top:12px;
+  right: 8px;
+  
 }
 .icon__total {
   background: url("../../img/Sprites.64af8f61.svg") no-repeat -1157px -32px;
@@ -123,4 +125,18 @@
   background: url("../../img/Sprites.64af8f61.svg") no-repeat -1078px -38px;
 	width: 9px;
 	height: 6px;
+}
+.icon__load{
+  background: url("../../img/Sprites.64af8f61.svg") no-repeat -425px -201px;
+  
+}
+.icon__page{
+  background: url("../../img/Sprites.64af8f61.svg") no-repeat -1510px -481px;
+	width: 10px;
+	height: 2px;
+}
+.icon__help{
+  background: url("../../img/Sprites.64af8f61.svg") no-repeat -732px -31px;
+  width: 22px;
+  height: 22px;
 }
