@@ -41,7 +41,7 @@
     height: 56px;
 }
 .container__table{
-    height:  calc(100% - 28px);    
+    height:  calc(100% - 56px);    
      overflow-y: auto; 
      position: relative;
      overflow-x: auto;

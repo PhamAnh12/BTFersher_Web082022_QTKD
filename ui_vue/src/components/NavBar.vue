@@ -9,7 +9,7 @@
 
                 <div class="navbar__header__content">
                     <img class="item__logo" src="../assets/img/Logo_Module_TiengViet_White.66947422.svg" alt="" />
-                    <div class="item__logo"></div>
+                    
                 </div>
             </div>
             <div class="navbar__main">

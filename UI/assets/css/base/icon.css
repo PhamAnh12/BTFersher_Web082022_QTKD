@@ -140,3 +140,8 @@
   width: 22px;
   height: 22px;
 }
+.icon__warning{
+  background: url('../../img/Sprites.64af8f61.svg')no-repeat -598px -463px;
+	width: 36px;
+	height: 37px;
+}

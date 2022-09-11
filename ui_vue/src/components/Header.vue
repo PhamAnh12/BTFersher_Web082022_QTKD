@@ -16,7 +16,7 @@
                             <div class="icon__24 icon__notification"></div>
                         </div>
                     </div>
-                    <div class="account__container">
+                    <div  class="account__container">
                         <div class="account__img icon__acc__img"></div>
                         <div class="account__text">Phạm Công Tuấn Anh</div>
                         <div class="icon__account__down"></div>
@@ -27,6 +27,6 @@
 <script>
 export default {
   name: 'HeaderComponent',
- 
+  
 }
 </script>

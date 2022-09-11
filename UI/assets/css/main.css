@@ -6,6 +6,7 @@
 @import url(./base/table.css);
 @import url(./base/page.css);
 @import url(./base/modal.css);
+@import url(./base/dialog.css);
 :root {
   --primary-color: #089740;
   --hover-color: rgba(8, 151, 64, 0.85);
@@ -17,11 +18,12 @@ body {
   color: #1f1f1f;
   margin: 0;
   padding: 0;
-  font-family: GoogleSans-Regular;
+ 
   font-size: 14px;
 }
 * {
   box-sizing: border-box;
+  font-family: GoogleSans-Regular;
 }
 @font-face {
   font-family: GoogleSans-Regular;

@@ -9,6 +9,7 @@
 
 .container__input{
     position: relative;
+    width: 100%;
     display: flex;
 
     flex-direction: column;
@@ -31,8 +32,9 @@
 ::placeholder{
     color:   #9E9E9E;
   }
-  input[date]{
+ input[date]{
       cursor: pointer;
+      font-family: GoogleSans-Regular;
   }
   
 .input__icon{
@@ -70,4 +72,23 @@
     width: 240px;
     margin-right: 6px;
 
+}
+.input__margin_16{
+    margin-left: 16px;
+}
+.input__240{
+    width: 240px;
+
+}
+.input__160{
+    width: 160px;
+}
+.input__320{
+    width: 320px;
+}
+.input__480{
+    width: 480px;
+}
+.input__margin_16{
+    margin-left: 16px;
 }
