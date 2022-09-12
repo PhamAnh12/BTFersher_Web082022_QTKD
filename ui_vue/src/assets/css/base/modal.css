@@ -6,8 +6,7 @@
   left: 0;
   bottom: 0;
   z-index: 99;
-  display: none;
-  
+
 }
 .modal__container{
     height: 100%;
@@ -20,7 +19,7 @@
 .modal__content {  
   position: relative; 
   min-width: 960px;
-  max-height:calc(100vh - 4px);
+  max-height:calc(100vh - 8px);
   overflow-y:auto ;
   
   background-color: #ffff;
@@ -95,6 +94,11 @@
 .container__gender{
     height: 100%;
     padding: 8px 0;
+
+}
+.container__gender label{
+    margin-right: 8px;
+    margin-left: 4px;
 }
 .margin__top_16{
   margin-top: 16px;

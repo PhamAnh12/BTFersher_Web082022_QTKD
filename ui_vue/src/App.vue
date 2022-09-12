@@ -1,9 +1,9 @@
 <template>
- <NavBarComponent></NavBarComponent>
- <div class="main">
+  <NavBarComponent></NavBarComponent>
+  <div class="main">
   <HeaderComponent></HeaderComponent>
   <EmployeeListComponent></EmployeeListComponent>
- </div>
+  </div>
 </template>
 
 <script>
@@ -18,8 +18,6 @@ export default {
     HeaderComponent,
     EmployeeListComponent,
     
-
-
   }
 }
 </script>

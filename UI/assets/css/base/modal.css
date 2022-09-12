@@ -6,7 +6,7 @@
   left: 0;
   bottom: 0;
   z-index: 99;
-  display: none;
+ 
   
 }
 .modal__container{
@@ -20,7 +20,7 @@
 .modal__content {  
   position: relative; 
   min-width: 960px;
-  max-height:calc(100vh - 4px);
+  max-height:calc(100vh - 8px);
   overflow-y:auto ;
   
   background-color: #ffff;

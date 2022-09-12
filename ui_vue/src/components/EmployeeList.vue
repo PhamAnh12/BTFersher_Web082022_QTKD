@@ -2,7 +2,7 @@
          <div class="content">
                 <div class="content__header">
                     <h3>Nhân viên</h3>
-                    <div class="btn content__center">Thêm mới nhân viên</div>
+                    <div class="btn content__center " @click='showModal'>Thêm mới nhân viên</div>
                 </div>
                 <div class="content__body">
                     <div class="content__body__wrapper">
@@ -37,20 +37,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>  -->
+                                   
                                  <tr v-for="(employee, index) in employees" :key="index">
                                         <td class="center__checkbox"><input type="checkbox" ></td>
                                         <td class="">{{employee.employeeCode}}</td>
@@ -99,10 +86,19 @@
                 </div>
             </div>
         </div>
+        <EmployeeDetailComponent v-if="isShow" ></EmployeeDetailComponent  >
+         
+        
 </template>
 <script>
+import EmployeeDetailComponent from './EmployeeDetail.vue';
+
 export default {
   name: 'EmployeeListComponent',
+  components: { 
+      EmployeeDetailComponent,
+      
+  },
   created() {
      /*
      * Hàm dùng để  lấy danh sách nhân viên
@@ -119,7 +115,6 @@ export default {
                     throw(error);
                 });
         
-        
      } catch (error) {
         console.log(error)
      }
@@ -127,7 +122,14 @@ export default {
   data() {
     return {
        employees : [] ,
+       isShow :  false,
+      
     }
+  },
+  methods: {
+    showModal(){
+        this.isShow  = true;
+    },
   },
   
 }

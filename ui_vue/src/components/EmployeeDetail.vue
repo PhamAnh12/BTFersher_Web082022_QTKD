@@ -1,5 +1,5 @@
 <template >
-    <div>
+ 
           <!-- Form nhập -->
         <div class="modal">
             <div class="modal__container">
@@ -16,7 +16,7 @@
                             <div class="item__icon modal__header__icon ">
                                 <div class=" icon__18 icon__help"></div>
                             </div>
-                            <div class="item__icon modal__header__icon  margin__letf_8">
+                            <div class="item__icon modal__header__icon  margin__letf_8" @click="hideModal" >
                                 <div class=" icon__18 icon__close"></div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                             <div class="body__row__left">
                                 <div class="container__input input__160">
                                     <label class="input__label" for="">Mã <span class="required">*</span> </label>
-                                    <input tabindex="1" class="input" type="text" placeholder="Mã nhân viên" />
+                                    <input id="empCode" tabindex="1" class="input" type="text" placeholder="Mã nhân viên"  />
                                 </div>
                                 <div class="container__input input__margin_6 input__320">
                                     <label class="input__label" for="">Họ và tên <span class="required">*</span></label>
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="modal__footer">
-                        <div class="btn__base content__center ">Hủy</div>
+                        <div class="btn__base content__center "  @click="hideModal">Hủy</div>
                         <div class="modal__footer__rigth">
                             <div class="btn__base content__center ">Cất</div>
                             <div class="btn margin__letf_8">Cất và thêm</div>
@@ -140,11 +140,24 @@
                 </div>
             </div>
         </div>
-    </div>
+   
 </template>
 <script>
 export default {
    name : 'EmployeeDetailComponent',
-   
+   created(){
+      
+   },
+   data() {
+    return {
+        
+    }
+   },
+   methods:{
+
+    hideModal(){
+     
+    }
+   }
 }
 </script>
