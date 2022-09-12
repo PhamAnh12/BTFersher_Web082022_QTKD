@@ -32,12 +32,12 @@
                                         <th class="" style="min-width:150px;">SỐ TÀI KHOẢN</th>
                                         <th class="" style="min-width:100px;">TÊN NGÂN HÀNG</th>
                                         <th class="" style="min-width:150px;">CHI NHÁNH NGÂN HÀNG</th>
-                                        <th class="" style="min-width:100px;">CHỨC NĂNG</th>
+                                        <th class="align-center" style="min-width:100px;">CHỨC NĂNG</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="center__checkbox"><input type="checkbox" ></td>
                                         <td class="">NV001</td>
                                         <td class="">Phạm Công Tuấn Anh</td>
@@ -50,207 +50,22 @@
                                         <td class="" >ACB</td>
                                         <td class="" >PGD HÀ THÀNH</td>
                                         <td class="align-center">Sửa</td>
-                                    </tr>
-                                    <tr>
+                                    </tr>  -->
+                                 <tr v-for="(employee, index) in employees" :key="index">
                                         <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
+                                        <td class="">{{employee.employeeCode}}</td>
+                                        <td class="">{{employee.employeeName}}</td>
+                                        <td class="">{{employee.gender}}</td>
+                                        <td class="align-center">{{employee.dateOfBirth}}</td>
+                                        <td class="">{{employee.identityNumber}}</td>
+                                        <td class="">{{employee.positionName}}</td>
+                                        <td class="" >{{employee.departmentName}}</td>
+                                        <td class="">{{employee.accountBank}}</td>
+                                        <td class="" >{{employee.nameBank}}</td>
+                                        <td class="" >{{employee.branchBank}}</td>
                                         <td class="align-center">Sửa</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                     <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                     <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                     <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                     <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                     <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                                     <tr>
-                                        <td class="center__checkbox"><input type="checkbox" ></td>
-                                        <td class="">NV001</td>
-                                        <td class="">Phạm Công Tuấn Anh</td>
-                                        <td class="">Nam</td>
-                                        <td class="align-center">28/09/1999</td>
-                                        <td class="">030099003034</td>
-                                        <td class="">Nhân Viên</td>
-                                        <td class="" >QTKD</td>
-                                        <td class="">12345678</td>
-                                        <td class="" >ACB</td>
-                                        <td class="" >PGD HÀ THÀNH</td>
-                                        <td class="align-center">Sửa</td>
-                                    </tr>
-                               
-                            
-              
-                                    
+                                 </tr>
+            
                                 </tbody>
                               </table>
                             </div>
@@ -288,6 +103,33 @@
 <script>
 export default {
   name: 'EmployeeListComponent',
- 
+  created() {
+     /*
+     * Hàm dùng để  lấy danh sách nhân viên
+     * PCTUANANH(12/09/2022)
+     */
+     try {
+        fetch('http://localhost:3000/employees')
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res);
+            this.employees = res;
+        })
+        .catch(error => {
+                    throw(error);
+                });
+        
+        
+     } catch (error) {
+        console.log(error)
+     }
+  },
+  data() {
+    return {
+       employees : [] ,
+    }
+  },
+  
 }
+
 </script>

@@ -13,7 +13,7 @@
   }
  .table thead th {
     background-color: #F5F5F5;
-    position: sticky;
+    position:sticky;
     top: 0;
  } 
  .table tr{
@@ -24,10 +24,11 @@
  }
  
 .align-center {
-    text-align: center;
-   padding: 0;
+    text-align: center !important;
+   padding:  0  !important;
 }
 .center__checkbox{
    padding: 0 8px;
    width: 30px;
+
 }

@@ -9,6 +9,20 @@
     padding: 10px 20px;
 
 }
+.btn__base{
+    border-radius: 4px;
+    height: 36px; 
+    width: 80px;
+    line-height: 20px;
+    cursor: pointer;
+    padding: 10px 20px;
+    color: #1F2229;
+   
+    font-weight: 500;
+}
+.btn__base:hover{
+    border: 1px solid #D3D7DE;
+}
 .btn:hover{
     background-color:var(--hover-color) ;
 }

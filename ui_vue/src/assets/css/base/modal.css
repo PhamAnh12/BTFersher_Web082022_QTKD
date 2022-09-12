@@ -5,20 +5,30 @@
   right: 0;
   left: 0;
   bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 99;
+  display: none;
+  
 }
-.modal__content {
-  min-height: 600px;
-  min-width: 1000px;
-  overflow: scroll;
+.modal__container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.modal__content {  
+  position: relative; 
+  min-width: 960px;
+  max-height:calc(100vh - 4px);
+  overflow-y:auto ;
+  
   background-color: #ffff;
   border-radius: 4px;
-
-  z-index: 999;
- position: relative;
-  padding: 32px;
+  padding: 32px 32px  0 32px ;
+ 
+  
+  
 }
 .modal__header {
   display: flex;
@@ -37,45 +47,70 @@
    margin-left: 16px;
    margin-right: 8px;
 }
-.header_icon_help{
-    position: absolute;
-    top:0;
-    right: 0;
-}
-.header_icon_close{
-    position: absolute;
-    top:42px;
-    right: 4px;
-}
 
-.modal__body {
 
+.modal__header__rigth{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top:16px;
+    right: 16px;
+    
+}
+.modal__header__icon:hover{
+    border: 1px solid #D3D7DE;
+    border-radius:4px ;
 }
 .modal__body label{
     margin-bottom: 8px;
 }
-.modal__body__row1{
+.modal__body__row{
     display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
 
 }
-.modal__body__row1  .body__row1__left{
+.modal__body__row  .body__row__left,.body__row__rigth{
     display: flex;
     width: 50%;
+    align-items: center;
+    width: 480px;
+   
 }
 
-.modal__body__row1 .input__name{
+.modal__body__row .input__margin_6{
     flex:  1;
     margin-left: 6px;
 } 
-.body__row1__rigth{
-    width: 50%;
-    display: flex;
-    align-items: center;
+.modal__body__row1 .input__margin_16{
+    flex:  1;
+    margin-left: 16px;
+} 
+.body__row__rigth{
+   
     margin-left:32px;
 }
 .container__gender{
-    height: 1000%;
-    padding: 8px;
+    height: 100%;
+    padding: 8px 0;
+}
+.margin__top_16{
+  margin-top: 16px;
 }
 .modal__footer {
+    margin-top: 16px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+}
+.modal__footer__rigth{
+    display: flex;
+    align-items: center;
+}
+.margin__letf_8{
+    margin-left: 8px;
 }
