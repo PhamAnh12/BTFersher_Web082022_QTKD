@@ -16,7 +16,7 @@
                             <div class="item__icon modal__header__icon ">
                                 <div class=" icon__18 icon__help"></div>
                             </div>
-                            <div class="item__icon modal__header__icon  margin__letf_8" @click="hideModal" >
+                            <div class="item__icon modal__header__icon  margin__letf_8" @click=" closeModal" >
                                 <div class=" icon__18 icon__close"></div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="container__input input__margin_6 input__320">
                                     <label class="input__label" for="">Họ và tên <span class="required">*</span></label>
-                                    <input tabindex="2" class="input" type="text" placeholder="Họ tên đấy đủ" />
+                                    <input tabindex="2" class="input" type="text" placeholder="Họ tên đấy đủ"  />
                                 </div>
                             </div>
                             <div class="body__row__rigth">
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="modal__footer">
-                        <div class="btn__base content__center "  @click="hideModal">Hủy</div>
+                        <div class="btn__base content__center "  @click="closeModal">Hủy</div>
                         <div class="modal__footer__rigth">
                             <div class="btn__base content__center ">Cất</div>
                             <div class="btn margin__letf_8">Cất và thêm</div>
@@ -145,6 +145,10 @@
 <script>
 export default {
    name : 'EmployeeDetailComponent',
+   props:{
+     hideModal :Function,
+     
+   },
    created(){
       
    },
@@ -154,10 +158,14 @@ export default {
     }
    },
    methods:{
-
-    hideModal(){
-     
-    }
+     /*
+     * Hàm dùng để đóng modal
+     * PCTUANANH(12/09/2022)
+     */
+      closeModal(){
+         this. hideModal();
+         
+      }
    }
 }
 </script>

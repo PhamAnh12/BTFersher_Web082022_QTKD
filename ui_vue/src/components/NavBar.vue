@@ -19,7 +19,7 @@
                     </div>
                     <div class="navbar__item-text">Tổng quan</div>
                 </div>
-                <div class="navbar__item">
+                <div class="navbar__item ">
                     <div class="item__icon">
                         <div class="icon__18 icon__monney"></div>
                     </div>

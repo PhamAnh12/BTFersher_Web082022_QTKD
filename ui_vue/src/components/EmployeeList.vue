@@ -39,6 +39,7 @@
                                 <tbody>
                                    
                                  <tr v-for="(employee, index) in employees" :key="index">
+                                        
                                         <td class="center__checkbox"><input type="checkbox" ></td>
                                         <td class="">{{employee.employeeCode}}</td>
                                         <td class="">{{employee.employeeName}}</td>
@@ -86,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <EmployeeDetailComponent v-if="isShow" ></EmployeeDetailComponent  >
+        <EmployeeDetailComponent v-if="isShow" :hideModal = "hideModal" ></EmployeeDetailComponent  >
          
         
 </template>
@@ -123,13 +124,25 @@ export default {
     return {
        employees : [] ,
        isShow :  false,
-      
+
     }
   },
   methods: {
+      /*
+     * Hàm dùng để hiển thị modal
+     * PCTUANANH(12/09/2022)
+     */
     showModal(){
         this.isShow  = true;
     },
+     /*
+     * Hàm dùng để ẳn modal
+     * PCTUANANH(12/09/2022)
+     */
+    hideModal(){
+        this.isShow  = false;
+    },
+
   },
   
 }
