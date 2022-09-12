@@ -7,6 +7,7 @@
 @import url(./base/page.css);
 @import url(./base/modal.css);
 @import url(./base/dialog.css);
+@import url(./base/function.css);
 :root {
   --primary-color: #089740;
   --hover-color: rgba(8, 151, 64, 0.85);

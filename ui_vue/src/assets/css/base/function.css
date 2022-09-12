@@ -1,0 +1,61 @@
+.function__container{
+    position: relative;
+    width: auto;
+    height: auto;
+    border: none;
+}
+.function__content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+}
+.function-text{
+   color:  
+   #58a4d6;
+   margin-right: 12px;
+}
+.function__icon{
+    width: 24px;
+    height: 18px;
+    background-image: url(../../img/Sprites.64af8f61.svg);
+    background-repeat: no-repeat;
+    background-position: -844.5px -445px;
+    background-size: 1906px 2016px;
+    cursor: pointer;
+  
+   
+}
+
+.function__icon--show{
+    border: 1px solid 
+    #58a4d6 ;
+}
+.function__list{
+    position: absolute;
+    top:80%;
+    right: 10%;
+    width: 120px;
+    border:1px solid #D6D7DB;
+    background-color: #fff;
+    z-index: 2;
+    border-radius: 4px;
+ 
+  
+
+}
+.function__item{
+    float: left;
+    padding-left: 8px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 8px 6px;
+
+}
+
+.function__item--active{
+    color: var(--primary-color);
+    background-color: #f8f8f8;
+    font-weight: 550;
+}

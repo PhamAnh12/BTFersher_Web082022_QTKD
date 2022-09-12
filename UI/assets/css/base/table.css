@@ -32,3 +32,54 @@
    width: 30px;
 
 }
+.list-func{
+   width: auto;
+   height: auto;
+   border: none;   
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+}
+.function-text{
+   color:  #4262F0;
+   font-weight: 700;
+   margin-right: 8px;
+}
+.function__icon{
+   width: 24px;
+   height: 18px;
+   background-image: url(../../img/Sprites.64af8f61.svg);
+   background-repeat: no-repeat;
+   background-position: -844.5px -445px;
+   background-size: 1906px 2016px;
+   cursor: pointer;
+}
+.function__nav{
+   display: none;
+   position: absolute;
+   top:115%;
+   right: 10%;
+   width: 120px;
+   border:1px solid #D6D7DB;
+   background-color: #fff;
+   z-index: 1;
+   border-radius: 4px;
+}
+.showFunc{
+   display: block !important;
+}
+.function__nav li{
+   width: 100%;
+   height: 35px;
+   line-height: 35px;
+   padding-left:10px;
+   text-align: left;
+   list-style: none;
+   cursor: pointer;
+}
+.function__nav li:hover{
+   color:var(--primary-color);
+   font-weight: 700;
+   background-color: #E8E9EC;
+}

@@ -38,7 +38,7 @@
                                 </thead>
                                 <tbody>
                                    
-                                 <tr v-for="(employee, index) in employees" :key="index">
+                                 <tr v-for="(employee, index) in employees" :key="index" @dblclick="dbClicktr(employee)">
                                         
                                         <td class="center__checkbox"><input type="checkbox" ></td>
                                         <td class="">{{employee.employeeCode}}</td>
@@ -51,7 +51,21 @@
                                         <td class="">{{employee.accountBank}}</td>
                                         <td class="" >{{employee.nameBank}}</td>
                                         <td class="" >{{employee.branchBank}}</td>
-                                        <td class="align-center">Sửa</td>
+                                        <td class="align-center">
+                                            <div class="function__container">
+                                                <div class="function__content" >
+                                                   <div class="function-text">Sửa</div>
+                                                    <div class="function__icon"  @click="isShowFunction =!isShowFunction" :class="{'function__icon--show':isShowFunction }">
+                                                    </div>
+                                                </div>
+                                                    <div class="function__list" v-show=" isShowFunction">
+                                                        <div class="function__item">Nhân bản</div>
+                                                        <div class = "function__item function__item--active">Xóa</div>
+                                                        <div class = "function__item">Ngưng sử dụng </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                        </td>
                                  </tr>
             
                                 </tbody>
@@ -87,7 +101,7 @@
                 </div>
             </div>
         </div>
-        <EmployeeDetailComponent v-if="isShow" :hideModal = "hideModal" ></EmployeeDetailComponent  >
+        <EmployeeDetailComponent v-if="isShow" @hideModal = "hideModal" :employeeSelect ="  employeeSelect" ></EmployeeDetailComponent  >
          
         
 </template>
@@ -123,17 +137,27 @@ export default {
   data() {
     return {
        employees : [] ,
-       isShow :  false,
+       isShow : false,
+       isShowFunction : false,
+       employeeSelect: {},
 
     }
   },
   methods: {
       /*
-     * Hàm dùng để hiển thị modal
+     * Hàm dùng để hiển thị modal thêm mới nhân viên 
      * PCTUANANH(12/09/2022)
      */
     showModal(){
-        this.isShow  = true;
+        try{
+         this.isShow  = true;
+         this.employeeSelect  = {};
+        }
+        catch(error){
+            console.log(error);
+        }
+     
+
     },
      /*
      * Hàm dùng để ẳn modal
@@ -142,6 +166,12 @@ export default {
     hideModal(){
         this.isShow  = false;
     },
+     
+    dbClicktr(employee){
+       this.employeeSelect =  employee;
+        this.isShow  = true;
+    },
+   
 
   },
   

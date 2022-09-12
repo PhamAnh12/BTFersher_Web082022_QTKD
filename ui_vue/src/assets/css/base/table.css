@@ -15,6 +15,7 @@
     background-color: #F5F5F5;
     position: sticky;
     top: 0;
+    z-index: 2;
  } 
  .table tr{
     height: 48px;

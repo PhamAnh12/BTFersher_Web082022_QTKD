@@ -18,10 +18,11 @@
     padding: 10px 20px;
     color: #1F2229;
     font-weight: 500;
+    border: 1px solid #D3D7DE;
     
 }
 .btn__base:hover{
-    border: 1px solid #D3D7DE;
+   background-color: #f8f8f8f8;
 }
 .btn:hover{
     background-color:var(--hover-color) ;
