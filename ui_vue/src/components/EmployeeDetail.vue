@@ -244,7 +244,7 @@ export default {
      * Hàm dùng để đóng modal
      * PCTUANANH(12/09/2022)
      */
-    closeModal() {
+      closeModal() {
       this.$emit("hideModal");
     },
   },

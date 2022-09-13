@@ -1,6 +1,6 @@
 <template>
      <div class="header">
-                <div class="headder__title">
+                <div class="header__title">
                     <div class="item__icon">
                         <div class="icon__16 icon__menu"></div>
                     </div>
@@ -10,7 +10,7 @@
                         </option>
                     </select>
                 </div>
-                <div class="headder__account">
+                <div class="header__account">
                     <div class="headder__account__notification">
                         <div class="item__icon">
                             <div class="icon__24 icon__notification"></div>

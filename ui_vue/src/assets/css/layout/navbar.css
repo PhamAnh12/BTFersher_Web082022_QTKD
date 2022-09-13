@@ -1,6 +1,7 @@
 
 .navbar__item{
-   height: 44px;
+
+   height: 36px;
    display: flex;
    padding-left: 12px;
    align-items: center;
@@ -62,3 +63,8 @@
   cursor: pointer;
   
 }
+@media screen and (min-height: 800px){
+    .navbar__item{
+        height: 44px;
+    }
+} 
