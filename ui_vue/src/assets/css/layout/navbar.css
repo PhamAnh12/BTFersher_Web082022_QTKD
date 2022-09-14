@@ -15,13 +15,25 @@
     background-color: rgba(39, 57, 94,0.75);
 }
 .navbar__item--active{
-    color: var(--white-color);
+   
     font-weight: 500;
     background-color: rgba(168, 197, 255,0.16) !important;
     font-family: GoogleSans-Medium;
     border-left: 6px solid var(--primary-color);
     padding-left: 6px ;
   
+}
+.active {
+    color: var(--white-color);
+}
+
+.exact-active-link {
+    color: var(--white-color);
+    font-weight: 500;
+    background-color: rgba(168, 197, 255,0.16) !important;
+    font-family: GoogleSans-Medium;
+    border-left: 6px solid var(--primary-color);
+    padding-left: 6px ;
 }
 .navbar__item-text{
     margin-left: 16px;
@@ -45,7 +57,6 @@
 .navbar__header__content{
     display: flex;
     align-items: center;
-    padding-left: 6px;
     height: 56px;
     flex: 1;
 }
@@ -59,12 +70,12 @@
 }
 .item__logo{
   width: 100%;
-  height: 56px;  
+  height: 32px;  
   cursor: pointer;
   
 }
 @media screen and (min-height: 768px){
     .navbar__item{
-        height: 44px;
+        height: 42px;
     }
 } 

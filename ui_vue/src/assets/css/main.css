@@ -8,6 +8,7 @@
 @import url(./base/modal.css);
 @import url(./base/dialog.css);
 @import url(./base/function.css);
+@import url(./base/padding.css);
 :root {
   --primary-color: #089740;
   --hover-color: rgba(8, 151, 64, 0.85);
@@ -75,10 +76,4 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #7C869C;
-}
-.padding__24{
-  padding: 24px;
-}
-.padding__16{
-  padding: 16px;
 }
