@@ -1,22 +1,23 @@
 <template>
   <NavBarComponent></NavBarComponent>
   <div class="main">
-  <HeaderComponent></HeaderComponent>
-  <EmployeeListComponent></EmployeeListComponent>
+   <HeaderComponent></HeaderComponent>
+   <ContentComponents></ContentComponents>
   </div>
 </template>
 
 <script>
 
-import NavBarComponent from './components/NavBar.vue';
-import HeaderComponent from './components/Header.vue';
-import EmployeeListComponent from './components/EmployeeList.vue'
+import NavBarComponent from './components/layout/NavBar.vue';
+import HeaderComponent from './components/layout/Header.vue';
+import ContentComponents from './components/layout/Content.vue'
+
 export default {
   name: 'App',
   components: {
     NavBarComponent,
     HeaderComponent,
-    EmployeeListComponent,
+    ContentComponents,
     
   }
 }

@@ -1,3 +1,6 @@
+.function{
+    position:static
+}
 .function__container{
     position: relative;
     width: auto;

@@ -9,6 +9,9 @@
   height: 24px;
   cursor: pointer;
 }
+.icon{
+  background: url("../../img/Sprites.64af8f61.svg") no-repeat;
+}
 
 .icon__24 {
   width: 24px;
@@ -55,14 +58,14 @@
   background: url("../../img/Sprites.64af8f61.svg") no-repeat -1157px -32px;
 }
 .icon__menu{
-  background: url("../../img/Sprites.64af8f61.svg") no-repeat -847px -35px;
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat -847px -35px;
 }
 .icon__logo {
-  background: url("../../img/Sprites.64af8f61.svg") no-repeat -1232px -1015px;
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat -1232px -1015px;
 
 }
 .icon__overview{
-  background: url("../../img/Sprites.64af8f61.svg")  no-repeat -33px -1630px;
+  background:   url("../../img/Sprites.64af8f61.svg") no-repeat -33px -1630px;
 	width: 18px;
 	height: 20px;
 }
@@ -78,42 +81,42 @@
   background: url("../../img/Sprites.64af8f61.svg") no-repeat -165px -1632px;
 }
 .icon__sale {
-  background: url("../../img/Sprites.64af8f61.svg")  no-repeat -206px -1631px;
+  background:   url("../../img/Sprites.64af8f61.svg") no-repeat -206px -1631px;
   width: 20px;
 }
 .icon__management {
-  background: url("../../img/Sprites.64af8f61.svg")  no-repeat -254px -1632px
+  background:   url("../../img/Sprites.64af8f61.svg") no-repeat  -254px -1632px
 }
 .icon__warehouse {
   background: url("../../img/Sprites.64af8f61.svg") no-repeat -294px -1632px;
 }
 .icon__tool {
-  background: url("../../img/Sprites.64af8f61.svg")  no-repeat -339px -1633px;
+  background:   url("../../img/Sprites.64af8f61.svg") no-repeat  -339px -1633px;
 }
 .icon__fixed-assets {
-  background: url("../../img/Sprites.64af8f61.svg")  no-repeat -382px -1632px;
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat  -382px -1632px;
 }
 .icon__tax {
-  background: url("../../img/Sprites.64af8f61.svg") no-repeat -427px -1634px;
+  background: url("../../img/Sprites.64af8f61.svg") no-repeat  -427px -1634px;
   
 }
 .icon__pice {
-  background: url("../../img/Sprites.64af8f61.svg") no-repeat -471px -1633px;
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat -471px -1633px;
 }
 .icon__synthetic {
-  background: url("../../img/Sprites.64af8f61.svg")  no-repeat -514px -1632px;
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat  -514px -1632px;
 }
 .icon__budget {
-  background: url("../../img/Sprites.64af8f61.svg")   no-repeat -382px -1664px;
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat  -382px -1664px;
 }
 .icon__report {
-  background: url("../../img/Sprites.64af8f61.svg")  no-repeat -552px -1636px;
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat  -552px -1636px;
 }
 .icon__analysis {
-  background: url("../../img/Sprites.64af8f61.svg")  no-repeat -207px -1667px
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat  -207px -1667px
 }
 .icon__notification{
-  background: url("../../img/Sprites.64af8f61.svg") no-repeat -844px -520px;
+  background:  url("../../img/Sprites.64af8f61.svg") no-repeat  -844px -520px;
 	width: 18px;
 	height: 19px;
 }
@@ -142,7 +145,12 @@
   height: 22px;
 }
 .icon__warning{
-  background: url('../../img/Sprites.64af8f61.svg')no-repeat -598px -463px;
+  background: url('../../img/Sprites.64af8f61.svg') no-repeat -598px -463px;
 	width: 36px;
 	height: 37px;
+}
+.icon__employee{
+  background: url('../../img/Sprites.64af8f61.svg')  no-repeat -592px -1631px;
+	width: 23px;
+	height: 18px;
 }

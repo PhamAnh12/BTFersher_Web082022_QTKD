@@ -40,7 +40,7 @@
                   <th class="" style="min-width: 150px">SỐ TÀI KHOẢN</th>
                   <th class="" style="min-width: 100px">TÊN NGÂN HÀNG</th>
                   <th class="" style="min-width: 150px">CHI NHÁNH NGÂN HÀNG</th>
-                  <th class="align-center" style="min-width: 100px">
+                  <th class="align-center  function" style="min-width: 100px">
                     CHỨC NĂNG
                   </th>
                 </tr>
@@ -53,7 +53,7 @@
                   ref="employee__item"
                   @click="getIdEmployee(index)"
                 >
-                  <td class="center__checkbox"><input type="checkbox" /></td>
+                  <td class="center__checkbox"><input type="checkbox"  @dblclick.stop /></td>
                   <td class="">{{ employee.employeeCode }}</td>
                   <td class="">{{ employee.employeeName }}</td>
                   <td class="">{{ employee.gender }}</td>
@@ -64,13 +64,14 @@
                   <td class="">{{ employee.accountBank }}</td>
                   <td class="">{{ employee.nameBank }}</td>
                   <td class="">{{ employee.branchBank }}</td>
-                  <td class="align-center">
+                  <td class="align-center function" @dblclick.stop>
                     <div class="function__container">
                       <div class="function__content content__center">
                         <div class="function-text">Sửa</div>
                         <div
                           class="function__icon"
                           @click="showFunction($event,index)"
+                         
                           :class="{
                             'function__icon--show':
                               isShowFunction && indexEmployee == index,
@@ -98,21 +99,21 @@
       </div>
     </div>
   </div>
-  <EmployeeDetailComponent
+  <EmployeeDetail
     v-if="isShow"
     @hideModal="hideModal"
     :employeeSelect="employeeSelect"
     :formMode =  "formMode"
-  ></EmployeeDetailComponent>
+  ></EmployeeDetail>
 </template>
 <script>
-import Enumeration from '../script/common/enumeration'
-import EmployeeDetailComponent from "./EmployeeDetail.vue";
-import PageComponent from "./Page.vue";
+import Enumeration from '../../script/common/enumeration'
+import EmployeeDetail from "./EmployeeDetail.vue";
+import PageComponent from "../../components/base/Page.vue";
 export default {
-  name: "EmployeeListComponent",
+  name: "EmployeeList",
   components: {
-    EmployeeDetailComponent,
+    EmployeeDetail,
     PageComponent,
   },
   created() {
@@ -193,6 +194,7 @@ export default {
     showFunction(event,index) {
        
       try {
+        event.preventDefault();
         event.stopPropagation();
         this.indexEmployee = index;
         this.isShowFunction = !this.isShowFunction;

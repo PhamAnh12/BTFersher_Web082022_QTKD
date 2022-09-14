@@ -1,6 +1,7 @@
 input[ type=checkbox] {
     cursor: pointer;
     accent-color: var(--primary-color);
+   
 
 }
 .checkbox__24{

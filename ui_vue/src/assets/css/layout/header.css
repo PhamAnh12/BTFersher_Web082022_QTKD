@@ -4,6 +4,7 @@
     align-items: center;
     box-shadow:  3px 0px 0px rgba(23,27,42,0.059);
     padding: 16px; 
+    border-bottom: 1px solid var( --border-table-color);
 }
 .header__title{
     display: flex;
@@ -36,5 +37,5 @@ select{
 .account__text{
   padding-left: 4px;
   font-weight: 600;
-  margin-right: 4px;
+  margin-right: 6px;
 }

@@ -234,8 +234,8 @@
   </div>
 </template>
 <script>
-import Common from "../script/common/common";
-import Enumeration from "../script/common/enumeration";
+import Common from "../../script/common/common";
+import Enumeration from "../../script/common/enumeration";
 export default {
   name: "EmployeeDetailComponent",
   components: {},
@@ -253,6 +253,9 @@ export default {
     this.$refs.input_focus.focus();
     this.newEmployeeCode();
   
+  },
+  watch:{
+     
   },
   data() {
     return {
