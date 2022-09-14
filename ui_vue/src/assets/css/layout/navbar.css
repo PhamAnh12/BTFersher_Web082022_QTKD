@@ -63,7 +63,7 @@
   cursor: pointer;
   
 }
-@media screen and (min-height: 800px){
+@media screen and (min-height: 768px){
     .navbar__item{
         height: 44px;
     }

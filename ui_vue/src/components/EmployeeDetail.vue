@@ -37,6 +37,7 @@
                   type="text"
                   placeholder="Mã nhân viên"
                   v-model="employee.employeeCode"
+                  ref="input_focus"
                 />
               </div>
               <div class="container__input input__margin_6 input__320">
@@ -65,7 +66,14 @@
               <div class="container__input input__margin_16 input__320">
                 <label class="input__label" for=""> Giới tính </label>
                 <div class="container__gender">
-                  <input type="radio" name="gender" id="male" value="0" />
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="male"
+                    value="0"
+                    tabindex="4"
+                    checked
+                  />
                   <label for="male">Nam</label>
                   <input type="radio" name="gender" id="female" value="1" />
                   <label for="">Nữ</label>
@@ -82,7 +90,7 @@
                   >Đơn vị <span class="required">*</span></label
                 >
                 <input
-                  tabindex="7"
+                  tabindex="5"
                   class="input"
                   type="text"
                   v-model="employee.departmentName"
@@ -93,7 +101,7 @@
               <div class="container__input input__320">
                 <label class="input__label" for="">Số CMND</label>
                 <input
-                  tabindex="9"
+                  tabindex="7"
                   class="input"
                   type="text"
                   placeholder="Số chứng minh nhân dân"
@@ -103,7 +111,7 @@
               <div class="container__input input__margin_6 input__160">
                 <label class="input__label" for="">Ngày cấp</label>
                 <input
-                  tabindex="10"
+                  tabindex="8"
                   class="input"
                   type="date"
                   v-model="employee.identityIssuedDate"
@@ -116,7 +124,7 @@
               <div class="container__input input__480">
                 <label class="input__label" for="">Chức danh</label>
                 <input
-                  tabindex="8"
+                  tabindex="6"
                   class="input"
                   type="text"
                   placeholder="Chức danh"
@@ -128,7 +136,7 @@
               <div class="container__input input__480">
                 <label class="input__label" for="">Nơi cấp</label>
                 <input
-                  tabindex="11"
+                  tabindex="9"
                   class="input"
                   type="text"
                   placeholder="Nơi cấp"
@@ -141,7 +149,7 @@
             <div class="container__input">
               <label class="input__label" for="">Địa chỉ</label>
               <input
-                tabindex="12"
+                tabindex="10"
                 class="input"
                 type="text"
                 placeholder="Địa chỉ"
@@ -153,7 +161,7 @@
             <div class="container__input input__240">
               <label class="input__label" for="">ĐT di động </label>
               <input
-                tabindex="13"
+                tabindex="11"
                 class="input"
                 type="text"
                 placeholder="Điện thoại di động"
@@ -163,7 +171,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">ĐT có định </label>
               <input
-                tabindex="14"
+                tabindex="12"
                 class="input"
                 type="text"
                 placeholder="Điện thoại cố định"
@@ -173,7 +181,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">Email </label>
               <input
-                tabindex="15"
+                tabindex="13"
                 class="input"
                 type="text"
                 placeholder="Email"
@@ -185,7 +193,7 @@
             <div class="container__input input__240">
               <label class="input__label" for="">Tài khoản ngân hàng </label>
               <input
-                tabindex="16"
+                tabindex="14"
                 class="input"
                 type="text"
                 placeholder="Tài khoản ngân hàng"
@@ -195,7 +203,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">Tên ngân hàng </label>
               <input
-                tabindex="17"
+                tabindex="15"
                 class="input"
                 type="text"
                 placeholder="Tên ngân hàng"
@@ -205,7 +213,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for=""> Chi nhánh </label>
               <input
-                tabindex="18"
+                tabindex="16"
                 class="input"
                 type="text"
                 placeholder="Chi nhánh"
@@ -217,7 +225,7 @@
         <div class="modal__footer">
           <div class="btn__base content__center" @click="closeModal">Hủy</div>
           <div class="modal__footer__rigth">
-            <div class="btn__base content__center">Cất</div>
+            <div class="btn__base content__center" @click="saveModal">Cất</div>
             <div class="btn margin__letf_8">Cất và thêm</div>
           </div>
         </div>
@@ -226,13 +234,25 @@
   </div>
 </template>
 <script>
+import Common from "../script/common/common";
+import Enumeration from "../script/common/enumeration";
 export default {
   name: "EmployeeDetailComponent",
+  components: {},
   props: {
     employeeSelect: Object,
+    formMode: Object,
   },
   created() {
     this.employee = this.employeeSelect;
+  },
+  mounted() {
+    /*
+    *Dùng để focus vào ô đầu tiên
+    */ 
+    this.$refs.input_focus.focus();
+    this.newEmployeeCode();
+  
   },
   data() {
     return {
@@ -244,9 +264,25 @@ export default {
      * Hàm dùng để đóng modal
      * PCTUANANH(12/09/2022)
      */
-      closeModal() {
+    closeModal() {
       this.$emit("hideModal");
     },
+    /*
+     * Hàm dùng để lưu  modal
+     * PCTUANANH(12/09/2022)
+     */
+    saveModal() {
+      this.$emit("hideModal");
+    },
+       /*
+     * Hàm dùng để  thêm mới một mã nhân viên tự động tăng
+     * PCTUANANH(13/09/2022)
+     */
+    newEmployeeCode(){
+        if (this.formMode == Enumeration.FormMode.Add) {
+      this.employee.employeeCode = Common.newEmployeeCode();
+    }
+    }
   },
 };
 </script>

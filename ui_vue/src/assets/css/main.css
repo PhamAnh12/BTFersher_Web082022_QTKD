@@ -12,7 +12,11 @@
   --primary-color: #089740;
   --hover-color: rgba(8, 151, 64, 0.85);
   --white-color: #ffffff;
-  --border-color: #e0e0e0;
+  --border-color: #babec5;
+  --border-table-color:#c7c7c7;
+  --height-button : 36px;
+  --border-radius : 4px;
+  --height-input: 32px;
 }
 
 body {
@@ -41,10 +45,14 @@ body {
 
 .content__center {
   display: flex;
-  text-align: center;
   justify-content: center;
   align-items: center;
 }
+.align__items__center{
+  display: flex;
+  align-items: center;
+}
+
 ::-webkit-scrollbar {
   height: 8px;
   width: 8px;

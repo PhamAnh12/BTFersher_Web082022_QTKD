@@ -7,39 +7,26 @@
     bottom: 0;
     z-index: 99;
    
-    
   }
   .dialog__container{
       height: 100%;
       width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
   }
   .dialog__content {  
     position: relative; 
     width: 600px;
-  
     background-color: #ffff;
-    border-radius: 4px;
+    border-radius: var( --border-radius);
     padding: 32px;
-   
-    
     
   }
   
-  .dialog__body{
-    display: flex;
-    align-items: center;
-  }
   .dialog__body__text{
     margin-left: 32px;
   }
   .dialog__footer{
     margin-top: 32px;
     border-top: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
     justify-content: right;
     height: 56px;
     padding-top: 16px;

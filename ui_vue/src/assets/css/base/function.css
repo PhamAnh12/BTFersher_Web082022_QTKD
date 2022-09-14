@@ -3,17 +3,15 @@
     width: auto;
     height: auto;
     border: none;
+    
 }
 .function__content{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 14px;
 }
 .function-text{
    color:  
-   #58a4d6;
-   margin-right: 12px;
+   #0075c0;
+   margin-right: 8px;
 }
 .function__icon{
     width: 24px;
@@ -23,13 +21,12 @@
     background-position: -844.5px -445px;
     background-size: 1906px 2016px;
     cursor: pointer;
-  
-   
+
 }
 
 .function__icon--show{
     border: 1px solid 
-    #58a4d6 ;
+    #0075c0;
 }
 .function__list{
     position: absolute;
@@ -38,11 +35,8 @@
     width: 120px;
     border:1px solid #D6D7DB;
     background-color: #fff;
-    z-index: 2;
-    border-radius: 4px;
- 
-  
-
+    z-index: 3;
+    border-radius: var(--border-radius);
 }
 .function__item{
     float: left;
@@ -51,7 +45,6 @@
     display: flex;
     align-items: center;
     padding: 8px 6px;
-
 }
 
 .function__item--active{

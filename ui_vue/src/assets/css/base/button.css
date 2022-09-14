@@ -1,7 +1,7 @@
 .btn{
     background-color: var(--primary-color);
-    border-radius: 4px;
-    height: 36px; 
+    border-radius: var(--border-radius);
+    height: var(--height-button); 
     min-width: 80px;
     color: var(--white-color);
     line-height: 20px;
@@ -10,8 +10,8 @@
 
 }
 .btn__base{
-    border-radius: 4px;
-    height: 36px; 
+    border-radius: var(--border-radius);
+    height: var(--height-button) ; 
     width: 80px;
     line-height: 20px;
     cursor: pointer;

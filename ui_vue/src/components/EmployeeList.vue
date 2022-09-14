@@ -49,7 +49,9 @@
                 <tr
                   v-for="(employee, index) in employees"
                   :key="index"
-                  @dblclick="dbClicktr(employee)"
+                  @dblclick="showFormEdit(employee)"
+                  ref="employee__item"
+                  @click="getIdEmployee(index)"
                 >
                   <td class="center__checkbox"><input type="checkbox" /></td>
                   <td class="">{{ employee.employeeCode }}</td>
@@ -64,15 +66,21 @@
                   <td class="">{{ employee.branchBank }}</td>
                   <td class="align-center">
                     <div class="function__container">
-                      <div class="function__content">
+                      <div class="function__content content__center">
                         <div class="function-text">Sửa</div>
                         <div
                           class="function__icon"
-                          @click="isShowFunction = !isShowFunction"
-                          :class="{ 'function__icon--show': isShowFunction }"
+                          @click="showFunction($event,index)"
+                          :class="{
+                            'function__icon--show':
+                              isShowFunction && indexEmployee == index,
+                          }"
                         ></div>
                       </div>
-                      <div class="function__list" v-show="isShowFunction">
+                      <div
+                        class="function__list"
+                        v-show="isShowFunction && indexEmployee == index"
+                      >
                         <div class="function__item">Nhân bản</div>
                         <div class="function__item function__item--active">
                           Xóa
@@ -86,29 +94,7 @@
             </table>
           </div>
         </div>
-        <div class="content__footer">
-          <div class="content__footer_letf">Tổng số <b>999</b> bản ghi</div>
-          <div class="content__footer__right">
-            <div class="select__page">
-              <select name="" id="">
-                <option value="">10 bản ghi trên 1 trang</option>
-                <option value="">20 bản ghi trên 1 trang</option>
-                <option value="">30 bản ghi trên 1 trang</option>
-                <option value="">50 bản ghi trên 1 trang</option>
-                <option value="">100 bản ghi trên 1 trang</option>
-              </select>
-            </div>
-            <div class="page">
-              <div class="page--dislabel page__text">Trước</div>
-              <div class="page__number pageing__number--active">1</div>
-              <div class="page__number">2</div>
-              <div class="page__number">3</div>
-              <div class="page__icon">...</div>
-              <div class="page__number">52</div>
-              <div class="page__text">Sau</div>
-            </div>
-          </div>
-        </div>
+        <PageComponent> </PageComponent>
       </div>
     </div>
   </div>
@@ -116,44 +102,52 @@
     v-if="isShow"
     @hideModal="hideModal"
     :employeeSelect="employeeSelect"
+    :formMode =  "formMode"
   ></EmployeeDetailComponent>
 </template>
 <script>
+import Enumeration from '../script/common/enumeration'
 import EmployeeDetailComponent from "./EmployeeDetail.vue";
-
+import PageComponent from "./Page.vue";
 export default {
   name: "EmployeeListComponent",
   components: {
     EmployeeDetailComponent,
+    PageComponent,
   },
   created() {
-    /*
-     * Hàm dùng để  lấy danh sách nhân viên
-     * PCTUANANH(12/09/2022)
-     */
-    try {
-      fetch("http://localhost:3000/employees")
-        .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
-          this.employees = res;
-        })
-        .catch((error) => {
-          throw error;
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    this.getListEmployee();
   },
   data() {
     return {
       employees: [],
       isShow: false,
       isShowFunction: false,
+      indexEmployee: "",
       employeeSelect: {},
+      formMode: 1,
     };
   },
   methods: {
+    /*
+     * Hàm dùng để  lấy danh sách nhân viên
+     * PCTUANANH(12/09/2022)
+     */
+    getListEmployee() {
+      try {
+        fetch("http://localhost:3000/employees")
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            this.employees = res;
+          })
+          .catch((error) => {
+            throw error;
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
     /*
      * Hàm dùng để hiển thị modal thêm mới nhân viên
      * PCTUANANH(12/09/2022)
@@ -162,6 +156,7 @@ export default {
       try {
         this.isShow = true;
         this.employeeSelect = {};
+        this.formMode = Enumeration.FormMode.Add;
       } catch (error) {
         console.log(error);
       }
@@ -171,16 +166,44 @@ export default {
      * PCTUANANH(12/09/2022)
      */
     hideModal() {
-      this.isShow = false;
+      try {
+        this.isShow = false;
+        this.getListEmployee();
+      } catch (error) {
+        console.log.error;
+      }
     },
     /*
      * Hàm dùng để db  click  để sửa
      * PCTUANANH(12/09/2022)
      */
-    dbClicktr(employee) {
-      this.employeeSelect = employee;
-      this.isShow = true;
+    showFormEdit(employee) {
+      try {
+        this.employeeSelect = employee;
+        this.isShow = true;
+        this.formMode =Enumeration.FormMode.Edit;
+      } catch (error) {
+        console.log.error;
+      }
     },
+    /*
+     * Hàm dùng hiển thị các chức năng
+     * PCTUANANH(12/09/2022)
+     */
+    showFunction(event,index) {
+       
+      try {
+        event.stopPropagation();
+        this.indexEmployee = index;
+        this.isShowFunction = !this.isShowFunction;
+      } catch (error) {
+        console.log.error;
+      }
+    },
+    getIdEmployee(index){
+      console.log(this.$refs.employee__item[index])
+      
+    }
   },
 };
 </script>
