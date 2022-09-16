@@ -53,7 +53,8 @@
                   :key="index"
                   @dblclick="showFormEdit(employee)"
                   ref="employee__item"
-                  @click="getIdEmployee(index, employee.id)"
+                  @click="clickEmployee(index)"
+                  :class="{ trClick: isClick && indexEmployee == index }"
                 >
                   <td class="center__checkbox">
                     <input
@@ -61,7 +62,7 @@
                       type="checkbox"
                       @dblclick.stop
                     />
-                     <div class="loading__container"  v-if="isLoading">
+                    <div class="loading__container" v-if="isLoading">
                       <div class="loading loading__checkbox"></div>
                     </div>
                   </td>
@@ -71,45 +72,49 @@
                   </td>
                   <td class="">
                     {{ employee.employeeName }}
-                     <Loading v-if="isLoading"></Loading>
+                    <Loading v-if="isLoading"></Loading>
                   </td>
                   <td class="">
-                    {{ employee.gender }}
-                     <Loading v-if="isLoading"></Loading>
+                    {{ showGenderName(employee.gender) }}
+                    <Loading v-if="isLoading"></Loading>
                   </td>
                   <td class="align-center">
                     {{ formatDateEmployee(employee.dateOfBirth) }}
-                     <Loading v-if="isLoading"></Loading>
+                    <Loading v-if="isLoading"></Loading>
                   </td>
                   <td class="">
                     {{ employee.identityNumber }}
-                     <Loading v-if="isLoading"></Loading>
-                    </td>
+                    <Loading v-if="isLoading"></Loading>
+                  </td>
                   <td class="">
                     {{ employee.positionName }}
-                     <Loading v-if="isLoading"></Loading>
-                    </td>
+                    <Loading v-if="isLoading"></Loading>
+                  </td>
                   <td class="">
                     {{ employee.departmentName }}
-                     <Loading v-if="isLoading"></Loading>
-                    </td>
+                    <Loading v-if="isLoading"></Loading>
+                  </td>
                   <td class="">
                     {{ employee.accountBank }}
-                     <Loading v-if="isLoading"></Loading>
-                    </td>
+                    <Loading v-if="isLoading"></Loading>
+                  </td>
                   <td class="">
                     {{ employee.nameBank }}
-                     <Loading v-if="isLoading"></Loading>
-
+                    <Loading v-if="isLoading"></Loading>
                   </td>
                   <td class="">
                     {{ employee.branchBank }}
-                     <Loading v-if="isLoading"></Loading>
-                    </td>
-                  <td class="align-center function" @dblclick.stop>                
+                    <Loading v-if="isLoading"></Loading>
+                  </td>
+                  <td class="align-center function" @dblclick.stop>
                     <div class="function__container">
                       <div class="function__content content__center">
-                        <div class="function-text">Sửa</div>
+                        <div
+                          class="function-text"
+                          @click="showFormEdit(employee)"
+                        >
+                          Sửa
+                        </div>
                         <div
                           class="function__icon"
                           @click="showFunction($event, index)"
@@ -124,7 +129,10 @@
                         v-show="isShowFunction && indexEmployee == index"
                       >
                         <div class="function__item">Nhân bản</div>
-                        <div class="function__item function__item--active">
+                        <div
+                          class="function__item function__item--active"
+                          @click="deleteEmployee(employee.id)"
+                        >
                           Xóa
                         </div>
                         <div class="function__item">Ngưng sử dụng</div>
@@ -141,12 +149,14 @@
       </div>
     </div>
   </div>
-   
+
   <EmployeeDetail
     v-if="isShow"
     @hideModal="hideModal"
     :employeeSelect="employeeSelect"
     :formMode="formMode"
+    @notLoadData="notLoadData"
+    @LoadData="LoadData"
   ></EmployeeDetail>
 </template>
 <script>
@@ -154,14 +164,14 @@ import Common from "../../script/common/common";
 import Enumeration from "../../script/common/enumeration";
 import EmployeeDetail from "./EmployeeDetail.vue";
 import PageComponent from "../../components/base/Page.vue";
-import Loading from "../../components/base/Loading.vue"
+import Loading from "../../components/base/Loading.vue";
 // import DialogComponent from "../../components/base/Dialog.vue"
 export default {
   name: "EmployeeList",
   components: {
     EmployeeDetail,
     PageComponent,
-    Loading
+    Loading,
   },
   created() {
     this.getListEmployee();
@@ -169,12 +179,13 @@ export default {
   data() {
     return {
       employees: [],
+      employeeSelect: {},
       isShow: false,
+      isLoading: true,
       isShowFunction: false,
       indexEmployee: "",
-      employeeSelect: {},
       formMode: Enumeration.FormMode.Add,
-      isLoading: false,
+      isClick: false,
     };
   },
   methods: {
@@ -184,13 +195,12 @@ export default {
      */
     getListEmployee() {
       try {
-        this.isLoading = true;
         fetch("http://localhost:3000/employees")
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
-             this.employees = res;
-            setTimeout(() => this.isLoading = false, 1000);
+            this.employees = res;
+            setTimeout(() => (this.isLoading = false), 500);
           })
           .catch((error) => {
             throw error;
@@ -198,7 +208,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-     
     },
     /*
      * Hàm dùng để hiển thị modal thêm mới nhân viên
@@ -207,24 +216,13 @@ export default {
     showModal() {
       try {
         this.isShow = true;
-        this.employeeSelect = {};
         this.formMode = Enumeration.FormMode.Add;
+        this.employeeSelect = {};
       } catch (error) {
         console.log(error);
       }
     },
-    /*
-     * Hàm dùng để ẳn modal
-     * PCTUANANH(12/09/2022)
-     */
-    hideModal() {
-      try {
-        this.isShow = false;
-        this.getListEmployee();
-      } catch (error) {
-        console.log.error;
-      }
-    },
+
     /*
      * Hàm dùng để db  click  để sửa
      * PCTUANANH(12/09/2022)
@@ -244,10 +242,22 @@ export default {
      */
     showFunction(event, index) {
       try {
-        event.preventDefault();
-        event.stopPropagation();
         this.indexEmployee = index;
         this.isShowFunction = !this.isShowFunction;
+      } catch (error) {
+        console.log.error;
+      }
+    },
+    /*
+     * Hàm dùng để ẳn modal
+     * PCTUANANH(12/09/2022)
+     */
+    hideModal() {
+      try {
+        this.isShow = false;
+        if (this.isLoading == true) {
+          this.getListEmployee();
+        }
       } catch (error) {
         console.log.error;
       }
@@ -260,9 +270,64 @@ export default {
       let dateFormat = Common.formatDate(date);
       return dateFormat;
     },
-    getIdEmployee(index, id) {
-      console.log(this.$refs.employee__item[index]);
-      console.log(id);
+    /*
+     * Hàm dùng để hiển thị  giới tính từ các số "0,1,2"sang "Nam, Nữ, Khác"
+     * PCTUANANH(16/09/2022)
+     */
+    showGenderName(gender) {
+      try {
+        let genderName = Common.formatGender(gender);
+        return genderName;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để không load lại dữ liệu khi ấn nút hủy
+     * PCTUANANH(16/09/2022)
+     */
+    notLoadData() {
+      this.isLoading = false;
+    },
+    /*
+     * Hàm dùng để  load lại dữ liệu khi ấn nút  cất hoặc cất thêm
+     * PCTUANANH(16/09/2022)
+     */
+    LoadData() {
+      this.isLoading = true;
+    },
+    /*
+     * Hàm dùng để   click vào Employee
+     * PCTUANANH(16/09/2022)
+     */
+    clickEmployee(index) {
+      this.indexEmployee = index;
+      this.isClick = true;
+    },
+    /*
+     * Hàm dùng để   xóa nhân viên theo id
+     * PCTUANANH(16/09/2022)
+     */
+    deleteEmployee(employeeID) {
+      try {
+        let url = `http://localhost:3000/employees/${employeeID}`;
+        fetch(url, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then(() => {
+            alert("Xóa thành Công");
+            this.isShowFunction = false;
+            this.LoadData();
+            this.getListEmployee();          
+            setTimeout(() => (this.isLoading = false), 500);
+          })
+          .catch((error) => {
+            throw error;
+          });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

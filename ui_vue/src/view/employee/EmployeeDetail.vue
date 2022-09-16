@@ -241,7 +241,7 @@ export default {
   components: {},
   props: {
     employeeSelect: Object,
-    formMode: Object,
+    formMode: Number,
   },
   created() {
     this.employee = this.employeeSelect;
@@ -264,6 +264,7 @@ export default {
   data() {
     return {
       employee: {},
+
     };
   },
   methods: {
@@ -273,6 +274,7 @@ export default {
      */
     closeModal() {
       try {
+        this.$emit("notLoadData")
         this.$emit("hideModal");
       } catch (error) {
         console.log(error);
@@ -284,11 +286,15 @@ export default {
      */
     saveModal() {
       try {
-        if (this.formMode == Enumeration.FormMode.Edit) {
+        // sửa nhân viên 
+        if (this.formMode === Enumeration.FormMode.Edit) {
           this.saveEditEmlpoyee();
+             
+
         }
-        else if(this.formMode == Enumeration.FormMode.Add){
-              this.$emit("hideModal");
+        // thêm mới nhân viên 
+        else if(this.formMode === Enumeration.FormMode.Add){
+              this.saveAddEmlpoyee()
         }
       
       } catch (error) {
@@ -327,7 +333,7 @@ export default {
       }
     },
     /*
-     * Hàm dùng để gọi api để sửa employee
+     * Hàm dùng để gọi api để sửa nhân viên 
      * PCTUANANH(16/09/2022)
      */
     saveEditEmlpoyee() {
@@ -335,17 +341,48 @@ export default {
         let data = this.employee;
         let url = `http://localhost:3000/employees/${this.employee.id}`;
         fetch(url, {
-          method: "PUT", // or 'PUT'
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
         })
           .then((response) => response.json())
-          .then((data) => {
-            console.log("Success:", data);
-            alert("Sửa thành công");
+          .then(() => {
+            this.$emit("loadData");
             this.$emit("hideModal");
+            alert("Sửa thành công");
+            
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để gọi api để thêm mới nhân viên
+     * PCTUANANH(16/09/2022)
+     */
+    saveAddEmlpoyee() {
+      try {
+        let data = this.employee;
+        let url = `http://localhost:3000/employees`;
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            console.log(response);
+            this.$emit("loadData");
+            this.$emit("hideModal");
+            alert("Add thành công");
+            
           })
           .catch((error) => {
             console.error("Error:", error);

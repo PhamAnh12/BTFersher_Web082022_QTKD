@@ -16,12 +16,12 @@
   --white-color: #ffffff;
   --border-color: #babec5;
   --border-table-color:#c7c7c7;
-  --tr-hover-color: #DCF1D8;
+  --tr-hover-color: #EEF8EC;
   --layout-color: rgba(0, 0, 0, 0.35);
   --height-button : 36px;
   --border-radius : 4px;
   --height-input: 32px;
- 
+  --bg-click-color:#DCF1D8;
 }
 
 body {

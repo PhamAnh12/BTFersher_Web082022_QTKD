@@ -44,4 +44,6 @@
    width: 30px;
   
 }
-
+.trClick{
+   background-color:var(--bg-click-color);
+}
