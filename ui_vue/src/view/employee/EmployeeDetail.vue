@@ -6,9 +6,9 @@
         <div class="modal__header">
           <div class="modal__header__left">
             <h1 class="header__title">Thông tin nhân viên</h1>
-            <input class="" type="checkbox" id="" />
+            <input class="" type="checkbox" id="" v-model="employee.isCustomer"/>
             <label for="">Là khách hàng</label>
-            <input class="" type="checkbox" id="" />
+            <input class="" type="checkbox" id="" v-model="employee.isSupplier" />
             <label for="">Là nhà cung cấp</label>
           </div>
           <div class="modal__header__rigth">
