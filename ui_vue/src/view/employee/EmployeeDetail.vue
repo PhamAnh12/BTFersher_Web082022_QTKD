@@ -350,8 +350,9 @@ export default {
           .then((response) => response.json())
           .then(() => {
             this.$emit("loadData");
-            this.$emit("hideModal");
+            this.$emit("hideModal")
             alert("Sửa thành công");
+          
             
           })
           .catch((error) => {
@@ -382,6 +383,8 @@ export default {
             this.$emit("loadData");
             this.$emit("hideModal");
             alert("Add thành công");
+           
+
             
           })
           .catch((error) => {
