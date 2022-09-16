@@ -287,6 +287,10 @@ export default {
         if (this.formMode == Enumeration.FormMode.Edit) {
           this.saveEditEmlpoyee();
         }
+        else if(this.formMode == Enumeration.FormMode.Add){
+              this.$emit("hideModal");
+        }
+      
       } catch (error) {
         console.log(error);
       }

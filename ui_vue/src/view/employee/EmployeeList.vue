@@ -61,20 +61,52 @@
                       type="checkbox"
                       @dblclick.stop
                     />
+                     <div class="loading__container"  v-if="isLoading">
+                      <div class="loading loading__checkbox"></div>
+                    </div>
                   </td>
-                  <td class="">{{ employee.employeeCode }}</td>
-                  <td class="">{{ employee.employeeName }}</td>
-                  <td class="">{{ employee.gender }}</td>
+                  <td class="">
+                    {{ employee.employeeCode }}
+                    <Loading v-if="isLoading"></Loading>
+                  </td>
+                  <td class="">
+                    {{ employee.employeeName }}
+                     <Loading v-if="isLoading"></Loading>
+                  </td>
+                  <td class="">
+                    {{ employee.gender }}
+                     <Loading v-if="isLoading"></Loading>
+                  </td>
                   <td class="align-center">
                     {{ formatDateEmployee(employee.dateOfBirth) }}
+                     <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">{{ employee.identityNumber }}</td>
-                  <td class="">{{ employee.positionName }}</td>
-                  <td class="">{{ employee.departmentName }}</td>
-                  <td class="">{{ employee.accountBank }}</td>
-                  <td class="">{{ employee.nameBank }}</td>
-                  <td class="">{{ employee.branchBank }}</td>
-                  <td class="align-center function" @dblclick.stop>
+                  <td class="">
+                    {{ employee.identityNumber }}
+                     <Loading v-if="isLoading"></Loading>
+                    </td>
+                  <td class="">
+                    {{ employee.positionName }}
+                     <Loading v-if="isLoading"></Loading>
+                    </td>
+                  <td class="">
+                    {{ employee.departmentName }}
+                     <Loading v-if="isLoading"></Loading>
+                    </td>
+                  <td class="">
+                    {{ employee.accountBank }}
+                     <Loading v-if="isLoading"></Loading>
+                    </td>
+                  <td class="">
+                    {{ employee.nameBank }}
+                     <Loading v-if="isLoading"></Loading>
+
+                  </td>
+                  <td class="">
+                    {{ employee.branchBank }}
+                     <Loading v-if="isLoading"></Loading>
+                    </td>
+                  <td class="align-center function" @dblclick.stop>                
                     <div class="function__container">
                       <div class="function__content content__center">
                         <div class="function-text">Sửa</div>
@@ -98,6 +130,7 @@
                         <div class="function__item">Ngưng sử dụng</div>
                       </div>
                     </div>
+                    <Loading v-if="isLoading"></Loading>
                   </td>
                 </tr>
               </tbody>
@@ -108,6 +141,7 @@
       </div>
     </div>
   </div>
+   
   <EmployeeDetail
     v-if="isShow"
     @hideModal="hideModal"
@@ -120,11 +154,14 @@ import Common from "../../script/common/common";
 import Enumeration from "../../script/common/enumeration";
 import EmployeeDetail from "./EmployeeDetail.vue";
 import PageComponent from "../../components/base/Page.vue";
+import Loading from "../../components/base/Loading.vue"
+// import DialogComponent from "../../components/base/Dialog.vue"
 export default {
   name: "EmployeeList",
   components: {
     EmployeeDetail,
     PageComponent,
+    Loading
   },
   created() {
     this.getListEmployee();
@@ -137,6 +174,7 @@ export default {
       indexEmployee: "",
       employeeSelect: {},
       formMode: Enumeration.FormMode.Add,
+      isLoading: false,
     };
   },
   methods: {
@@ -146,11 +184,13 @@ export default {
      */
     getListEmployee() {
       try {
+        this.isLoading = true;
         fetch("http://localhost:3000/employees")
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
-            this.employees = res;
+             this.employees = res;
+            setTimeout(() => this.isLoading = false, 1000);
           })
           .catch((error) => {
             throw error;
@@ -158,6 +198,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+     
     },
     /*
      * Hàm dùng để hiển thị modal thêm mới nhân viên

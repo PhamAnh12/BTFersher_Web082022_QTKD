@@ -24,8 +24,10 @@
     cursor: pointer; 
     display: table-row;
     vertical-align: inherit;
-    
 
+ }
+ .table td{
+   position: relative;
  }
  .table tbody tr:hover {  background-color: var(--tr-hover-color);
  }
@@ -36,7 +38,6 @@
 }
 .table .center__checkbox{
   
-   z-index: 4;
    border-bottom: 1px solid var( --border-table-color);
    border-right:1px solid var( --border-table-color)  ;
    padding: 0 8px;

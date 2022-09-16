@@ -9,6 +9,7 @@
 @import url(./base/dialog.css);
 @import url(./base/function.css);
 @import url(./base/padding.css);
+@import url(./base/loading.css);
 :root {
   --primary-color: #089740;
   --hover-color: rgba(8, 151, 64, 0.85);
@@ -16,6 +17,7 @@
   --border-color: #babec5;
   --border-table-color:#c7c7c7;
   --tr-hover-color: #DCF1D8;
+  --layout-color: rgba(0, 0, 0, 0.35);
   --height-button : 36px;
   --border-radius : 4px;
   --height-input: 32px;
