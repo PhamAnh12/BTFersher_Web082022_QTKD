@@ -27,7 +27,9 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th class="center__checkbox"><input type="checkbox" /></th>
+                  <th class="center__checkbox">
+                    <input type="checkbox" class="checkbox__table" />
+                  </th>
                   <th class="" style="min-width: 100px">MÃ NHÂN VIÊN</th>
                   <th class="" style="min-width: 250px">TÊN NHÂN VIÊN</th>
                   <th class="" style="min-width: 100px">GIỚI TÍNH</th>
@@ -40,7 +42,7 @@
                   <th class="" style="min-width: 150px">SỐ TÀI KHOẢN</th>
                   <th class="" style="min-width: 100px">TÊN NGÂN HÀNG</th>
                   <th class="" style="min-width: 150px">CHI NHÁNH NGÂN HÀNG</th>
-                  <th class="align-center  function" style="min-width: 100px">
+                  <th class="align-center function" style="min-width: 100px">
                     CHỨC NĂNG
                   </th>
                 </tr>
@@ -51,13 +53,21 @@
                   :key="index"
                   @dblclick="showFormEdit(employee)"
                   ref="employee__item"
-                  @click="getIdEmployee(index)"
+                  @click="getIdEmployee(index, employee.id)"
                 >
-                  <td class="center__checkbox"><input type="checkbox"  @dblclick.stop /></td>
+                  <td class="center__checkbox">
+                    <input
+                      class="checkbox__table"
+                      type="checkbox"
+                      @dblclick.stop
+                    />
+                  </td>
                   <td class="">{{ employee.employeeCode }}</td>
                   <td class="">{{ employee.employeeName }}</td>
                   <td class="">{{ employee.gender }}</td>
-                  <td class="align-center">{{ employee.dateOfBirth }}</td>
+                  <td class="align-center">
+                    {{ formatDateEmployee(employee.dateOfBirth) }}
+                  </td>
                   <td class="">{{ employee.identityNumber }}</td>
                   <td class="">{{ employee.positionName }}</td>
                   <td class="">{{ employee.departmentName }}</td>
@@ -70,8 +80,7 @@
                         <div class="function-text">Sửa</div>
                         <div
                           class="function__icon"
-                          @click="showFunction($event,index)"
-                         
+                          @click="showFunction($event, index)"
                           :class="{
                             'function__icon--show':
                               isShowFunction && indexEmployee == index,
@@ -103,11 +112,12 @@
     v-if="isShow"
     @hideModal="hideModal"
     :employeeSelect="employeeSelect"
-    :formMode =  "formMode"
+    :formMode="formMode"
   ></EmployeeDetail>
 </template>
 <script>
-import Enumeration from '../../script/common/enumeration'
+import Common from "../../script/common/common";
+import Enumeration from "../../script/common/enumeration";
 import EmployeeDetail from "./EmployeeDetail.vue";
 import PageComponent from "../../components/base/Page.vue";
 export default {
@@ -126,7 +136,7 @@ export default {
       isShowFunction: false,
       indexEmployee: "",
       employeeSelect: {},
-      formMode: 1,
+      formMode: Enumeration.FormMode.Add,
     };
   },
   methods: {
@@ -182,7 +192,7 @@ export default {
       try {
         this.employeeSelect = employee;
         this.isShow = true;
-        this.formMode =Enumeration.FormMode.Edit;
+        this.formMode = Enumeration.FormMode.Edit;
       } catch (error) {
         console.log.error;
       }
@@ -191,8 +201,7 @@ export default {
      * Hàm dùng hiển thị các chức năng
      * PCTUANANH(12/09/2022)
      */
-    showFunction(event,index) {
-       
+    showFunction(event, index) {
       try {
         event.preventDefault();
         event.stopPropagation();
@@ -202,10 +211,18 @@ export default {
         console.log.error;
       }
     },
-    getIdEmployee(index){
-      console.log(this.$refs.employee__item[index])
-      
-    }
+    /*
+     * Hàm dùng để format ngày tháng hiện thị danh sách employee
+     * PCTUANANH(16/09/2022)
+     */
+    formatDateEmployee(date) {
+      let dateFormat = Common.formatDate(date);
+      return dateFormat;
+    },
+    getIdEmployee(index, id) {
+      console.log(this.$refs.employee__item[index]);
+      console.log(id);
+    },
   },
 };
 </script>

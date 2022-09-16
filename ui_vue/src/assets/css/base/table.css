@@ -18,6 +18,7 @@
     top: 0;
     z-index: 2;
  } 
+ 
  .table tr{
     height: 48px;
     cursor: pointer; 
@@ -26,17 +27,20 @@
     
 
  }
- .table tbody tr:hover {  background-color: #F8F8F8;
+ .table tbody tr:hover {  background-color: var(--tr-hover-color);
  }
  
 .align-center {
    text-align: center !important;
    padding: 0 !important;
 }
-.center__checkbox{
+.table .center__checkbox{
+  
+   z-index: 4;
+   border-bottom: 1px solid var( --border-table-color);
+   border-right:1px solid var( --border-table-color)  ;
    padding: 0 8px;
    width: 30px;
-   left: 0;
-  
   
 }
+

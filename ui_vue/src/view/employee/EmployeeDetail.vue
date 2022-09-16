@@ -165,7 +165,7 @@
                 class="input"
                 type="text"
                 placeholder="Điện thoại di động"
-                v-model="employee.phoneNumbermobile"
+                v-model="employee.phoneNumberMobile"
               />
             </div>
             <div class="container__input input__margin_6 input__240">
@@ -175,7 +175,7 @@
                 class="input"
                 type="text"
                 placeholder="Điện thoại cố định"
-                v-model="employee.phoneNumberlandline"
+                v-model="employee.phoneNumberLandline"
               />
             </div>
             <div class="container__input input__margin_6 input__240">
@@ -248,15 +248,19 @@ export default {
   },
   mounted() {
     /*
-    *Dùng để focus vào ô đầu tiên
-    */ 
+     *Dùng để focus vào ô đầu tiên
+     */
     this.$refs.input_focus.focus();
+    /*
+     *Dùng để thêm một mã nhân viên tự động tăng
+     */
     this.newEmployeeCode();
-  
+    /*
+     *Dùng để format ngày tháng
+     */
+    this.formatDateEmployee();
   },
-  watch:{
-     
-  },
+  watch: {},
   data() {
     return {
       employee: {},
@@ -268,24 +272,84 @@ export default {
      * PCTUANANH(12/09/2022)
      */
     closeModal() {
-      this.$emit("hideModal");
+      try {
+        this.$emit("hideModal");
+      } catch (error) {
+        console.log(error);
+      }
     },
     /*
      * Hàm dùng để lưu  modal
      * PCTUANANH(12/09/2022)
      */
     saveModal() {
-      this.$emit("hideModal");
+      try {
+        if (this.formMode == Enumeration.FormMode.Edit) {
+          this.saveEditEmlpoyee();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
-       /*
+    /*
      * Hàm dùng để  thêm mới một mã nhân viên tự động tăng
      * PCTUANANH(13/09/2022)
      */
-    newEmployeeCode(){
+    newEmployeeCode() {
+      try {
         if (this.formMode == Enumeration.FormMode.Add) {
-      this.employee.employeeCode = Common.newEmployeeCode();
-    }
-    }
+          this.employee.employeeCode = Common.newEmployeeCode();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để format ngày tháng trong employee
+     * PCTUANANH(16/09/2022)
+     */
+    formatDateEmployee() {
+      try {
+        if (this.formMode == Enumeration.FormMode.Edit) {
+          this.employee.dateOfBirth = Common.formatDate2(
+            this.employee.dateOfBirth
+          );
+          this.employee.identityIssuedDate = Common.formatDate2(
+            this.employee.identityIssuedDate
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để gọi api để sửa employee
+     * PCTUANANH(16/09/2022)
+     */
+    saveEditEmlpoyee() {
+      try {
+        let data = this.employee;
+        let url = `http://localhost:3000/employees/${this.employee.id}`;
+        fetch(url, {
+          method: "PUT", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            alert("Sửa thành công");
+            this.$emit("hideModal");
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>
