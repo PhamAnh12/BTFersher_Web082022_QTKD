@@ -6,9 +6,19 @@
         <div class="modal__header">
           <div class="modal__header__left">
             <h1 class="header__title">Thông tin nhân viên</h1>
-            <input class="" type="checkbox" id="" v-model="employee.isCustomer"/>
+            <input
+              class=""
+              type="checkbox"
+              id=""
+              v-model="employee.isCustomer"
+            />
             <label for="">Là khách hàng</label>
-            <input class="" type="checkbox" id="" v-model="employee.isSupplier" />
+            <input
+              class=""
+              type="checkbox"
+              id=""
+              v-model="employee.isSupplier"
+            />
             <label for="">Là nhà cung cấp</label>
           </div>
           <div class="modal__header__rigth">
@@ -17,7 +27,7 @@
             </div>
             <div
               class="item__icon modal__header__icon margin__letf_8"
-              @click="closeModal"
+              @click="isCloseModal"
             >
               <div class="icon__18 icon__close"></div>
             </div>
@@ -73,11 +83,24 @@
                     value="0"
                     tabindex="4"
                     checked
+                    v-model="employee.gender"
                   />
                   <label for="male">Nam</label>
-                  <input type="radio" name="gender" id="female" value="1" />
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="female"
+                    value="1"
+                    v-model="employee.gender"
+                  />
                   <label for="">Nữ</label>
-                  <input type="radio" name="gender" id="other" value="2" />
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="other"
+                    value="2"
+                    v-model="employee.gender"
+                  />
                   <label for="other">Khác</label>
                 </div>
               </div>
@@ -226,19 +249,30 @@
           <div class="btn__base content__center" @click="closeModal">Hủy</div>
           <div class="modal__footer__rigth">
             <div class="btn__base content__center" @click="saveModal">Cất</div>
-            <div class="btn margin__letf_8">Cất và thêm</div>
+            <div class="btn margin__letf_8" @click="saveModalAdd">
+              Cất và thêm
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+   <DialogFormClose 
+   v-if="isCloseForm"
+  @closeModal="closeModal"
+  @hideCloseForm = " hideCloseForm"
+  @saveModal = "saveModal"
+   ></DialogFormClose>
 </template>
 <script>
 import Common from "../../script/common/common";
 import Enumeration from "../../script/common/enumeration";
+import DialogFormClose from "../../components/base/DialogFormClose.vue"
 export default {
   name: "EmployeeDetailComponent",
-  components: {},
+  components: {
+     DialogFormClose,
+  },
   props: {
     employeeSelect: Object,
     formMode: Number,
@@ -264,18 +298,40 @@ export default {
   data() {
     return {
       employee: {},
-
+      isCloseForm: false,
     };
   },
   methods: {
     /*
-     * Hàm dùng để đóng modal
-     * PCTUANANH(12/09/2022)
+     * Hàm dùng để đóng modal bằng nút Hủy
+     * PCTUANANH(18/09/2022)
      */
     closeModal() {
       try {
-        this.$emit("notLoadData")
+        this.$emit("notLoadData");
         this.$emit("hideModal");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+     /*
+     * Hàm dùng để đóng modal bằng nút X
+     * PCTUANANH(18/09/2022)
+     */
+    isCloseModal(){
+       try {
+        this.isCloseForm = true;
+       } catch (error) {
+        console.log(error);
+       }
+    },
+     /*
+     * Hàm dùng để ẩn form close bằng nút hủy
+     * PCTUANANH(18/09/2022)
+     */
+    hideCloseForm(){
+      try {
+        this.isCloseForm = false; 
       } catch (error) {
         console.log(error);
       }
@@ -286,17 +342,26 @@ export default {
      */
     saveModal() {
       try {
-        // sửa nhân viên 
+        // sửa nhân viên
         if (this.formMode === Enumeration.FormMode.Edit) {
           this.saveEditEmlpoyee();
-             
-
         }
-        // thêm mới nhân viên 
-        else if(this.formMode === Enumeration.FormMode.Add){
-              this.saveAddEmlpoyee()
+        // thêm mới nhân viên
+        else if (this.formMode === Enumeration.FormMode.Add) {
+          this.saveAddEmlpoyee();
         }
-      
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để lưu  modal và thêm mới modal
+     * PCTUANANH(12/09/2022)
+     */
+    saveModalAdd() {
+      try {
+        this.saveModal();
+        this.$emit("showModal");
       } catch (error) {
         console.log(error);
       }
@@ -333,11 +398,12 @@ export default {
       }
     },
     /*
-     * Hàm dùng để gọi api để sửa nhân viên 
+     * Hàm dùng để gọi api để sửa nhân viên
      * PCTUANANH(16/09/2022)
      */
     saveEditEmlpoyee() {
       try {
+        this.formatInputForm();
         let data = this.employee;
         let url = `http://localhost:3000/employees/${this.employee.id}`;
         fetch(url, {
@@ -350,10 +416,8 @@ export default {
           .then((response) => response.json())
           .then(() => {
             this.$emit("loadData");
-            this.$emit("hideModal")
-            alert("Sửa thành công");
-          
-            
+            this.$emit("hideModal");
+           
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -368,6 +432,7 @@ export default {
      */
     saveAddEmlpoyee() {
       try {
+        this.formatInputForm();
         let data = this.employee;
         let url = `http://localhost:3000/employees`;
         fetch(url, {
@@ -382,10 +447,7 @@ export default {
             console.log(response);
             this.$emit("loadData");
             this.$emit("hideModal");
-            alert("Add thành công");
-           
-
-            
+          
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -393,6 +455,20 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    /*
+     * Hàm dùng để format form khi lưu vào
+     * PCTUANANH(16/09/2022)
+     */
+    formatInputForm() {
+      this.traneGenderNumber();
+    },
+    /*
+     * Hàm dùng để format giới tính từ chuỗi sang số
+     * PCTUANANH(16/09/2022)
+     */
+    traneGenderNumber() {
+      this.employee.gender = Number(this.employee.gender);
     },
   },
 };

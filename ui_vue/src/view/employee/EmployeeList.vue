@@ -131,7 +131,9 @@
                         <div class="function__item">Nhân bản</div>
                         <div
                           class="function__item function__item--active"
-                          @click="deleteEmployee(employee.id)"
+                          @click="
+                            showDialogDelete(employee.id, employee.employeeCode)
+                          "
                         >
                           Xóa
                         </div>
@@ -149,15 +151,25 @@
       </div>
     </div>
   </div>
-
+  <DialogDelete
+    v-if="isShowDelete"
+    :employeeCode="employeeCode"
+    @hideDialogDelete="hideDialogDelete"
+    @handleDeleteEmployee="handleDeleteEmployee"
+    @click.stop
+  ></DialogDelete>
   <EmployeeDetail
     v-if="isShow"
     @hideModal="hideModal"
+    @showModal="showModal"
     :employeeSelect="employeeSelect"
     :formMode="formMode"
     @notLoadData="notLoadData"
     @LoadData="LoadData"
+   
   ></EmployeeDetail>
+
+  <LoadingData v-if="isLoadingData"></LoadingData> 
 </template>
 <script>
 import Common from "../../script/common/common";
@@ -165,27 +177,36 @@ import Enumeration from "../../script/common/enumeration";
 import EmployeeDetail from "./EmployeeDetail.vue";
 import PageComponent from "../../components/base/Page.vue";
 import Loading from "../../components/base/Loading.vue";
-// import DialogComponent from "../../components/base/Dialog.vue"
+import DialogDelete from "../../components/base/DialogDelete.vue";
+ import LoadingData from "../../components/base/LoadingData.vue"
 export default {
   name: "EmployeeList",
   components: {
     EmployeeDetail,
     PageComponent,
     Loading,
+    DialogDelete,
+    LoadingData 
   },
   created() {
+    this.isLoading = true;
     this.getListEmployee();
+    
   },
   data() {
     return {
       employees: [],
       employeeSelect: {},
       isShow: false,
-      isLoading: true,
+      isLoading: false,
+      isLoadingData:false,
       isShowFunction: false,
       indexEmployee: "",
       formMode: Enumeration.FormMode.Add,
       isClick: false,
+      isShowDelete: false,
+      employeeID: "",
+      employeeCode: "",
     };
   },
   methods: {
@@ -195,15 +216,18 @@ export default {
      */
     getListEmployee() {
       try {
-        fetch("http://localhost:3000/employees")
+        fetch("http://localhost:3000/employees?_sort=id&_order=desc")
           .then((res) => res.json())
           .then((res) => {
             console.log(res);
             this.employees = res;
-            setTimeout(() => (this.isLoading = false), 500);
+            setTimeout(() => (this.isLoading = false), 1000);  
+            setTimeout(() => (this.isLoadingData = false), 1000);            
+            
           })
           .catch((error) => {
-            throw error;
+            console.log("Error! Could not reach the API. " + error)
+            
           });
       } catch (error) {
         console.log(error);
@@ -255,7 +279,7 @@ export default {
     hideModal() {
       try {
         this.isShow = false;
-        if (this.isLoading == true) {
+        if (this.isLoadingData == true) {
           this.getListEmployee();
         }
       } catch (error) {
@@ -267,8 +291,12 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     formatDateEmployee(date) {
-      let dateFormat = Common.formatDate(date);
-      return dateFormat;
+      try {
+        let dateFormat = Common.formatDate(date);
+        return dateFormat;
+      } catch (error) {
+        console.log(error);
+      }
     },
     /*
      * Hàm dùng để hiển thị  giới tính từ các số "0,1,2"sang "Nam, Nữ, Khác"
@@ -287,14 +315,16 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     notLoadData() {
-      this.isLoading = false;
+      this.isLoadingData = false;
     },
     /*
      * Hàm dùng để  load lại dữ liệu khi ấn nút  cất hoặc cất thêm
      * PCTUANANH(16/09/2022)
      */
     LoadData() {
-      this.isLoading = true;
+      this.isLoadingData = true; 
+    
+    
     },
     /*
      * Hàm dùng để   click vào Employee
@@ -305,7 +335,35 @@ export default {
       this.isClick = true;
     },
     /*
-     * Hàm dùng để   xóa nhân viên theo id
+     * Hàm dùng  để xử xóa nhân viên theo id
+     * PCTUANANH(16/09/2022)
+     */
+    handleDeleteEmployee() {
+      this.isShowDelete = false;
+      this.deleteEmployee(this.employeeID);
+      this.isClick = false;
+    },
+    /*
+     * Hàm dùng  để hiển thị Dialog xóa
+     * PCTUANANH(16/09/2022)
+     */
+
+    showDialogDelete(employeeID, employeeCode) {
+      this.employeeID = employeeID;
+      this.employeeCode = employeeCode;
+      this.isShowDelete = true;
+      this.isShowFunction = false;
+    },
+    /*
+     * Hàm dùng  để ẩn  Dialog xóa
+     * PCTUANANH(16/09/2022)
+     */
+    hideDialogDelete() {
+      this.isShowDelete = false;
+    },
+
+    /*
+     * Hàm dùng  gọi APi   để xóa nhân viên theo id
      * PCTUANANH(16/09/2022)
      */
     deleteEmployee(employeeID) {
@@ -316,11 +374,10 @@ export default {
         })
           .then((res) => res.json())
           .then(() => {
-            alert("Xóa thành Công");
+          
             this.isShowFunction = false;
             this.LoadData();
             this.getListEmployee();          
-            setTimeout(() => (this.isLoading = false), 500);
           })
           .catch((error) => {
             throw error;

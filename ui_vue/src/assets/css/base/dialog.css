@@ -8,21 +8,27 @@
     z-index: 99;
    
   }
+  
   .dialog__container{
       height: 100%;
       width: 100%;
   }
   .dialog__content {  
     position: relative; 
-    width: 600px;
+    min-width: 444px;
     background-color: #ffff;
     border-radius: var( --border-radius);
     padding: 32px;
     
   }
+  .dialog__delete{
+    min-width: 444px;
+  }
   
   .dialog__body__text{
     margin-left: 32px;
+    float: left;
+    padding-right: 24px;
   }
   .dialog__footer{
     margin-top: 32px;
@@ -30,4 +36,8 @@
     justify-content: right;
     height: 56px;
     padding-top: 16px;
+  }
+  .dialog__footer-delete{
+    display:  flex;
+    justify-content: space-between;
   }
