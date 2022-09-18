@@ -480,7 +480,13 @@ export default {
      */
     traneGenderNumber() {
       try {
+      if( !this.employee.gender ){
+         this.employee.gender =  0;
+      } 
+      else{
       this.employee.gender = Number(this.employee.gender);
+       
+      } 
       } catch (error) {
         console.log(error);
       }

@@ -219,8 +219,8 @@ export default {
           .then((res) => {
             console.log(res);
             this.employees = res;
-            setTimeout(() => (this.isLoading = false), 1000);
-            setTimeout(() => (this.isLoadingData = false), 1000);
+            setTimeout(() => (this.isLoading = false), 500);
+            setTimeout(() => (this.isLoadingData = false), 500);
             //Cho thanh srcollbar lên đầu khi thêm mới
             if (this.formMode === Enumeration.FormMode.Add) {
               this.$refs.scrollbar.scrollTo(0, 0);

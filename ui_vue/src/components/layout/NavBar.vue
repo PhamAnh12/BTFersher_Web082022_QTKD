@@ -8,8 +8,9 @@
                 </div>
 
                 <div class="navbar__header__content">
+                    <a href="/" class="item__link__logo">
                     <img class="item__logo" src="../../assets/img/Logo_Module_TiengViet_White.66947422.svg" alt="" />
-                    
+                    </a>                  
                 </div>
             </div>
             <div class="navbar__main">
