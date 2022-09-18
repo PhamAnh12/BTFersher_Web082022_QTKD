@@ -68,9 +68,11 @@
                 <label class="input__label" for=""> Ngày sinh </label>
                 <input
                   tabindex="3"
-                  class="input"
+                  class="input input_date" 
                   type="date"
+                  :max="maxDate"
                   v-model="employee.dateOfBirth"
+                  
                 />
               </div>
               <div class="container__input input__margin_16 input__320">
@@ -135,7 +137,8 @@
                 <label class="input__label" for="">Ngày cấp</label>
                 <input
                   tabindex="8"
-                  class="input"
+                  class="input input_date"
+                  :max="maxDate"
                   type="date"
                   v-model="employee.identityIssuedDate"
                 />
@@ -278,7 +281,7 @@ export default {
     formMode: Number,
   },
   // Khai báo các emit từ componet cha
-  emits:['notLoadData','loadData','hideModal','showModal'],
+  emits:['notLoadingData','loadingData','hideModal','showModal'],
   created() {
     this.employee = this.employeeSelect;
   },
@@ -301,6 +304,7 @@ export default {
     return {
       employee: {},
       isCloseForm: false,
+      maxDate: Common.maxDate(),
     };
   },
   methods: {
@@ -310,7 +314,7 @@ export default {
      */
     closeModal() {
       try {
-        this.$emit("notLoadData");
+        this.$emit("notLoadingData");
         this.$emit("hideModal");
       } catch (error) {
         console.log(error);
@@ -424,7 +428,7 @@ export default {
         })
           .then((response) => response.json())
           .then(() => {
-            this.$emit("loadData");
+            this.$emit("loadingData");
              this.$emit("hideModal");
           })
           .catch((error) => {
@@ -453,7 +457,7 @@ export default {
           .then((response) => response.json())
           .then((response) => {
             console.log(response);
-            this.$emit("loadData");
+            this.$emit("loadingData");
             this.$emit("hideModal");          
           })
           .catch((error) => {

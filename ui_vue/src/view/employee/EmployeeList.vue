@@ -162,8 +162,8 @@
     v-if="isShow"
     :employeeSelect="employeeSelect"
     :formMode="formMode"
-    @notLoadData="notLoadData"
-    @loadData="loadData"
+    @notLoadingData="notLoadingData"
+    @loadingData="loadingData"
     @hideModal="hideModal"
     @showModal="showModal"
   ></EmployeeDetail>
@@ -315,7 +315,7 @@ export default {
      * Hàm dùng để không load lại dữ liệu khi ấn nút hủy
      * PCTUANANH(16/09/2022)
      */
-    notLoadData() {
+    notLoadingData() {
       try {
         this.isLoadingData = false;
       } catch (error) {
@@ -326,7 +326,7 @@ export default {
      * Hàm dùng để  load lại dữ liệu khi ấn nút  cất hoặc cất thêm
      * PCTUANANH(16/09/2022)
      */
-    loadData() {
+    loadingData() {
       try {
         this.isLoadingData = true;
       } catch (error) {
@@ -352,7 +352,7 @@ export default {
     handleDeleteEmployee() {
       try {
         this.isShowDelete = false;
-     
+        this.formMode = Enumeration.FormMode.Delete;    
         this.deleteEmployee(this.employeeID);
         this.isClick = false;
       } catch (error) {
@@ -399,7 +399,7 @@ export default {
           .then((res) => res.json())
           .then(() => {
             this.isShowFunction = false;
-            this.loadData();
+            this.loadingData();
             this.getListEmployee();
           })
           .catch((error) => {

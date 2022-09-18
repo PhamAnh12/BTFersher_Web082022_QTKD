@@ -76,5 +76,25 @@ export default {
     
     
 
-    }
+    },
+    /*
+     * Hàm dùng để format ngày tháng hiện thị danh sách employee
+     * PCTUANANH(12/09/2022)
+     */
+    maxDate() {
+       
+        try {
+        
+                let date = new Date(),
+                year = date.getFullYear().toString(),
+                month = (date.getMonth() + 1).toString().padStart(2, '0'),
+                day = date.getDate().toString().padStart(2, '0');
+               return `${year}-${month}-${day}`;
+            
+          
+        } catch (error) {
+            console.log(error)
+        }
+
+    },
 }
