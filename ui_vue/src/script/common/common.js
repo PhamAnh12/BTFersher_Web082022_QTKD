@@ -4,7 +4,8 @@ export default {
     newEmployeeCode() {
         //    let newEmpCode =employeeCode.substring(3);
         //    newEmpCode = parseInt(newEmpCode)+1
-        return `NV-00123`
+        
+        return `NV0040`
 
     },
     /*
@@ -12,13 +13,16 @@ export default {
      * PCTUANANH(12/09/2022)
      */
     formatDate(dateSrc) {
+       
         try {
-            let date = new Date(dateSrc),
+            if(dateSrc){
+                let date = new Date(dateSrc),
                 year = date.getFullYear().toString(),
                 month = (date.getMonth() + 1).toString().padStart(2, '0'),
                 day = date.getDate().toString().padStart(2, '0');
-
-            return `${day}/${month}/${year}`;
+               return `${day}/${month}/${year}`;
+            }
+          
         } catch (error) {
             console.log(error)
         }
@@ -30,12 +34,14 @@ export default {
      */
     formatDate2(dateSrc) {
         try {
-
-            let date = new Date(dateSrc);
-            // let day = date.getDate() ;
-            // date.setDate(day);
-            date = date.toISOString().substring(0, 10);
-            return date;
+            if(dateSrc){
+                let date = new Date(dateSrc);
+                // let day = date.getDate() ;
+                // date.setDate(day);
+                date = date.toISOString().substring(0, 10);
+                return date;
+            }
+          
 
         } catch (error) {
             console.log(error);

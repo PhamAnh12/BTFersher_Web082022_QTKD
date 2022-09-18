@@ -260,7 +260,7 @@
    <DialogFormClose 
    v-if="isCloseForm"
   @closeModal="closeModal"
-  @hideCloseForm = " hideCloseForm"
+  @hideCloseForm = "hideCloseForm"
   @saveModal = "saveModal"
    ></DialogFormClose>
 </template>
@@ -277,6 +277,8 @@ export default {
     employeeSelect: Object,
     formMode: Number,
   },
+  // Khai báo các emit từ componet cha
+  emits:['notLoadData','loadData','hideModal','showModal'],
   created() {
     this.employee = this.employeeSelect;
   },
@@ -345,6 +347,8 @@ export default {
         // sửa nhân viên
         if (this.formMode === Enumeration.FormMode.Edit) {
           this.saveEditEmlpoyee();
+          
+           
         }
         // thêm mới nhân viên
         else if (this.formMode === Enumeration.FormMode.Add) {
@@ -360,8 +364,13 @@ export default {
      */
     saveModalAdd() {
       try {
+       
         this.saveModal();
         this.$emit("showModal");
+
+        
+
+     
       } catch (error) {
         console.log(error);
       }
@@ -416,8 +425,7 @@ export default {
           .then((response) => response.json())
           .then(() => {
             this.$emit("loadData");
-            this.$emit("hideModal");
-           
+             this.$emit("hideModal");
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -446,8 +454,7 @@ export default {
           .then((response) => {
             console.log(response);
             this.$emit("loadData");
-            this.$emit("hideModal");
-          
+            this.$emit("hideModal");          
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -461,14 +468,22 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     formatInputForm() {
-      this.traneGenderNumber();
+      try {
+      this.traneGenderNumber();    
+      } catch (error) {
+        console.log(error);
+      }
     },
     /*
      * Hàm dùng để format giới tính từ chuỗi sang số
      * PCTUANANH(16/09/2022)
      */
     traneGenderNumber() {
+      try {
       this.employee.gender = Number(this.employee.gender);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

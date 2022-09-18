@@ -30,6 +30,7 @@ export default {
    props:{
     employeeCode : String,
    },
+   emits:['hideDialogDelete','handleDeleteEmployee'],
    methods:{
      /*
      * Hàm dùng  để ẩn  Dialog xóa

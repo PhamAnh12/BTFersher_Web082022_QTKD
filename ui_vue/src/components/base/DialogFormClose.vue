@@ -27,6 +27,7 @@
 <script>
 export default {
   name: "DialogFormClose",
+  emits:['closeModal','hideCloseForm','saveModal'],
   methods: {
      /*
      * Hàm dùng để đóng modal bằng nút không khi đóng modal bằng x thì có form close hiện nên

@@ -48,10 +48,13 @@
     display: flex;
     align-items: center;
     padding: 8px 6px;
+    cursor: pointer;
+}
+.function__item:hover{
+    background-color: #f8f8f8 ;
 }
 
 .function__item--active{
     color: var(--primary-color);
-    background-color: #f8f8f8;
     font-weight: 550;
 }

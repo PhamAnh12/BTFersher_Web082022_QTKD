@@ -23,7 +23,7 @@
               <div class="icon__24 icon__load"></div>
             </div>
           </div>
-          <div class="container__table">
+          <div class="container__table" ref="scrollbar">
             <table class="table">
               <thead>
                 <tr>
@@ -160,25 +160,24 @@
   ></DialogDelete>
   <EmployeeDetail
     v-if="isShow"
-    @hideModal="hideModal"
-    @showModal="showModal"
     :employeeSelect="employeeSelect"
     :formMode="formMode"
     @notLoadData="notLoadData"
-    @LoadData="LoadData"
-   
+    @loadData="loadData"
+    @hideModal="hideModal"
+    @showModal="showModal"
   ></EmployeeDetail>
 
-  <LoadingData v-if="isLoadingData"></LoadingData> 
+  <LoadData v-if="isLoadingData"></LoadData>
 </template>
 <script>
 import Common from "../../script/common/common";
 import Enumeration from "../../script/common/enumeration";
 import EmployeeDetail from "./EmployeeDetail.vue";
 import PageComponent from "../../components/base/Page.vue";
-import Loading from "../../components/base/Loading.vue";
+import Loading from "../../components/base/Load.vue";
 import DialogDelete from "../../components/base/DialogDelete.vue";
- import LoadingData from "../../components/base/LoadingData.vue"
+import LoadData from "../../components/base/LoadData.vue";
 export default {
   name: "EmployeeList",
   components: {
@@ -186,12 +185,11 @@ export default {
     PageComponent,
     Loading,
     DialogDelete,
-    LoadingData 
+    LoadData,
   },
   created() {
     this.isLoading = true;
     this.getListEmployee();
-    
   },
   data() {
     return {
@@ -199,7 +197,7 @@ export default {
       employeeSelect: {},
       isShow: false,
       isLoading: false,
-      isLoadingData:false,
+      isLoadingData: false,
       isShowFunction: false,
       indexEmployee: "",
       formMode: Enumeration.FormMode.Add,
@@ -221,13 +219,15 @@ export default {
           .then((res) => {
             console.log(res);
             this.employees = res;
-            setTimeout(() => (this.isLoading = false), 1000);  
-            setTimeout(() => (this.isLoadingData = false), 1000);            
-            
+            setTimeout(() => (this.isLoading = false), 1000);
+            setTimeout(() => (this.isLoadingData = false), 1000);
+            //Cho thanh srcollbar lên đầu khi thêm mới
+            if (this.formMode === Enumeration.FormMode.Add) {
+              this.$refs.scrollbar.scrollTo(0, 0);
+            }
           })
           .catch((error) => {
-            console.log("Error! Could not reach the API. " + error)
-            
+            console.log("Error! Could not reach the API. " + error);
           });
       } catch (error) {
         console.log(error);
@@ -255,6 +255,7 @@ export default {
       try {
         this.employeeSelect = employee;
         this.isShow = true;
+        this.isShowFunction = false;
         this.formMode = Enumeration.FormMode.Edit;
       } catch (error) {
         console.log.error;
@@ -315,33 +316,48 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     notLoadData() {
-      this.isLoadingData = false;
+      try {
+        this.isLoadingData = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
     /*
      * Hàm dùng để  load lại dữ liệu khi ấn nút  cất hoặc cất thêm
      * PCTUANANH(16/09/2022)
      */
-    LoadData() {
-      this.isLoadingData = true; 
-    
-    
+    loadData() {
+      try {
+        this.isLoadingData = true;
+      } catch (error) {
+        console.log(error);
+      }
     },
     /*
      * Hàm dùng để   click vào Employee
      * PCTUANANH(16/09/2022)
      */
     clickEmployee(index) {
-      this.indexEmployee = index;
-      this.isClick = true;
+      try {
+        this.indexEmployee = index;
+        this.isClick = true;
+      } catch (error) {
+        console.log(error);
+      }
     },
     /*
      * Hàm dùng  để xử xóa nhân viên theo id
      * PCTUANANH(16/09/2022)
      */
     handleDeleteEmployee() {
-      this.isShowDelete = false;
-      this.deleteEmployee(this.employeeID);
-      this.isClick = false;
+      try {
+        this.isShowDelete = false;
+     
+        this.deleteEmployee(this.employeeID);
+        this.isClick = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
     /*
      * Hàm dùng  để hiển thị Dialog xóa
@@ -349,17 +365,25 @@ export default {
      */
 
     showDialogDelete(employeeID, employeeCode) {
-      this.employeeID = employeeID;
-      this.employeeCode = employeeCode;
-      this.isShowDelete = true;
-      this.isShowFunction = false;
+      try {
+        this.employeeID = employeeID;
+        this.employeeCode = employeeCode;
+        this.isShowDelete = true;
+        this.isShowFunction = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
     /*
      * Hàm dùng  để ẩn  Dialog xóa
      * PCTUANANH(16/09/2022)
      */
     hideDialogDelete() {
-      this.isShowDelete = false;
+      try {
+        this.isShowDelete = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     /*
@@ -374,10 +398,9 @@ export default {
         })
           .then((res) => res.json())
           .then(() => {
-          
             this.isShowFunction = false;
-            this.LoadData();
-            this.getListEmployee();          
+            this.loadData();
+            this.getListEmployee();
           })
           .catch((error) => {
             throw error;
