@@ -7,6 +7,7 @@ namespace MISA.Web08.QTKD.API.Controllers
     [ApiController]
     public class DepartmentsController : Controller
     {
+        #region Get API
         /// <summary>
         /// API lấy toàn bộ phòng ban
         /// </summary>
@@ -15,7 +16,7 @@ namespace MISA.Web08.QTKD.API.Controllers
         [Route("")]
         public IActionResult GetAllDepartments()
         {
-           
+
             try
             {
                 return StatusCode(StatusCodes.Status200OK,
@@ -64,6 +65,9 @@ namespace MISA.Web08.QTKD.API.Controllers
 
             }
         }
+        #endregion
+
+        #region Post API
         /// <summary>
         /// API thêm phòng ban mới
         /// </summary>
@@ -84,12 +88,15 @@ namespace MISA.Web08.QTKD.API.Controllers
             }
 
         }
+        #endregion
+
+        #region Put API
         /// <summary>
         /// API sửa một phòng ban mới
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
         [HttpPut("{depaetmentID}")]
-        public IActionResult UpdateDepartment([FromRoute] Guid depaetmentID,[FromBody] Department department)
+        public IActionResult UpdateDepartment([FromRoute] Guid depaetmentID, [FromBody] Department department)
         {
             try
             {
@@ -104,6 +111,9 @@ namespace MISA.Web08.QTKD.API.Controllers
             }
 
         }
+        #endregion
+
+        #region Delete API
         /// <summary>
         /// API xóa mới một phòng ban
         /// </summary>
@@ -111,7 +121,7 @@ namespace MISA.Web08.QTKD.API.Controllers
         [HttpDelete("{depaetmentID}")]
         public IActionResult DeleteDepartment([FromRoute] Guid depaetmentID)
         {
-         
+
             try
             {
                 return StatusCode(StatusCodes.Status200OK, depaetmentID);
@@ -123,5 +133,7 @@ namespace MISA.Web08.QTKD.API.Controllers
 
             }
         }
+        #endregion
+
     }
 }

@@ -27,6 +27,7 @@
    border-radius:var(--border-radius);
    padding-left: 12px;
    box-sizing: border-box;
+   font-size: 14px;
  
 }
 ::placeholder{
@@ -51,6 +52,7 @@
     border: 1px solid #ff4747;
 }
 .input__search{
+    max-width: 240px;
     width: 240px;
     margin-right: 6px;
 
@@ -59,16 +61,20 @@
     margin-left: 16px;
 }
 .input__240{
+    max-width: 240px;
     width: 240px;
 
 }
 .input__160{
+    max-width: 160px;
     width: 160px;
 }
 .input__320{
+    max-width: 320px;
     width: 320px;
 }
 .input__480{
+    max-width: 480px;
     width: 480px;
 }
 .input__margin_16{

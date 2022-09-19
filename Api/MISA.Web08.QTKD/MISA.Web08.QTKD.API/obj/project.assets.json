@@ -214,11 +214,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\MISA.Web08.QTKD\\MISA.Web08.QTKD.API\\MISA.Web08.QTKD.API.csproj",
+      "projectUniqueName": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\Api\\MISA.Web08.QTKD\\MISA.Web08.QTKD.API\\MISA.Web08.QTKD.API.csproj",
       "projectName": "MISA.Web08.QTKD.API",
-      "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\MISA.Web08.QTKD\\MISA.Web08.QTKD.API\\MISA.Web08.QTKD.API.csproj",
+      "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\Api\\MISA.Web08.QTKD\\MISA.Web08.QTKD.API\\MISA.Web08.QTKD.API.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\MISA.Web08.QTKD\\MISA.Web08.QTKD.API\\obj\\",
+      "outputPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\Api\\MISA.Web08.QTKD\\MISA.Web08.QTKD.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

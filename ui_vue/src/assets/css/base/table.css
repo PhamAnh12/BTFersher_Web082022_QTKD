@@ -16,7 +16,7 @@
     background-color: #F5F5F5;
     position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 1;
  } 
  
  .table tr{
@@ -26,20 +26,26 @@
     vertical-align: inherit;
 
  }
- .table td{
-   position: relative;
- }
- .table tbody tr:hover {  background-color: var(--tr-hover-color);
+ 
+ .table tbody tr:hover {  background-color: var(--tr-hover-color) !important;
  }
  
 .align-center {
    text-align: center !important;
    padding: 0 !important;
 }
-.table .center__checkbox{
-  
+.table td {
+   position: relative;
+}
+.table  .center__checkbox{
+   /* left: 0px;
+   position: sticky;
+   
    border-bottom: 1px solid var( --border-table-color);
-   border-right:1px solid var( --border-table-color)  ;
+   border-right:1px solid var( --border-table-color) !important; 
+  
+   background-color: var( --white-color);
+   z-index: 1 !important; */
    padding: 0 8px;
    width: 30px;
   
@@ -47,3 +53,9 @@
 .trClick{
    background-color:var(--bg-click-color);
 }
+
+.table .th_sticky{
+   background-color: #F5F5F5 ;
+   z-index: 3 !important;
+   
+ }

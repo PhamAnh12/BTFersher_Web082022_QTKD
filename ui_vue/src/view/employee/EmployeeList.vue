@@ -10,6 +10,7 @@
       <div class="content__body__wrapper">
         <div class="content__body__wrapper">
           <div class="container__sidebar">
+          <Toast></Toast>           
             <div class="container__input input__search">
               <input
                 id="search"
@@ -27,7 +28,7 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th class="center__checkbox">
+                  <th class="center__checkbox ">
                     <input type="checkbox" class="checkbox__table" />
                   </th>
                   <th class="" style="min-width: 100px">MÃ NHÂN VIÊN</th>
@@ -56,7 +57,7 @@
                   @click="clickEmployee(index)"
                   :class="{ trClick: isClick && indexEmployee == index }"
                 >
-                  <td class="center__checkbox">
+                  <td class="center__checkbox ">
                     <input
                       class="checkbox__table"
                       type="checkbox"
@@ -178,6 +179,7 @@ import PageComponent from "../../components/base/Page.vue";
 import Loading from "../../components/base/Load.vue";
 import DialogDelete from "../../components/base/DialogDelete.vue";
 import LoadData from "../../components/base/LoadData.vue";
+import Toast    from "../../components/base/Toast.vue";
 export default {
   name: "EmployeeList",
   components: {
@@ -186,6 +188,7 @@ export default {
     Loading,
     DialogDelete,
     LoadData,
+    Toast,
   },
   created() {
     this.isLoading = true;
@@ -208,6 +211,174 @@ export default {
     };
   },
   methods: {
+    ///
+    /// Các hàm để format
+    ///
+    /*
+     * Hàm dùng để format ngày tháng hiện thị danh sách employee
+     * PCTUANANH(16/09/2022)
+     */
+    formatDateEmployee(date) {
+      try {
+        let dateFormat = Common.formatDate(date);
+        return dateFormat;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để hiển thị  giới tính từ các số "0,1,2"sang "Nam, Nữ, Khác"
+     * PCTUANANH(16/09/2022)
+     */
+    showGenderName(gender) {
+      try {
+        let genderName = Common.formatGender(gender);
+        return genderName;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    ///
+    /// Các hàm dùng để show, hiển thị
+    ///
+    /*
+     * Hàm dùng để hiển thị modal thêm mới nhân viên
+     * PCTUANANH(12/09/2022)
+     */
+    showModal() {
+      try {
+        this.isShow = true;
+        this.formMode = Enumeration.FormMode.Add;
+        this.employeeSelect = {};
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng hiển thị các chức năng
+     * PCTUANANH(12/09/2022)
+     */
+    showFunction(event, index) {
+      try {
+        this.indexEmployee = index;
+        this.isShowFunction = !this.isShowFunction;
+      } catch (error) {
+        console.log.error;
+      }
+    },
+    /*
+     * Hàm dùng  để hiển thị Dialog xóa
+     * PCTUANANH(16/09/2022)
+     */
+    showDialogDelete(employeeID, employeeCode) {
+      try {
+        this.employeeID = employeeID;
+        this.employeeCode = employeeCode;
+        this.isShowDelete = true;
+        this.isShowFunction = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    ///
+    /// Các hàm dùng để hide, ẩn đi
+    ///
+    /*
+     * Hàm dùng để ẳn modal
+     * PCTUANANH(12/09/2022)
+     */
+    hideModal() {
+      try {
+        this.isShow = false;
+        if (this.isLoadingData == true) {
+          this.getListEmployee();
+        }
+      } catch (error) {
+        console.log.error;
+      }
+    },
+    /*
+     * Hàm dùng  để ẩn  Dialog xóa
+     * PCTUANANH(16/09/2022)
+     */
+    hideDialogDelete() {
+      try {
+        this.isShowDelete = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    ///
+    /// Các hàm xử lý loading dữ liệu
+    ///
+    /*
+     * Hàm dùng để không load lại dữ liệu khi ấn nút hủy
+     * PCTUANANH(16/09/2022)
+     */
+    notLoadingData() {
+      try {
+        this.isLoadingData = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để  load lại dữ liệu khi ấn nút  cất hoặc cất thêm
+     * PCTUANANH(16/09/2022)
+     */
+    loadingData() {
+      try {
+        this.isLoadingData = true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    ///
+    /// Các hàm để sử lý các sự kiện
+    ///
+    /*
+     * Hàm dùng để   click vào Employee
+     * PCTUANANH(16/09/2022)
+     */
+    clickEmployee(index) {
+      try {
+        this.indexEmployee = index;
+        this.isClick = true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để db  click  để sửa
+     * PCTUANANH(12/09/2022)
+     */
+    showFormEdit(employee) {
+      try {
+        this.employeeSelect = employee;
+        this.isShow = true;
+        this.isShowFunction = false;
+        this.formMode = Enumeration.FormMode.Edit;
+      } catch (error) {
+        console.log.error;
+      }
+    },
+    /*
+     * Hàm dùng  để xử xóa nhân viên theo id
+     * PCTUANANH(16/09/2022)
+     */
+    handleDeleteEmployee() {
+      try {
+        this.isShowDelete = false;
+        this.formMode = Enumeration.FormMode.Delete;
+        this.deleteEmployee(this.employeeID);
+        this.isClick = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    ///
+    /// Các hàm dùng để gọi đển API
+    ///
     /*
      * Hàm dùng để  lấy danh sách nhân viên
      * PCTUANANH(12/09/2022)
@@ -233,159 +404,6 @@ export default {
         console.log(error);
       }
     },
-    /*
-     * Hàm dùng để hiển thị modal thêm mới nhân viên
-     * PCTUANANH(12/09/2022)
-     */
-    showModal() {
-      try {
-        this.isShow = true;
-        this.formMode = Enumeration.FormMode.Add;
-        this.employeeSelect = {};
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    /*
-     * Hàm dùng để db  click  để sửa
-     * PCTUANANH(12/09/2022)
-     */
-    showFormEdit(employee) {
-      try {
-        this.employeeSelect = employee;
-        this.isShow = true;
-        this.isShowFunction = false;
-        this.formMode = Enumeration.FormMode.Edit;
-      } catch (error) {
-        console.log.error;
-      }
-    },
-    /*
-     * Hàm dùng hiển thị các chức năng
-     * PCTUANANH(12/09/2022)
-     */
-    showFunction(event, index) {
-      try {
-        this.indexEmployee = index;
-        this.isShowFunction = !this.isShowFunction;
-      } catch (error) {
-        console.log.error;
-      }
-    },
-    /*
-     * Hàm dùng để ẳn modal
-     * PCTUANANH(12/09/2022)
-     */
-    hideModal() {
-      try {
-        this.isShow = false;
-        if (this.isLoadingData == true) {
-          this.getListEmployee();
-        }
-      } catch (error) {
-        console.log.error;
-      }
-    },
-    /*
-     * Hàm dùng để format ngày tháng hiện thị danh sách employee
-     * PCTUANANH(16/09/2022)
-     */
-    formatDateEmployee(date) {
-      try {
-        let dateFormat = Common.formatDate(date);
-        return dateFormat;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để hiển thị  giới tính từ các số "0,1,2"sang "Nam, Nữ, Khác"
-     * PCTUANANH(16/09/2022)
-     */
-    showGenderName(gender) {
-      try {
-        let genderName = Common.formatGender(gender);
-        return genderName;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để không load lại dữ liệu khi ấn nút hủy
-     * PCTUANANH(16/09/2022)
-     */
-    notLoadingData() {
-      try {
-        this.isLoadingData = false;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để  load lại dữ liệu khi ấn nút  cất hoặc cất thêm
-     * PCTUANANH(16/09/2022)
-     */
-    loadingData() {
-      try {
-        this.isLoadingData = true;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để   click vào Employee
-     * PCTUANANH(16/09/2022)
-     */
-    clickEmployee(index) {
-      try {
-        this.indexEmployee = index;
-        this.isClick = true;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng  để xử xóa nhân viên theo id
-     * PCTUANANH(16/09/2022)
-     */
-    handleDeleteEmployee() {
-      try {
-        this.isShowDelete = false;
-        this.formMode = Enumeration.FormMode.Delete;    
-        this.deleteEmployee(this.employeeID);
-        this.isClick = false;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng  để hiển thị Dialog xóa
-     * PCTUANANH(16/09/2022)
-     */
-
-    showDialogDelete(employeeID, employeeCode) {
-      try {
-        this.employeeID = employeeID;
-        this.employeeCode = employeeCode;
-        this.isShowDelete = true;
-        this.isShowFunction = false;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng  để ẩn  Dialog xóa
-     * PCTUANANH(16/09/2022)
-     */
-    hideDialogDelete() {
-      try {
-        this.isShowDelete = false;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
     /*
      * Hàm dùng  gọi APi   để xóa nhân viên theo id
      * PCTUANANH(16/09/2022)

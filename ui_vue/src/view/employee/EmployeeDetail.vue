@@ -45,9 +45,10 @@
                   tabindex="1"
                   class="input"
                   type="text"
-                  placeholder="Mã nhân viên"
                   v-model="employee.employeeCode"
                   ref="input_focus"
+                  required
+                  proname="employeeCode"
                 />
               </div>
               <div class="container__input input__margin_6 input__320">
@@ -58,8 +59,8 @@
                   tabindex="2"
                   class="input"
                   type="text"
-                  placeholder="Họ tên đấy đủ"
                   v-model="employee.employeeName"
+                  required
                 />
               </div>
             </div>
@@ -68,11 +69,10 @@
                 <label class="input__label" for=""> Ngày sinh </label>
                 <input
                   tabindex="3"
-                  class="input input_date" 
+                  class="input input_date"
                   type="date"
                   :max="maxDate"
                   v-model="employee.dateOfBirth"
-                  
                 />
               </div>
               <div class="container__input input__margin_16 input__320">
@@ -114,6 +114,14 @@
                 <label class="input__label" for=""
                   >Đơn vị <span class="required">*</span></label
                 >
+                <!-- <mCombobox
+                  :url="`http://localhost:3000/department`"
+                  propValue="departmentID"
+                  propText="departmentName"
+                  v-model="employee.departmentID"
+                  required
+                ></mCombobox> -->
+           
                 <input
                   tabindex="5"
                   class="input"
@@ -129,7 +137,6 @@
                   tabindex="7"
                   class="input"
                   type="text"
-                  placeholder="Số chứng minh nhân dân"
                   v-model="employee.identityNumber"
                 />
               </div>
@@ -153,7 +160,6 @@
                   tabindex="6"
                   class="input"
                   type="text"
-                  placeholder="Chức danh"
                   v-model="employee.positionName"
                 />
               </div>
@@ -165,7 +171,6 @@
                   tabindex="9"
                   class="input"
                   type="text"
-                  placeholder="Nơi cấp"
                   v-model="employee.identityIssuedPlace"
                 />
               </div>
@@ -178,7 +183,6 @@
                 tabindex="10"
                 class="input"
                 type="text"
-                placeholder="Địa chỉ"
                 v-model="employee.address"
               />
             </div>
@@ -190,7 +194,6 @@
                 tabindex="11"
                 class="input"
                 type="text"
-                placeholder="Điện thoại di động"
                 v-model="employee.phoneNumberMobile"
               />
             </div>
@@ -200,7 +203,6 @@
                 tabindex="12"
                 class="input"
                 type="text"
-                placeholder="Điện thoại cố định"
                 v-model="employee.phoneNumberLandline"
               />
             </div>
@@ -210,7 +212,6 @@
                 tabindex="13"
                 class="input"
                 type="text"
-                placeholder="Email"
                 v-model="employee.email"
               />
             </div>
@@ -221,8 +222,7 @@
               <input
                 tabindex="14"
                 class="input"
-                type="text"
-                placeholder="Tài khoản ngân hàng"
+                type="text"    
                 v-model="employee.accountBank"
               />
             </div>
@@ -232,7 +232,6 @@
                 tabindex="15"
                 class="input"
                 type="text"
-                placeholder="Tên ngân hàng"
                 v-model="employee.nameBank"
               />
             </div>
@@ -242,7 +241,7 @@
                 tabindex="16"
                 class="input"
                 type="text"
-                placeholder="Chi nhánh"
+               
                 v-model="employee.branchBank"
               />
             </div>
@@ -260,28 +259,31 @@
       </div>
     </div>
   </div>
-   <DialogFormClose 
-   v-if="isCloseForm"
-  @closeModal="closeModal"
-  @hideCloseForm = "hideCloseForm"
-  @saveModal = "saveModal"
-   ></DialogFormClose>
+  <DialogFormClose
+    v-if="isCloseForm"
+    @closeModal="closeModal"
+    @hideCloseForm="hideCloseForm"
+    @saveModal="saveModal"
+  ></DialogFormClose>
 </template>
 <script>
 import Common from "../../script/common/common";
 import Enumeration from "../../script/common/enumeration";
-import DialogFormClose from "../../components/base/DialogFormClose.vue"
+import DialogFormClose from "../../components/base/DialogFormClose.vue";
+// import mCombobox from "ms-combobox";
 export default {
   name: "EmployeeDetailComponent",
   components: {
-     DialogFormClose,
+    DialogFormClose,
+    
   },
   props: {
     employeeSelect: Object,
+
     formMode: Number,
   },
   // Khai báo các emit từ componet cha
-  emits:['notLoadingData','loadingData','hideModal','showModal'],
+  emits: ["notLoadingData", "loadingData", "hideModal", "showModal"],
   created() {
     this.employee = this.employeeSelect;
   },
@@ -308,86 +310,16 @@ export default {
     };
   },
   methods: {
+    ///
+    /// Các hàm  dùng để format
+    ///
     /*
-     * Hàm dùng để đóng modal bằng nút Hủy
-     * PCTUANANH(18/09/2022)
+     * Hàm dùng để format form khi lưu vào
+     * PCTUANANH(16/09/2022)
      */
-    closeModal() {
+    formatInputForm() {
       try {
-        this.$emit("notLoadingData");
-        this.$emit("hideModal");
-      } catch (error) {
-        console.log(error);
-      }
-    },
-     /*
-     * Hàm dùng để đóng modal bằng nút X
-     * PCTUANANH(18/09/2022)
-     */
-    isCloseModal(){
-       try {
-        this.isCloseForm = true;
-       } catch (error) {
-        console.log(error);
-       }
-    },
-     /*
-     * Hàm dùng để ẩn form close bằng nút hủy
-     * PCTUANANH(18/09/2022)
-     */
-    hideCloseForm(){
-      try {
-        this.isCloseForm = false; 
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để lưu  modal
-     * PCTUANANH(12/09/2022)
-     */
-    saveModal() {
-      try {
-        // sửa nhân viên
-        if (this.formMode === Enumeration.FormMode.Edit) {
-          this.saveEditEmlpoyee();
-          
-           
-        }
-        // thêm mới nhân viên
-        else if (this.formMode === Enumeration.FormMode.Add) {
-          this.saveAddEmlpoyee();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để lưu  modal và thêm mới modal
-     * PCTUANANH(12/09/2022)
-     */
-    saveModalAdd() {
-      try {
-       
-        this.saveModal();
-        this.$emit("showModal");
-
-        
-
-     
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để  thêm mới một mã nhân viên tự động tăng
-     * PCTUANANH(13/09/2022)
-     */
-    newEmployeeCode() {
-      try {
-        if (this.formMode == Enumeration.FormMode.Add) {
-          this.employee.employeeCode = Common.newEmployeeCode();
-        }
+        this.traneGenderNumber();
       } catch (error) {
         console.log(error);
       }
@@ -410,6 +342,108 @@ export default {
         console.log(error);
       }
     },
+
+    /*
+     * Hàm dùng để format giới tính từ chuỗi sang số
+     * PCTUANANH(16/09/2022)
+     */
+    traneGenderNumber() {
+      try {
+        if (!this.employee.gender) {
+          this.employee.gender = 0;
+        } else {
+          this.employee.gender = Number(this.employee.gender);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để  thêm mới một mã nhân viên tự động tăng
+     * PCTUANANH(13/09/2022)
+     */
+    newEmployeeCode() {
+      try {
+        if (this.formMode == Enumeration.FormMode.Add) {
+          this.employee.employeeCode = Common.newEmployeeCode();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    ///
+    /// Các hàm để xử  lý đóng
+    ///
+    /*
+     * Hàm dùng để đóng modal bằng nút Hủy
+     * PCTUANANH(18/09/2022)
+     */
+    closeModal() {
+      try {
+        this.$emit("notLoadingData");
+        this.$emit("hideModal");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để đóng modal bằng nút X
+     * PCTUANANH(18/09/2022)
+     */
+    isCloseModal() {
+      try {
+        this.isCloseForm = true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để ẩn form close bằng nút hủy
+     * PCTUANANH(18/09/2022)
+     */
+    hideCloseForm() {
+      try {
+        this.isCloseForm = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    ///
+    /// Các hàm dùng để lưu
+    ///
+    /*
+     * Hàm dùng để lưu  modal
+     * PCTUANANH(12/09/2022)
+     */
+    saveModal() {
+      try {
+        // sửa nhân viên
+        if (this.formMode === Enumeration.FormMode.Edit) {
+          this.saveEditEmlpoyee();
+        }
+        // thêm mới nhân viên
+        else if (this.formMode === Enumeration.FormMode.Add) {
+          this.saveAddEmlpoyee();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để lưu  modal và thêm mới modal
+     * PCTUANANH(12/09/2022)
+     */
+    saveModalAdd() {
+      try {
+        this.saveModal();
+        this.$emit("showModal");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    ///
+    /// Các hàm  để  thêm, sửa  gọi đến API
+    ///
     /*
      * Hàm dùng để gọi api để sửa nhân viên
      * PCTUANANH(16/09/2022)
@@ -429,7 +463,7 @@ export default {
           .then((response) => response.json())
           .then(() => {
             this.$emit("loadingData");
-             this.$emit("hideModal");
+            this.$emit("hideModal");
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -458,39 +492,11 @@ export default {
           .then((response) => {
             console.log(response);
             this.$emit("loadingData");
-            this.$emit("hideModal");          
+            this.$emit("hideModal");
           })
           .catch((error) => {
             console.error("Error:", error);
           });
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để format form khi lưu vào
-     * PCTUANANH(16/09/2022)
-     */
-    formatInputForm() {
-      try {
-      this.traneGenderNumber();    
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    /*
-     * Hàm dùng để format giới tính từ chuỗi sang số
-     * PCTUANANH(16/09/2022)
-     */
-    traneGenderNumber() {
-      try {
-      if( !this.employee.gender ){
-         this.employee.gender =  0;
-      } 
-      else{
-      this.employee.gender = Number(this.employee.gender);
-       
-      } 
       } catch (error) {
         console.log(error);
       }

@@ -8,116 +8,13 @@ namespace MISA.Web08.QTKD.API.Controllers
     [ApiController]
     public class EmployeesController : Controller
     {
-        /// <summary>
-        /// API lấy toàn bộ nhân viên 
-        /// </summary>
-        /// Created by: PCTUANANH(18/09/2022)
-        [HttpGet]
-        [Route("/all")] 
-        public IActionResult GetAllEmployees()
-        {
-            return StatusCode(StatusCodes.Status200OK,
-             new List<Employee>
-            {
-                new Employee
-                {
-                    EmployeeID = Guid.NewGuid(),
-                    EmployeeCode = "NV0001",
-                    EmployeeName = "Phạm Công Tuấn Anh Anh",
-                    DateOfBirth = new DateTime(12/12/2000),
-                    Gender = Gender.Female,
-                    PositionName = "Giám Đốc",
-                    DepartmentID = Guid.NewGuid(),
-                    DepartmentName  = "Nhân sự",
-                    IdentityNumber = "030948851372",
-                    IdentityIssuedDate =  new DateTime(24/6/2017),
-                    IdentityIssuedPlace = "Cục Cảnh sát quản lý hành chính về trật tự xã hội",
-                    PositionNames = "Kế toán",
-                    Address = "Số 01 Hồ Tùng Mậu, Hà Nội",
-                    MobilePhoneNumber = "098 9927520",
-                    LandlinePhoneNumber = "024 034-8337",
-                    Email = "phamcongtuananh@gmail.com",
-                    AccountBank = "099156937958",
-                    NameBank = "ACB",
-                    BranchBank ="Chi nhánh Thăng Long",
-                    IsCustomer = true,
-                    IsSupplier = false,
-                    CreatedDate = new  DateTime(12/12/2012),
-                    CreatedBy = "Phạm Công Tuấn Anh",
-                    ModifiedDate = DateTime.Now,
-                    ModifiedBy ="Phạm Công Tuấn Anh"
 
-                },
-                 new Employee
-                {
-                    EmployeeID = Guid.NewGuid(),
-                    EmployeeCode = "NV0002",
-                    EmployeeName = "Lê Công Tuấn Anh Anh",
-                    DateOfBirth = new DateTime(12/12/2000),
-                    Gender = Gender.Male,
-                    PositionName = "Giám Đốc",
-                    DepartmentID = Guid.NewGuid(),
-                    DepartmentName  = "Nhân sự",
-                    IdentityNumber = "030948851372",
-                    IdentityIssuedDate =  new DateTime(24/6/2017),
-                    IdentityIssuedPlace = "Cục Cảnh sát quản lý hành chính về trật tự xã hội",
-                    PositionNames = "Kế toán",
-                    Address = "Số 01 Hồ Tùng Mậu, Hà Nội",
-                    MobilePhoneNumber = "098 9927520",
-                    LandlinePhoneNumber = "024 034-8337",
-                    Email = "phamcongtuananh@gmail.com",
-                    AccountBank = "099156937958",
-                    NameBank = "ACB",
-                    BranchBank ="Chi nhánh Thăng Long",
-                    IsCustomer = true,
-                    IsSupplier = false,
-                    CreatedDate = new  DateTime(12/12/2012),
-                    CreatedBy = "Phạm Công Tuấn Anh",
-                    ModifiedDate = DateTime.Now,
-                    ModifiedBy ="Phạm Công Tuấn Anh"
-
-                },
-                   new Employee
-                {
-                    EmployeeID = Guid.NewGuid(),
-                    EmployeeCode = "NV0002",
-                    EmployeeName = "Phạm Thế Anh",
-                    DateOfBirth = new DateTime(12/10/2000),
-                    Gender = Gender.Male,
-                    PositionName = "Trưởng phòng",
-                    DepartmentID = Guid.NewGuid(),
-                    DepartmentName  = "Nhân sự",
-                    IdentityNumber = "030948851372",
-                    IdentityIssuedDate =  new DateTime(24/6/2017),
-                    IdentityIssuedPlace = "Cục Cảnh sát quản lý hành chính về trật tự xã hội",
-                    PositionNames = "Kế toán",
-                    Address = "Số 01 Hồ Tùng Mậu, Hà Nội",
-                    MobilePhoneNumber = "098 9927520",
-                    LandlinePhoneNumber = "024 034-8337",
-                    Email = "phamcongtuananh@gmail.com",
-                    AccountBank = "099156937958",
-                    NameBank = "ACB",
-                    BranchBank ="Chi nhánh Thăng Long",
-                    IsCustomer = true,
-                    IsSupplier = false,
-                    CreatedDate = new  DateTime(12/12/2012),
-                    CreatedBy = "Phạm Công Tuấn Anh",
-                    ModifiedDate = DateTime.Now,
-                    ModifiedBy ="Phạm Công Tuấn Anh"
-
-                },
-
-
-
-            }
-            );
-        }
+        #region Get FilterEmployee Api
         /// <summary>
         /// API lấy Filter nhân viên 
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
         [HttpGet("")]
-
         public IActionResult FilterEmployee([FromQuery] string? search, [FromQuery] Guid? departmentID, [FromQuery] string? sort, [FromQuery] int? offset = 1, [FromQuery] int? limit = 10)
         {
             try
@@ -159,12 +56,14 @@ namespace MISA.Web08.QTKD.API.Controllers
             }
 
         }
+        #endregion
+
+        #region  Get EmployeeByID
         /// <summary>
         /// API lấy một  nhân viên 
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
         [HttpGet("{employeeID}")]
-
         public IActionResult GetEmployeeByID([FromRoute] Guid employeeID)
         {
             try
@@ -200,12 +99,15 @@ namespace MISA.Web08.QTKD.API.Controllers
                  }
                   );
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status400BadRequest,exception);
+                return StatusCode(StatusCodes.Status400BadRequest, exception);
             }
-          
+
         }
+        #endregion
+
+        #region  POST API
         /// <summary>
         /// API thêm mới một nhân viên 
         /// </summary>
@@ -215,7 +117,7 @@ namespace MISA.Web08.QTKD.API.Controllers
         {
             try
             {
-            return StatusCode(StatusCodes.Status201Created, Guid.NewGuid());
+                return StatusCode(StatusCodes.Status201Created, Guid.NewGuid());
 
             }
             catch (Exception exception)
@@ -224,14 +126,17 @@ namespace MISA.Web08.QTKD.API.Controllers
 
             }
         }
+        #endregion
+
+        #region PUT API 
         /// <summary>
         /// API sửa một nhân viên 
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
         [HttpPut("{employeeID}")]
-        public IActionResult UpdateEmployee([FromRoute]Guid employeeID,[FromBody] Employee employee)
+        public IActionResult UpdateEmployee([FromRoute] Guid employeeID, [FromBody] Employee employee)
         {
-         
+
             try
             {
                 employee.EmployeeID = employeeID;
@@ -245,6 +150,9 @@ namespace MISA.Web08.QTKD.API.Controllers
             }
 
         }
+        #endregion
+
+        #region Delete API
         /// <summary>
         /// API xóa mới một nhân viên 
         /// </summary>
@@ -264,6 +172,9 @@ namespace MISA.Web08.QTKD.API.Controllers
             }
 
         }
+        #endregion
+
+        #region Batch-Delete API
         /// <summary>
         /// API  xóa nhiều
         /// </summary>
@@ -283,6 +194,9 @@ namespace MISA.Web08.QTKD.API.Controllers
             }
 
         }
+
+        #endregion
+
 
     }
 }

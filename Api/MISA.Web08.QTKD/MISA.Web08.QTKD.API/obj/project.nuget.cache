@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v/1dXbyfp1fx1IPJjgp9QVoh6i4GvPOif9QgNxWD9uSsU+VqiYNsk/2TZy9nyQ3YH4R7uJY3nt1vda/VNiAtWw==",
+  "dgSpecHash": "wgvrx6k5Z6E7mp5/Ru48HsL7a9RBbZFjYkDMs9bGrERBMxnnrsKgVoU7Z2eNfZRBCJ0dOhC1zvDuBg7Fz+y8Lw==",
   "success": true,
-  "projectFilePath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\MISA.Web08.QTKD\\MISA.Web08.QTKD.API\\MISA.Web08.QTKD.API.csproj",
+  "projectFilePath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\Api\\MISA.Web08.QTKD\\MISA.Web08.QTKD.API\\MISA.Web08.QTKD.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

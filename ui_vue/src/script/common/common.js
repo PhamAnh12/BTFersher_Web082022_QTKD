@@ -36,8 +36,6 @@ export default {
         try {
             if(dateSrc){
                 let date = new Date(dateSrc);
-                // let day = date.getDate() ;
-                // date.setDate(day);
                 date = date.toISOString().substring(0, 10);
                 return date;
             }

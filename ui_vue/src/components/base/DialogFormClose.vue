@@ -12,9 +12,9 @@
           </div>
         </div>
         <div class="dialog__footer align__items__center flex__between">
-          <div class="btn__base content__center" @click="hideCloseForm">Hủy</div>
+          <div class="btn__base content__center" @click="hideCloseForm"  @dblclick.stop  @click.stop >Hủy</div>
           <div class="flex__between">
-            <div class="btn__base content__center" @click="closeModal">
+            <div class="btn__base content__center" @click="closeModal" @dblclick.stop  @click.stop>
               Không
             </div>
             <div class="margin_left-8 btn content__center" @click="saveModal">Có</div>
@@ -29,6 +29,9 @@ export default {
   name: "DialogFormClose",
   emits:['closeModal','hideCloseForm','saveModal'],
   methods: {
+    ///
+    /// Các hàm để xử  lý đóng
+    ///
      /*
      * Hàm dùng để đóng modal bằng nút không khi đóng modal bằng x thì có form close hiện nên
      * PCTUANANH(18/09/2022)
@@ -51,6 +54,9 @@ export default {
         console.log(error);
       }
     },
+    ///
+    /// Các hàm  xử lý lưu
+    ///
       /*
      * Hàm dùng để cất modal bằng nút có khi đóng modal bằng x thì có form close hiện nên
      * PCTUANANH(18/09/2022)
