@@ -36,11 +36,11 @@ namespace MISA.WebDev2022.Api.Controllers
 
                 var mySqlConnection = new MySqlConnection(connectionString);
 
-                // Chuẩn bị câu lệnh truy vấn
-                string getAllDepartmentsCommand = "SELECT * FROM department;";
+                // Chuẩn bị tên Stored procedure
+                string storedProcedureName = "Proc_Department_Get_All";
 
                 // Thực hiện gọi vào DB để chạy câu lệnh truy vấn ở trên
-                var departments = mySqlConnection.Query<Department>(getAllDepartmentsCommand);
+                var departments = mySqlConnection.Query<Department>(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
 
                 // Trả về dữ liệu cho client
                 return StatusCode(StatusCodes.Status200OK, departments);

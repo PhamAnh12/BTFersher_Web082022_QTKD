@@ -5,7 +5,8 @@
     /// </summary>
     /// <typeparam name="T">Kiểu dữ liệu của đối tượng trong mảng trả về</typeparam>
     public class PagingData<T>
-    {
+    {   
+
         /// <summary>
         /// Mảng đối tượng thỏa mãn điều kiện lọc và phân trang
         /// </summary>

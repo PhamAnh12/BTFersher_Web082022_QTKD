@@ -2,10 +2,22 @@ import enumeration from "./enumeration";
 export default {
 
     newEmployeeCode() {
-        //    let newEmpCode =employeeCode.substring(3);
-        //    newEmpCode = parseInt(newEmpCode)+1
-        
-        return `NV0040`
+        try {
+
+            fetch("http://localhost:5108/api/v1/Employees/new-code")
+              .then((res) => res.json())
+              .then((res) => {
+            
+                return  res;
+              })
+              .catch((error) => {
+                console.log("Error! Could not reach the API. " + error);
+              });
+           
+          } catch (error) {
+            console.log(error);
+          } 
+      
 
     },
     /*

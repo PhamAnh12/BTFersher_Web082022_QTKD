@@ -15,16 +15,32 @@
  .table thead th {
     background-color: #F5F5F5;
     position: sticky;
+    height: 44px;
     top: 0;
     z-index: 1;
- } 
- 
- .table tr{
-    height: 48px;
-    cursor: pointer; 
-    display: table-row;
-    vertical-align: inherit;
+ }
 
+ .th__wd__gender{
+   min-width:120px;
+ }
+ .th__wd{
+   min-width: 212px;
+ }
+ .th__wd__date{
+   min-width: 150px;
+ }
+ .th__wd__function{
+   min-width: 120px;
+ }
+ .th__wd__code{
+   min-width: 120px;
+ }
+ .table tr{
+    max-height: 44px;
+    cursor: pointer; 
+    vertical-align: inherit;
+   line-height: inherit;
+   
  }
  
  .table tbody tr:hover {  background-color: var(--tr-hover-color) !important;

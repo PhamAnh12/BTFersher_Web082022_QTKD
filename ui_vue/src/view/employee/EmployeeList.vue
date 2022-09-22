@@ -29,21 +29,21 @@
               <thead>
                 <tr>
                   <th class="center__checkbox ">
-                    <input type="checkbox" class="checkbox__table" />
+                    <input type="checkbox" class="checkbox__table th_wd_checkbox" />
                   </th>
-                  <th class="" style="min-width: 100px">MÃ NHÂN VIÊN</th>
-                  <th class="" style="min-width: 250px">TÊN NHÂN VIÊN</th>
-                  <th class="" style="min-width: 100px">GIỚI TÍNH</th>
-                  <th class="align-center" style="min-width: 100px">
+                  <th class="th__wd__code" >MÃ NHÂN VIÊN</th>
+                  <th class="th__wd" >TÊN NHÂN VIÊN</th>
+                  <th class="th__wd__gender" >GIỚI TÍNH</th>
+                  <th class="align-center th__wd__date">
                     NGÀY SINH
                   </th>
-                  <th class="" style="min-width: 150px">SỐ CMND</th>
-                  <th class="" style="min-width: 100px">CHỨC DANH</th>
-                  <th class="" style="min-width: 100px">TÊN ĐƠN VỊ</th>
-                  <th class="" style="min-width: 150px">SỐ TÀI KHOẢN</th>
-                  <th class="" style="min-width: 100px">TÊN NGÂN HÀNG</th>
-                  <th class="" style="min-width: 150px">CHI NHÁNH NGÂN HÀNG</th>
-                  <th class="align-center function" style="min-width: 100px">
+                  <th class="th__wd" style="">SỐ CMND</th>
+                  <th class="th__wd" style="">CHỨC DANH</th>
+                  <th class="th__wd" style="">TÊN ĐƠN VỊ</th>
+                  <th class="th__wd" style="">SỐ TÀI KHOẢN</th>
+                  <th class="th__wd" style="">TÊN NGÂN HÀNG</th>
+                  <th class="th__wd" style="">CHI NHÁNH NGÂN HÀNG</th>
+                  <th class="align-center function th__wd__function" >
                     CHỨC NĂNG
                   </th>
                 </tr>
@@ -133,7 +133,7 @@
                         <div
                           class="function__item function__item--active"
                           @click="
-                            showDialogDelete(employee.id, employee.employeeCode)
+                            showDialogDelete(employee.employeeID, employee.employeeCode)
                           "
                         >
                           Xóa
@@ -191,7 +191,6 @@ export default {
     Toast,
   },
   created() {
-    this.isLoading = true;
     this.getListEmployee();
   },
   data() {
@@ -250,6 +249,7 @@ export default {
         this.isShow = true;
         this.formMode = Enumeration.FormMode.Add;
         this.employeeSelect = {};
+        this.newEmployeeCode();
       } catch (error) {
         console.log(error);
       }
@@ -385,11 +385,11 @@ export default {
      */
     getListEmployee() {
       try {
-        fetch("http://localhost:3000/employees?_sort=id&_order=desc")
+        this.isLoading = true;
+        fetch("http://localhost:5108/api/v1/Employees?limit=100&offset=0")
           .then((res) => res.json())
           .then((res) => {
-            console.log(res);
-            this.employees = res;
+            this.employees = res.data;
             setTimeout(() => (this.isLoading = false), 500);
             setTimeout(() => (this.isLoadingData = false), 500);
             //Cho thanh srcollbar lên đầu khi thêm mới
@@ -400,17 +400,19 @@ export default {
           .catch((error) => {
             console.log("Error! Could not reach the API. " + error);
           });
+       
       } catch (error) {
         console.log(error);
       }
     },
+   
     /*
      * Hàm dùng  gọi APi   để xóa nhân viên theo id
      * PCTUANANH(16/09/2022)
      */
     deleteEmployee(employeeID) {
       try {
-        let url = `http://localhost:3000/employees/${employeeID}`;
+        let url = `http://localhost:5108/api/v1/Employees/${employeeID}`;
         fetch(url, {
           method: "DELETE",
         })

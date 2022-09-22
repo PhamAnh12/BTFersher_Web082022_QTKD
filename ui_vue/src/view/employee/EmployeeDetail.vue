@@ -6,19 +6,9 @@
         <div class="modal__header">
           <div class="modal__header__left">
             <h1 class="header__title">Thông tin nhân viên</h1>
-            <input
-              class=""
-              type="checkbox"
-              id=""
-              v-model="employee.isCustomer"
-            />
+            <input class="" type="checkbox" id="" />
             <label for="">Là khách hàng</label>
-            <input
-              class=""
-              type="checkbox"
-              id=""
-              v-model="employee.isSupplier"
-            />
+            <input class="" type="checkbox" id="" />
             <label for="">Là nhà cung cấp</label>
           </div>
           <div class="modal__header__rigth">
@@ -121,7 +111,7 @@
                   v-model="employee.departmentID"
                   required
                 ></mCombobox> -->
-           
+
                 <input
                   tabindex="5"
                   class="input"
@@ -222,7 +212,7 @@
               <input
                 tabindex="14"
                 class="input"
-                type="text"    
+                type="text"
                 v-model="employee.accountBank"
               />
             </div>
@@ -241,7 +231,6 @@
                 tabindex="16"
                 class="input"
                 type="text"
-               
                 v-model="employee.branchBank"
               />
             </div>
@@ -275,27 +264,30 @@ export default {
   name: "EmployeeDetailComponent",
   components: {
     DialogFormClose,
-    
   },
   props: {
     employeeSelect: Object,
 
     formMode: Number,
+    newCode: String,
   },
   // Khai báo các emit từ componet cha
   emits: ["notLoadingData", "loadingData", "hideModal", "showModal"],
   created() {
     this.employee = this.employeeSelect;
+   
   },
   mounted() {
+    
     /*
      *Dùng để focus vào ô đầu tiên
      */
     this.$refs.input_focus.focus();
-    /*
+     /*
      *Dùng để thêm một mã nhân viên tự động tăng
      */
     this.newEmployeeCode();
+
     /*
      *Dùng để format ngày tháng
      */
@@ -365,7 +357,15 @@ export default {
     newEmployeeCode() {
       try {
         if (this.formMode == Enumeration.FormMode.Add) {
-          this.employee.employeeCode = Common.newEmployeeCode();
+          fetch("http://localhost:5108/api/v1/Employees/new-code")
+            .then((res) => res.text())
+            .then((res) => {
+              console.log(res);
+              this.employee.employeeCode = res;
+            })
+            .catch((error) => {
+              console.log("Error! Could not reach the API. " + error);
+            });
         }
       } catch (error) {
         console.log(error);
@@ -452,7 +452,7 @@ export default {
       try {
         this.formatInputForm();
         let data = this.employee;
-        let url = `http://localhost:3000/employees/${this.employee.id}`;
+        let url = `http://localhost:5108/api/v1/Employees/${this.employee.employeeID}`;
         fetch(url, {
           method: "PUT",
           headers: {
@@ -466,6 +466,7 @@ export default {
             this.$emit("hideModal");
           })
           .catch((error) => {
+            console.log(data);
             console.error("Error:", error);
           });
       } catch (error) {
@@ -479,8 +480,9 @@ export default {
     saveAddEmlpoyee() {
       try {
         this.formatInputForm();
+        this.employee.departmentID = "59d19422-6657-452e-a7db-e5d54223c257";
         let data = this.employee;
-        let url = `http://localhost:3000/employees`;
+        let url = `http://localhost:5108/api/v1/Employees`;
         fetch(url, {
           method: "POST",
           headers: {

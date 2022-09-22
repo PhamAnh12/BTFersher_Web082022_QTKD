@@ -40,7 +40,7 @@ namespace MISA.Web082022.QTKD.Api.Entities
         /// <summary>
         /// Tên phòng ban
         /// </summary>
-        public string DepartmentName { get; set; }
+        public string? DepartmentName { get; set; }
         /// <summary>
         /// Số CMND
         /// </summary>
