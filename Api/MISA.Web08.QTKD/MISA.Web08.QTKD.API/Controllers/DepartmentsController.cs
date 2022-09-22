@@ -1,15 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using MISA.Web08.QTKD.API.Entinies;
+using MySqlConnector;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MISA.Web08.QTKD.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+
     public class DepartmentsController : Controller
     {
+        private const string mySqlconnectionString = "Server=localhost;Port=3306;Database=misa.web08.qtkd.pctuananh;Uid=root;Pwd=root;";
         #region Get API
         /// <summary>
         /// API lấy toàn bộ phòng ban
+        /// <returns>Toàn bộ danh sách phòng ban </return>
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
         [HttpGet]
@@ -19,50 +25,25 @@ namespace MISA.Web08.QTKD.API.Controllers
 
             try
             {
-                return StatusCode(StatusCodes.Status200OK,
-            new List<Department>
-           {
-                new Department
-                {
-                    DepartmentID =  Guid.NewGuid(),
-                    DepartmentCode = "PB01",
-                    DepartmentName ="Nhân sự",
-                    CreatedDate = new  DateTime(12/12/2012),
-                    CreatedBy = "Phạm Công Tuấn Anh",
-                    ModifiedDate = DateTime.Now,
-                    ModifiedBy ="Phạm Công Tuấn Anh"
+                // Khởi tạo kết nối tới DB MySQL
+                string connectionString = mySqlconnectionString;
 
-                },
-                  new Department
-                {
-                    DepartmentID =  Guid.NewGuid(),
-                    DepartmentCode = "PB02",
-                    DepartmentName ="Công nghệ thông tin",
-                    CreatedDate = new  DateTime(12/12/2012),
-                    CreatedBy = "Phạm Công Tuấn Anh",
-                    ModifiedDate = DateTime.Now,
-                    ModifiedBy ="Phạm Công Tuấn Anh"
+                var mySqlConnection = new MySqlConnection(connectionString);
 
-                  },
-                      new Department
-                {
-                    DepartmentID =  Guid.NewGuid(),
-                    DepartmentCode = "PB02",
-                    DepartmentName ="Kế toán",
-                    CreatedDate = new  DateTime(12/12/2012),
-                    CreatedBy = "Phạm Công Tuấn Anh",
-                    ModifiedDate = DateTime.Now,
-                    ModifiedBy ="Phạm Công Tuấn Anh"
+                // Chuẩn bị câu lệnh truy vấn
+                string getAllDepartmentsCommand = "SELECT * FROM department;";
 
-                }
-            }
+                // Thực hiện gọi vào DB để chạy câu lệnh truy vấn ở trên
+                var departments = mySqlConnection.Query<Department>(getAllDepartmentsCommand);
 
-               );
+                // Trả về dữ liệu cho client
+                return StatusCode(StatusCodes.Status200OK, departments);
+
             }
             catch (Exception exception)
             {
+                // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
                 return StatusCode(StatusCodes.Status400BadRequest, exception);
-
             }
         }
         #endregion
@@ -70,6 +51,8 @@ namespace MISA.Web08.QTKD.API.Controllers
         #region Post API
         /// <summary>
         /// API thêm phòng ban mới
+        /// <param name="department">Đối tượng phòng ban  mới</param>
+        /// <returns>ID của phòng ban vừa thêm mới</returns>
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
         [HttpPost]
@@ -93,14 +76,16 @@ namespace MISA.Web08.QTKD.API.Controllers
         #region Put API
         /// <summary>
         /// API sửa một phòng ban mới
+        /// <param name="departmentID">ID của phòng ban muốn sửa</param>
+        /// <param name="department">Đối tượng phòng ban  muốn sửa</param>
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
-        [HttpPut("{depaetmentID}")]
-        public IActionResult UpdateDepartment([FromRoute] Guid depaetmentID, [FromBody] Department department)
+        [HttpPut("{departmentID}")]
+        public IActionResult UpdateDepartment([FromRoute] Guid departmentID, [FromBody] Department department)
         {
             try
             {
-                department.DepartmentID = depaetmentID;
+                department.DepartmentID = departmentID;
                 return StatusCode(StatusCodes.Status200OK, department);
 
             }
@@ -116,15 +101,17 @@ namespace MISA.Web08.QTKD.API.Controllers
         #region Delete API
         /// <summary>
         /// API xóa mới một phòng ban
+        /// <param name="departmentID">ID của phòng ban muốn sửa</param>
+        /// <returns>ID của phòng ban vừa xóa</returns>
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
-        [HttpDelete("{depaetmentID}")]
-        public IActionResult DeleteDepartment([FromRoute] Guid depaetmentID)
+        [HttpDelete("{departmentID}")]
+        public IActionResult DeleteDepartment([FromRoute] Guid departmentID)
         {
 
             try
             {
-                return StatusCode(StatusCodes.Status200OK, depaetmentID);
+                return StatusCode(StatusCodes.Status200OK, departmentID);
 
             }
             catch (Exception exception)

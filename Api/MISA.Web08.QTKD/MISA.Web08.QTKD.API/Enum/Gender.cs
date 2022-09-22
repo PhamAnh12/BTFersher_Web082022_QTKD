@@ -1,5 +1,6 @@
-﻿namespace MISA.Web08.CukCuk.API.Entinies.Enum
-{  
+﻿namespace MISA.Web08.QTKD.API.Enum
+
+{
     /// <summary>
     /// Giới tính 
     /// </summary>

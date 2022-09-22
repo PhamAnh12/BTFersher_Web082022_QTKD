@@ -1,4 +1,6 @@
-﻿using MISA.Web08.CukCuk.API.Entinies.Enum;
+﻿
+using System.ComponentModel.DataAnnotations;
+using MISA.Web08.QTKD.API.Enum;
 
 namespace MISA.Web08.QTKD.API.Entinies
 {
@@ -11,10 +13,12 @@ namespace MISA.Web08.QTKD.API.Entinies
         /// <summary>
         /// Mã nhân viên 
         /// </summary>
+        [Required(ErrorMessage = "e004")]
         public string EmployeeCode { get; set; }
         /// <summary>
         /// Tên nhân viên
         /// </summary>
+        [Required(ErrorMessage = "e005")]
         public string EmployeeName { get; set; }
         /// <summary>
         /// Ngày sinh
@@ -31,6 +35,7 @@ namespace MISA.Web08.QTKD.API.Entinies
         /// <summary>
         /// ID phòng ban
         /// </summary>
+        [Required(ErrorMessage = "e006")]
         public Guid DepartmentID { get; set; }
         /// <summary>
         /// Tên phòng ban

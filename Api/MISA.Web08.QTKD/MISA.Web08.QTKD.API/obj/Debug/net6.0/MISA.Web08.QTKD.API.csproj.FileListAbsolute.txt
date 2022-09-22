@@ -52,3 +52,6 @@ D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\MISA.Web
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\MISA.Web08.QTKD\MISA.Web08.QTKD.API\obj\Debug\net6.0\MISA.Web08.QTKD.API.pdb
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\MISA.Web08.QTKD\MISA.Web08.QTKD.API\obj\Debug\net6.0\MISA.Web08.QTKD.API.genruntimeconfig.cache
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\MISA.Web08.QTKD\MISA.Web08.QTKD.API\obj\Debug\net6.0\ref\MISA.Web08.QTKD.API.dll
+D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\MISA.Web08.QTKD\MISA.Web08.QTKD.API\bin\Debug\net6.0\Dapper.dll
+D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\MISA.Web08.QTKD\MISA.Web08.QTKD.API\bin\Debug\net6.0\MySqlConnector.dll
+D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\MISA.Web08.QTKD\MISA.Web08.QTKD.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Annotations.dll
