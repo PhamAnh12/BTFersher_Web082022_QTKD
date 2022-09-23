@@ -36,7 +36,7 @@
                   class="input"
                   type="text"
                   v-model="employee.employeeCode"
-                  ref="input_focus"
+                  ref="empCode"
                   required
                   proname="employeeCode"
                 />
@@ -282,7 +282,7 @@ export default {
     /*
      *Dùng để focus vào ô đầu tiên
      */
-    this.$refs.input_focus.focus();
+    this.$refs.empCode.focus();
      /*
      *Dùng để thêm một mã nhân viên tự động tăng
      */
@@ -452,7 +452,7 @@ export default {
       try {
         this.formatInputForm();
         let data = this.employee;
-        let url = `http://localhost:5108/api/v1/Employees/${this.employee.employeeID}`;
+        let url = `${process.env.VUE_URL_API}/${this.employee.employeeID}`;
         fetch(url, {
           method: "PUT",
           headers: {

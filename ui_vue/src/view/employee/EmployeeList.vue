@@ -386,7 +386,8 @@ export default {
     getListEmployee() {
       try {
         this.isLoading = true;
-        fetch("http://localhost:5108/api/v1/Employees?limit=100&offset=0")
+        let url = `${process.env.VUE_URL_API}?limit=100&offset=0`
+        fetch(url)
           .then((res) => res.json())
           .then((res) => {
             this.employees = res.data;
@@ -412,7 +413,7 @@ export default {
      */
     deleteEmployee(employeeID) {
       try {
-        let url = `http://localhost:5108/api/v1/Employees/${employeeID}`;
+        let url = `${process.env.VUE_URL_API}/${employeeID}`;
         fetch(url, {
           method: "DELETE",
         })
