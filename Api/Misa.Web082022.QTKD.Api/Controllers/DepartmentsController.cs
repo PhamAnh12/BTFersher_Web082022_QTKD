@@ -17,7 +17,8 @@ namespace MISA.WebDev2022.Api.Controllers
         /// </summary>        
         private const string mySqlconnectionString = "Server=localhost;Port=3306;Database=misa.web08.qtkd.pctuananh;Uid=root;Pwd=root;";
 
-        // private const string  mySqlconnectionString = "Server=3.0.89.182;Port=3306;Database= WDT.2022.PCTUANANH;Uid=dev;Pwd=12345678;";
+        #region Get Deapartment API
+
         /// <summary>
         /// API Lấy toàn bộ danh sách phòng ban
         /// </summary>
@@ -51,5 +52,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, exception);
             }
         }
+
+        #endregion
+
+
     }
 }

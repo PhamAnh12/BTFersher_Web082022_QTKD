@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Misa.Web082022.QTKD.API.Entities.DTO;
 using Misa.Web082022.QTKD.API.Enums;
+using Misa.Web082022.QTKD.API.Properties;
 using MISA.Web082022.QTKD.Api.Entities;
 using MySqlConnector;
 using Swashbuckle.AspNetCore.Annotations;
+
 
 namespace MISA.WebDev2022.Api.Controllers
 {
@@ -21,6 +23,7 @@ namespace MISA.WebDev2022.Api.Controllers
         private const string mySqlconnectionString = "Server=localhost;Port=3306;Database=misa.web08.qtkd.pctuananh;Uid=root;Pwd=root;";
 
         #region GetPaging API
+
         /// <summary>
         /// API Lấy danh sách nhân viên cho phép lọc và phân trang
         /// </summary>
@@ -53,7 +56,7 @@ namespace MISA.WebDev2022.Api.Controllers
                 parameters.Add("v_Offset", offset);
                 parameters.Add("v_Limit", limit);
                 parameters.Add("v_Sort", sort);
-                string whereCondition = "" ;
+                string whereCondition = "";
                 if (search != null)
                 {
                     whereCondition = $" EmployeeCode LIKE   \'%{search}%\' OR EmployeeName LIKE  \'%{search}%\'";
@@ -103,6 +106,7 @@ namespace MISA.WebDev2022.Api.Controllers
         #endregion
 
         #region  Get By ID API
+
         /// <summary>
         /// API Lấy thông tin chi tiết của 1 nhân viên
         /// </summary>
@@ -171,6 +175,7 @@ namespace MISA.WebDev2022.Api.Controllers
         #endregion
 
         #region Get New-Code API
+
         /// <summary>
         /// API Lấy mã nhân viên mới tự động tăng
         /// </summary>
@@ -233,9 +238,11 @@ namespace MISA.WebDev2022.Api.Controllers
 
             }
         }
+
         #endregion
 
-        #region  POST API
+        #region  POST Eployee API 
+
         /// <summary>
         /// API thêm mới một nhân viên 
         /// <param name="employee">Đối tượng nhân viên mới</param>
@@ -291,10 +298,10 @@ namespace MISA.WebDev2022.Api.Controllers
 
                     return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                     QTKDErrorCode.ResultDatabaseFailed,
-                    "It was not possible to connect to the redis server(s)",
-                     "Thêm mới không thành công",
-                    "https://openapi.misa.com.vn/errorcode/e002",
-                    HttpContext.TraceIdentifier
+                     Resource.DevMsg_InsertFailed,
+                     Resource.UserMsg_InsertFailed,
+                     Resource.MoreInfo_InsertFailed,
+                     HttpContext.TraceIdentifier
                    )
                );
                 }
@@ -314,6 +321,7 @@ namespace MISA.WebDev2022.Api.Controllers
                      )
                  );
                 }
+                Console.WriteLine(mySqlException.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                     QTKDErrorCode.Exception,
                     "It was not possible to connect to the redis server(s)",
@@ -325,6 +333,7 @@ namespace MISA.WebDev2022.Api.Controllers
             }
             catch (Exception exception)
             {
+                Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
                      "It was not possible to connect to the redis server(s)",
@@ -336,9 +345,11 @@ namespace MISA.WebDev2022.Api.Controllers
 
             }
         }
+
         #endregion
 
         #region PUT API 
+
         /// <summary>
         /// API sửa một nhân viên 
         /// <param name="employeeID">ID của nhân viên muốn sửa</param>
@@ -394,11 +405,11 @@ namespace MISA.WebDev2022.Api.Controllers
                 else
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                   QTKDErrorCode.ResultDatabaseFailed,
-                   "It was not possible to connect to the redis server(s)",
-                   "Sửa không thành công",
-                   "https://openapi.misa.com.vn/errorcode/e002",
-                   HttpContext.TraceIdentifier
+                    QTKDErrorCode.ResultDatabaseFailed,
+                     Resource.DevMsg_UpdateFailed,
+                     Resource.UserMsg_UpdateFailed,
+                     Resource.MoreInfo_UpdateFailed,
+                    HttpContext.TraceIdentifier
                    )
                   );
 
@@ -419,6 +430,7 @@ namespace MISA.WebDev2022.Api.Controllers
                     )
                    );
                 }
+                Console.WriteLine(mySqlException.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
                      "It was not possible to connect to the redis server(s)",
@@ -430,6 +442,7 @@ namespace MISA.WebDev2022.Api.Controllers
             }
             catch (Exception exception)
             {
+                Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
                      "It was not possible to connect to the redis server(s)",
@@ -445,7 +458,8 @@ namespace MISA.WebDev2022.Api.Controllers
 
         #endregion
 
-        #region Delete API
+        #region Delete  Eployee API
+
         /// <summary>
         /// API xóa mới một nhân viên 
         /// <param name="employeeID">ID của nhân viên muốn xóa</param>
@@ -504,6 +518,7 @@ namespace MISA.WebDev2022.Api.Controllers
             }
 
         }
+
         #endregion
 
     }

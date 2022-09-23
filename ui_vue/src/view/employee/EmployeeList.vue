@@ -191,7 +191,12 @@ export default {
     Toast,
   },
   created() {
+    this.isLoading = true;
     this.getListEmployee();
+    
+  },
+  mounted(){
+     this.$refs.scrollbar.scrollTo(5000, 0);
   },
   data() {
     return {
@@ -385,8 +390,7 @@ export default {
      */
     getListEmployee() {
       try {
-        this.isLoading = true;
-        let url = `${process.env.VUE_URL_API}?limit=100&offset=0`
+        let url = `http://localhost:5108/api/v1/Employees?limit=100&offset=0`
         fetch(url)
           .then((res) => res.json())
           .then((res) => {
@@ -395,7 +399,7 @@ export default {
             setTimeout(() => (this.isLoadingData = false), 500);
             //Cho thanh srcollbar lên đầu khi thêm mới
             if (this.formMode === Enumeration.FormMode.Add) {
-              this.$refs.scrollbar.scrollTo(0, 0);
+              this.$refs.scrollbar.scrollTo(500, 0);
             }
           })
           .catch((error) => {
@@ -413,7 +417,7 @@ export default {
      */
     deleteEmployee(employeeID) {
       try {
-        let url = `${process.env.VUE_URL_API}/${employeeID}`;
+        let url = `http://localhost:5108/api/v1/Employees/${employeeID}`;
         fetch(url, {
           method: "DELETE",
         })

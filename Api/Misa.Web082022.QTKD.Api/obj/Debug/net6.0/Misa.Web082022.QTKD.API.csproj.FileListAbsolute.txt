@@ -28,3 +28,5 @@ D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\Misa.Web
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\Misa.Web082022.QTKD.Api\obj\Debug\net6.0\Misa.Web082022.QTKD.API.pdb
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\Misa.Web082022.QTKD.Api\obj\Debug\net6.0\Misa.Web082022.QTKD.API.genruntimeconfig.cache
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\Misa.Web082022.QTKD.Api\obj\Debug\net6.0\ref\Misa.Web082022.QTKD.API.dll
+D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\Misa.Web082022.QTKD.Api\obj\Debug\net6.0\Misa.Web082022.QTKD.API.Properties.Resource.resources
+D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\Api\Misa.Web082022.QTKD.Api\obj\Debug\net6.0\Misa.Web082022.QTKD.API.csproj.GenerateResource.cache

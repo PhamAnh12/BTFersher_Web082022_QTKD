@@ -292,6 +292,7 @@ export default {
      *Dùng để format ngày tháng
      */
     this.formatDateEmployee();
+    
   },
   watch: {},
   data() {
@@ -452,7 +453,7 @@ export default {
       try {
         this.formatInputForm();
         let data = this.employee;
-        let url = `${process.env.VUE_URL_API}/${this.employee.employeeID}`;
+        let url = `http://localhost:5108/api/v1/Employees/${this.employee.employeeID}`;
         fetch(url, {
           method: "PUT",
           headers: {
