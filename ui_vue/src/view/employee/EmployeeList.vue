@@ -17,6 +17,9 @@
                 class="input input__icon"
                 type="text"
                 placeholder="Tìm theo mã, tên nhân viên "
+                v-model="search"
+                @input="searchEmployee"
+               @keyup.enter="searchEmployee"
               />
               <div class="icon__18 icon__search"></div>
             </div>
@@ -28,8 +31,8 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th class="center__checkbox ">
-                    <input type="checkbox" class="checkbox__table th_wd_checkbox" />
+                  <th class="center__checkbox sticky-column">
+                    <input type="checkbox" class="checkbox__table th_wd_checkbox th_sticky " />
                   </th>
                   <th class="th__wd__code" >MÃ NHÂN VIÊN</th>
                   <th class="th__wd" >TÊN NHÂN VIÊN</th>
@@ -43,7 +46,7 @@
                   <th class="th__wd" style="">SỐ TÀI KHOẢN</th>
                   <th class="th__wd" style="">TÊN NGÂN HÀNG</th>
                   <th class="th__wd" style="">CHI NHÁNH NGÂN HÀNG</th>
-                  <th class="align-center function th__wd__function" >
+                  <th class="align-center function th__wd__function  sticky-column" >
                     CHỨC NĂNG
                   </th>
                 </tr>
@@ -57,7 +60,7 @@
                   @click="clickEmployee(index)"
                   :class="{ trClick: isClick && indexEmployee == index }"
                 >
-                  <td class="center__checkbox ">
+                  <td class="center__checkbox  sticky-column">
                     <input
                       class="checkbox__table"
                       type="checkbox"
@@ -107,7 +110,7 @@
                     {{ employee.branchBank }}
                     <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="align-center function" @dblclick.stop>
+                  <td class="align-center function function__sticky sticky-column  " @dblclick.stop>
                     <div class="function__container">
                       <div class="function__content content__center">
                         <div
@@ -148,7 +151,10 @@
             </table>
           </div>
         </div>
-        <PageComponent> </PageComponent>
+        <PageComponent 
+        :totalRecords="totalRecords"
+        >
+         </PageComponent>
       </div>
     </div>
   </div>
@@ -196,7 +202,7 @@ export default {
     
   },
   mounted(){
-     this.$refs.scrollbar.scrollTo(5000, 0);
+     this.$refs.scrollbar.scrollTo(0, 300);
   },
   data() {
     return {
@@ -212,6 +218,8 @@ export default {
       isShowDelete: false,
       employeeID: "",
       employeeCode: "",
+      totalRecords:0,
+      search:''
     };
   },
   methods: {
@@ -254,7 +262,6 @@ export default {
         this.isShow = true;
         this.formMode = Enumeration.FormMode.Add;
         this.employeeSelect = {};
-        this.newEmployeeCode();
       } catch (error) {
         console.log(error);
       }
@@ -381,6 +388,10 @@ export default {
         console.log(error);
       }
     },
+    searchEmployee(){
+      this.getListEmployee();
+      this.$refs.scrollbar.scrollTo(0, 0);  
+    },
     ///
     /// Các hàm dùng để gọi đển API
     ///
@@ -390,16 +401,17 @@ export default {
      */
     getListEmployee() {
       try {
-        let url = `http://localhost:5108/api/v1/Employees?limit=100&offset=0`
+        let url = `http://localhost:5108/api/v1/Employees?limit=100&offset=0&search=${this.search}`
         fetch(url)
           .then((res) => res.json())
           .then((res) => {
             this.employees = res.data;
+            this.totalRecords = res.totalCount
             setTimeout(() => (this.isLoading = false), 500);
             setTimeout(() => (this.isLoadingData = false), 500);
             //Cho thanh srcollbar lên đầu khi thêm mới
             if (this.formMode === Enumeration.FormMode.Add) {
-              this.$refs.scrollbar.scrollTo(500, 0);
+              this.$refs.scrollbar.scrollTo(0,0);
             }
           })
           .catch((error) => {

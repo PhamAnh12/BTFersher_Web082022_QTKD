@@ -54,24 +54,23 @@
    position: relative;
 }
 .table  .center__checkbox{
-   /* left: 0px;
-   position: sticky;
-   
-   border-bottom: 1px solid var( --border-table-color);
-   border-right:1px solid var( --border-table-color) !important; 
-  
-   background-color: var( --white-color);
-   z-index: 1 !important; */
+  position: sticky;
+  position: -webkit-sticky;
+  left: 0;
+  background-color: #ffff  ;
+   z-index: 3;
    padding: 0 8px;
    width: 30px;
   
 }
+
 .trClick{
    background-color:var(--bg-click-color);
 }
 
 .table .th_sticky{
-   background-color: #F5F5F5 ;
-   z-index: 3 !important;
+   background-color: #F5F5F5 !important ;
+   z-index: 1 !important;
    
  }
+ 

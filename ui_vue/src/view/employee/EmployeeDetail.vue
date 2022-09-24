@@ -1,6 +1,6 @@
 <template>
   <!-- Form nhập -->
-  <div class="modal">
+  <div class="modal" @keypress.esc="isCloseModal()">
     <div class="modal__container">
       <div class="modal__content">
         <div class="modal__header">
@@ -35,11 +35,16 @@
                   tabindex="1"
                   class="input"
                   type="text"
+                  placeholder="Mã nhân viên "
                   v-model="employee.employeeCode"
                   ref="empCode"
                   required
-                  proname="employeeCode"
+                  :class="{ input__error: errors.errorCode }"
+                  @blur="validate"
                 />
+                <div :class="{ input__show__error: errors.errorCode }">
+                  {{ errors.errorCode }}
+                </div>
               </div>
               <div class="container__input input__margin_6 input__320">
                 <label class="input__label" for=""
@@ -49,9 +54,17 @@
                   tabindex="2"
                   class="input"
                   type="text"
-                  v-model="employee.employeeName"
+                  placeholder="Tên nhân viên"
+                  ref="empName"
                   required
+                  v-model="employee.employeeName"
+                  :class="{ input__error: errors.errorName }"
+                  @blur="validate"
+
                 />
+                <div :class="{ input__show__error: errors.errorName }">
+                  {{ errors.errorName }}
+                </div>
               </div>
             </div>
             <div class="body__row__rigth">
@@ -116,8 +129,15 @@
                   tabindex="5"
                   class="input"
                   type="text"
+                  ref="department"
                   v-model="employee.departmentName"
+                  required
+                  :class="{ input__error: errors.errorDepartment }"
+                  @blur="validate"
                 />
+                <div :class="{ input__show__error: errors.errorDepartment }">
+                  {{ errors.errorDepartment }}
+                </div>
               </div>
             </div>
             <div class="body__row__rigth">
@@ -127,6 +147,7 @@
                   tabindex="7"
                   class="input"
                   type="text"
+                  placeholder="Số chứng minh nhân dân"
                   v-model="employee.identityNumber"
                 />
               </div>
@@ -150,6 +171,7 @@
                   tabindex="6"
                   class="input"
                   type="text"
+                  placeholder="Chức danh"
                   v-model="employee.positionName"
                 />
               </div>
@@ -161,6 +183,7 @@
                   tabindex="9"
                   class="input"
                   type="text"
+                  placeholder="Nơi cấp chứng minh nhân dân"
                   v-model="employee.identityIssuedPlace"
                 />
               </div>
@@ -173,6 +196,7 @@
                 tabindex="10"
                 class="input"
                 type="text"
+                placeholder="Địa chỉ"
                 v-model="employee.address"
               />
             </div>
@@ -184,6 +208,7 @@
                 tabindex="11"
                 class="input"
                 type="text"
+                placeholder="Số địa thoại di động"
                 v-model="employee.phoneNumberMobile"
               />
             </div>
@@ -193,6 +218,7 @@
                 tabindex="12"
                 class="input"
                 type="text"
+                placeholder="Số điện thoại cố định"
                 v-model="employee.phoneNumberLandline"
               />
             </div>
@@ -202,6 +228,7 @@
                 tabindex="13"
                 class="input"
                 type="text"
+                placeholder="Email"
                 v-model="employee.email"
               />
             </div>
@@ -213,6 +240,7 @@
                 tabindex="14"
                 class="input"
                 type="text"
+                placeholder="Tài khoản ngân hàng"
                 v-model="employee.accountBank"
               />
             </div>
@@ -222,6 +250,7 @@
                 tabindex="15"
                 class="input"
                 type="text"
+                placeholder="Tên ngân hàng"
                 v-model="employee.nameBank"
               />
             </div>
@@ -231,6 +260,7 @@
                 tabindex="16"
                 class="input"
                 type="text"
+                placeholder="Chi nhánh ngân hàng"
                 v-model="employee.branchBank"
               />
             </div>
@@ -275,15 +305,13 @@ export default {
   emits: ["notLoadingData", "loadingData", "hideModal", "showModal"],
   created() {
     this.employee = this.employeeSelect;
-   
   },
   mounted() {
-    
     /*
      *Dùng để focus vào ô đầu tiên
      */
     this.$refs.empCode.focus();
-     /*
+    /*
      *Dùng để thêm một mã nhân viên tự động tăng
      */
     this.newEmployeeCode();
@@ -292,7 +320,6 @@ export default {
      *Dùng để format ngày tháng
      */
     this.formatDateEmployee();
-    
   },
   watch: {},
   data() {
@@ -300,6 +327,12 @@ export default {
       employee: {},
       isCloseForm: false,
       maxDate: Common.maxDate(),
+      errors: {
+        errorCode: "",
+        errorName: "",
+        errorDepartment: "",
+      },
+      isShowError: false,
     };
   },
   methods: {
@@ -409,6 +442,32 @@ export default {
         console.log(error);
       }
     },
+    /*
+     * Hàm dùng để validate
+     * PCTUANANH(24/09/2022)
+     */
+    validate() {
+      let isValidate = true;
+      this.errors = {
+        code: "",
+        errorName: "",
+        errorDepartment: "",
+      };
+      if (!this.employee.employeeCode) {
+        this.errors.errorCode = Enumeration.Errors.ErrorCode;
+        isValidate = false;
+      }
+      if (!this.employee.employeeName) {
+        this.errors.errorName = Enumeration.Errors.ErrorName;
+        isValidate = false;
+      }
+      if (!this.employee.departmentName) {
+        this.errors.errorDepartment = Enumeration.Errors.ErrorDepartment;
+        isValidate = false;
+      }
+      
+      return isValidate;
+    },
     ///
     /// Các hàm dùng để lưu
     ///
@@ -418,13 +477,18 @@ export default {
      */
     saveModal() {
       try {
-        // sửa nhân viên
-        if (this.formMode === Enumeration.FormMode.Edit) {
-          this.saveEditEmlpoyee();
+        if (!this.validate()) {
+          this.isCloseForm = false;
         }
-        // thêm mới nhân viên
-        else if (this.formMode === Enumeration.FormMode.Add) {
-          this.saveAddEmlpoyee();
+        if (this.validate()) {
+          // sửa nhân viên
+          if (this.formMode === Enumeration.FormMode.Edit) {
+            this.saveEditEmlpoyee();
+          }
+          // thêm mới nhân viên
+          else if (this.formMode === Enumeration.FormMode.Add) {
+            this.saveAddEmlpoyee();
+          }
         }
       } catch (error) {
         console.log(error);

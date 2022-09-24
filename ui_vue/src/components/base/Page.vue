@@ -1,6 +1,6 @@
 <template>
       <div class="content__footer">
-          <div class="content__footer_letf">Tổng số <b>999</b> bản ghi</div>
+          <div class="content__footer_letf">Tổng số <b>{{ totalRecords}}</b> bản ghi</div>
           <div class="content__footer__right">
             <div class="select__page">
               <select name="" id="">
@@ -26,6 +26,9 @@
 <script>
 
 export default {
-   name: "PageComponent" 
+   name: "PageComponent" ,
+   props:{
+   totalRecords : Number
+   }
 }
 </script>

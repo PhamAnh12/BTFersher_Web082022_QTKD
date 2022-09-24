@@ -1,6 +1,10 @@
 .function{
-    position:static
-}
+    position: sticky;
+    position: -webkit-sticky;
+    right: 0;
+    background-color: #ffff  ;
+     z-index: 3;
+  }
 .function__container{
     position: relative;
     width: auto;
@@ -57,4 +61,18 @@
 .function__item--active{
     color: var(--primary-color);
     font-weight: 550;
+}
+.sticky-col {
+    position: -webkit-sticky;
+    position: sticky;
+    right: 0;
+    background-color: var(--white);
+    z-index: 1;
+    box-shadow: inset 1px 1px 0 var(--color--shadow--border);
+}
+
+
+.header-sticky-col {
+    background-color: var(--light--green--100);
+    box-shadow: inset 1px 0 var(--color--border--table);
 }

@@ -22,10 +22,11 @@
   --border-table-color:#c7c7c7;
   --tr-hover-color: #EEF8EC;
   --layout-color: rgba(0, 0, 0, 0.35);
+  --bg-click-color:#DCF1D8;
+  --error-color: #ff4747;
   --height-button : 36px;
   --border-radius : 4px;
   --height-input: 32px;
-  --bg-click-color:#DCF1D8;
 }
 
 body {

@@ -12,6 +12,16 @@ export default{
       Male : "Nam",
       Female: "Nữ",
       Other : "Khác"
+     },
+     KeyCode:{
+      Enter : 13,
+
+     },
+     Errors:{
+      ErrorName:"Tên không được để trống",
+      ErrorCode:"Mã không được để trống",
+      ErrorDepartment:"Đơn vị không được để trống"
      }
+
 
 }
