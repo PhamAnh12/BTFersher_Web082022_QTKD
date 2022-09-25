@@ -10,7 +10,7 @@
       <div class="content__body__wrapper">
         <div class="content__body__wrapper">
           <div class="container__sidebar">
-          <Toast></Toast>           
+            <Toast></Toast>
             <div class="container__input input__search">
               <input
                 id="search"
@@ -19,7 +19,7 @@
                 placeholder="Tìm theo mã, tên nhân viên "
                 v-model="search"
                 @input="searchEmployee"
-               @keyup.enter="searchEmployee"
+                @keyup.enter="searchEmployee"
               />
               <div class="icon__18 icon__search"></div>
             </div>
@@ -31,22 +31,29 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th class="center__checkbox sticky-column">
-                    <input type="checkbox" class="checkbox__table th_wd_checkbox th_sticky " />
+                  <th
+                    class="checkbox__tb__container sticky__col th__sticky__col sticky__col__checkbox"
+                  >
+                    <input type="checkbox" class="checkbox__table" />
                   </th>
-                  <th class="th__wd__code" >MÃ NHÂN VIÊN</th>
-                  <th class="th__wd" >TÊN NHÂN VIÊN</th>
-                  <th class="th__wd__gender" >GIỚI TÍNH</th>
-                  <th class="align-center th__wd__date">
-                    NGÀY SINH
+                  <th
+                    class="th__wd__code sticky__col th__sticky__col sticky__col__code"
+                  >
+                    MÃ NHÂN VIÊN
                   </th>
+                  <th class="th__wd">TÊN NHÂN VIÊN</th>
+                  <th class="th__wd__gender">GIỚI TÍNH</th>
+                  <th class="align-center th__wd__date">NGÀY SINH</th>
                   <th class="th__wd" style="">SỐ CMND</th>
                   <th class="th__wd" style="">CHỨC DANH</th>
                   <th class="th__wd" style="">TÊN ĐƠN VỊ</th>
                   <th class="th__wd" style="">SỐ TÀI KHOẢN</th>
                   <th class="th__wd" style="">TÊN NGÂN HÀNG</th>
                   <th class="th__wd" style="">CHI NHÁNH NGÂN HÀNG</th>
-                  <th class="align-center function th__wd__function  sticky-column" >
+                  <th
+                    class="align-center function th__wd__function sticky__col th__sticky__col"
+                    style="border-left: 1px solid var(--border-table-color)"
+                  >
                     CHỨC NĂNG
                   </th>
                 </tr>
@@ -60,101 +67,112 @@
                   @click="clickEmployee(index)"
                   :class="{ trClick: isClick && indexEmployee == index }"
                 >
-                  <td class="center__checkbox  sticky-column">
+                  <td
+                    class="checkbox__tb__container td__checkbox__sticky sticky__col sticky__col__checkbox"
+                  >
                     <input
                       class="checkbox__table"
                       type="checkbox"
                       @dblclick.stop
                     />
-                    <div class="loading__container" v-if="isLoading">
-                      <div class="loading loading__checkbox"></div>
+                      <div class="loading__container" v-if="isLoading">
+                        <div class="loading loading__checkbox"></div>
                     </div>
                   </td>
-                  <td class="">
+                  <td class="sticky__col sticky__col__code">
                     {{ employee.employeeCode }}
                     <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">
+                  <td class="td__loading">
                     {{ employee.employeeName }}
+
                     <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">
+                  <td class="td__loading">
                     {{ showGenderName(employee.gender) }}
                     <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="align-center">
+                  <td class="align-center td__loading">
                     {{ formatDateEmployee(employee.dateOfBirth) }}
                     <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">
+                  <td class="td__loading">
                     {{ employee.identityNumber }}
                     <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">
+                  <td class="td__loading">
                     {{ employee.positionName }}
-                    <Loading v-if="isLoading"></Loading>
+                      <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">
+                  <td class="td__loading">
                     {{ employee.departmentName }}
-                    <Loading v-if="isLoading"></Loading>
+                      <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">
+                  <td class="td__loading">
                     {{ employee.accountBank }}
-                    <Loading v-if="isLoading"></Loading>
+                      <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">
+                  <td class="td__loading">
                     {{ employee.nameBank }}
-                    <Loading v-if="isLoading"></Loading>
+                      <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="">
+                  <td class="td__loading">
                     {{ employee.branchBank }}
-                    <Loading v-if="isLoading"></Loading>
+                      <Loading v-if="isLoading"></Loading>
                   </td>
-                  <td class="align-center function function__sticky sticky-column  " @dblclick.stop>
-                    <div class="function__container">
-                      <div class="function__content content__center">
-                        <div
-                          class="function-text"
-                          @click="showFormEdit(employee)"
-                        >
-                          Sửa
-                        </div>
-                        <div
-                          class="function__icon"
-                          @click="showFunction($event, index)"
-                          :class="{
-                            'function__icon--show':
-                              isShowFunction && indexEmployee == index,
-                          }"
-                        ></div>
+                  <td
+                    class="align-center function function__sticky sticky__col"
+                    style="
+                      border-right: none;
+                      border-left: 1px solid var(--border-table-color);
+                    "
+                    @dblclick.stop
+                  >
+                    <div class="function__content content__center">
+                      <div
+                        class="function-text"
+                        @click="showFormEdit(employee)"
+                      >
+                        Sửa
                       </div>
                       <div
-                        class="function__list"
-                        v-show="isShowFunction && indexEmployee == index"
-                      >
-                        <div class="function__item">Nhân bản</div>
-                        <div
-                          class="function__item function__item--active"
-                          @click="
-                            showDialogDelete(employee.employeeID, employee.employeeCode)
-                          "
-                        >
-                          Xóa
-                        </div>
-                        <div class="function__item">Ngưng sử dụng</div>
-                      </div>
+                        class="function__icon"
+                        @click="showFunction($event, index)"
+                        :class="{
+                          'function__icon--show':
+                            isShowFunction && indexEmployee == index,
+                        }"
+                      ></div>
                     </div>
-                    <Loading v-if="isLoading"></Loading>
+                    <div
+                      class="function__list"
+                      v-show="isShowFunction && indexEmployee == index"
+                    >
+                      <div class="function__item">Nhân bản</div>
+                      <div
+                        class="function__item function__item--active"
+                        @click="
+                          showDialogDelete(
+                            employee.employeeID,
+                            employee.employeeCode
+                          )
+                        "
+                      >
+                        Xóa
+                      </div>
+                      <div class="function__item">Ngưng sử dụng</div>
+                    </div>
+
+                    <div class="loading__td">
+                      <Loading v-if="isLoading"></Loading>
+                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <PageComponent 
-        :totalRecords="totalRecords"
-        >
-         </PageComponent>
+        <PageComponent :totalRecords="totalRecords"> </PageComponent>
       </div>
     </div>
   </div>
@@ -185,7 +203,8 @@ import PageComponent from "../../components/base/Page.vue";
 import Loading from "../../components/base/Load.vue";
 import DialogDelete from "../../components/base/DialogDelete.vue";
 import LoadData from "../../components/base/LoadData.vue";
-import Toast    from "../../components/base/Toast.vue";
+import Toast from "../../components/base/Toast.vue";
+// import Vue_url from "../../script/common/resource.js"
 export default {
   name: "EmployeeList",
   components: {
@@ -199,10 +218,9 @@ export default {
   created() {
     this.isLoading = true;
     this.getListEmployee();
-    
   },
-  mounted(){
-     this.$refs.scrollbar.scrollTo(0, 300);
+  mounted() {
+    this.$refs.scrollbar.scrollTo(0, 300);
   },
   data() {
     return {
@@ -218,8 +236,8 @@ export default {
       isShowDelete: false,
       employeeID: "",
       employeeCode: "",
-      totalRecords:0,
-      search:''
+      totalRecords: 0,
+      search: "",
     };
   },
   methods: {
@@ -388,9 +406,9 @@ export default {
         console.log(error);
       }
     },
-    searchEmployee(){
+    searchEmployee() {
       this.getListEmployee();
-      this.$refs.scrollbar.scrollTo(0, 0);  
+      this.$refs.scrollbar.scrollTo(0, 0);
     },
     ///
     /// Các hàm dùng để gọi đển API
@@ -401,28 +419,27 @@ export default {
      */
     getListEmployee() {
       try {
-        let url = `http://localhost:5108/api/v1/Employees?limit=100&offset=0&search=${this.search}`
+        let url = `http://localhost:5108/api/v1/Employees?limit=100&offset=0&search=${this.search}`;
         fetch(url)
           .then((res) => res.json())
           .then((res) => {
             this.employees = res.data;
-            this.totalRecords = res.totalCount
+            this.totalRecords = res.totalCount;
             setTimeout(() => (this.isLoading = false), 500);
             setTimeout(() => (this.isLoadingData = false), 500);
             //Cho thanh srcollbar lên đầu khi thêm mới
             if (this.formMode === Enumeration.FormMode.Add) {
-              this.$refs.scrollbar.scrollTo(0,0);
+              this.$refs.scrollbar.scrollTo(0, 0);
             }
           })
           .catch((error) => {
             console.log("Error! Could not reach the API. " + error);
           });
-       
       } catch (error) {
         console.log(error);
       }
     },
-   
+
     /*
      * Hàm dùng  gọi APi   để xóa nhân viên theo id
      * PCTUANANH(16/09/2022)

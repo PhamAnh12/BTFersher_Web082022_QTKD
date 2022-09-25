@@ -7,8 +7,6 @@
       background-position: 800px 0
     }
   }
-  
-
 .loading__container{
     position: absolute;
     background-color: var(--background-color);

@@ -1,17 +1,6 @@
 .function{
-    position: sticky;
-    position: -webkit-sticky;
     right: 0;
-    background-color: var(--background-color)  ;
-     z-index: 3;
   }
-.function__container{
-    position: relative;
-    width: auto;
-    height: auto;
-    border: none;
-    
-}
 .function__content{
     padding: 14px;
 }
@@ -41,7 +30,6 @@
     width: 120px;
     border:1px solid #D6D7DB;
     background-color: var(--background-color);
-    z-index: 3;
     border-radius: var(--border-radius);
 }
 .function__item{
@@ -54,18 +42,3 @@
     cursor: pointer;
 }
 
-
-.sticky-col {
-    position: -webkit-sticky;
-    position: sticky;
-    right: 0;
-    background-color: var(--white);
-    z-index: 1;
-    box-shadow: inset 1px 1px 0 var(--color--shadow--border);
-}
-
-
-.header-sticky-col {
-    background-color: var(--light--green--100);
-    box-shadow: inset 1px 0 var(--color--border--table);
-}
