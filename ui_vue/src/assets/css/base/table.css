@@ -42,10 +42,7 @@
    line-height: inherit;
    
  }
- 
- .table tbody tr:hover {  background-color: var(--tr-hover-color) !important;
- }
- 
+
 .align-center {
    text-align: center !important;
    padding: 0 !important;
@@ -57,7 +54,7 @@
   position: sticky;
   position: -webkit-sticky;
   left: 0;
-  background-color: #ffff  ;
+  background-color: var(--background-color)  ;
    z-index: 3;
    padding: 0 8px;
    width: 30px;

@@ -16,7 +16,7 @@
   .dialog__content {  
     position: relative; 
     min-width: 444px;
-    background-color: #ffff;
+    background-color: var(--background-color);
     border-radius: var( --border-radius);
     padding: 32px;
     

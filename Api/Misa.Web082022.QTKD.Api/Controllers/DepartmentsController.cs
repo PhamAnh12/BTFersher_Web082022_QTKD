@@ -1,6 +1,9 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Misa.Web082022.QTKD.API.Entities.DTO;
+using Misa.Web082022.QTKD.API.Enums;
+using Misa.Web082022.QTKD.API.Properties;
 using MISA.Web082022.QTKD.Api.Entities;
 using MySqlConnector;
 using Swashbuckle.AspNetCore.Annotations;
@@ -44,12 +47,34 @@ namespace MISA.WebDev2022.Api.Controllers
                 var departments = mySqlConnection.Query<Department>(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
 
                 // Trả về dữ liệu cho client
-                return StatusCode(StatusCodes.Status200OK, departments);
+                if(departments != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, departments);
+
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
+                     QTKDErrorCode.ResultDatabaseFailed,
+                     Resource.DevMsg_GetFailed,
+                     Resource.UserMsg_GetFailed,
+                     Resource.MoreInfo_GetFailed,
+                     HttpContext.TraceIdentifier
+                  )
+              );
+                }
             }
             catch (Exception exception)
             {
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
-                return StatusCode(StatusCodes.Status400BadRequest, exception);
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
+                     QTKDErrorCode.Exception,
+                      Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
+                      HttpContext.TraceIdentifier
+                    )
+                );
             }
         }
 

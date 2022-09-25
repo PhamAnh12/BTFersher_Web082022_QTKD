@@ -61,6 +61,42 @@ namespace Misa.Web082022.QTKD.API.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete to database return 0.
+        /// </summary>
+        public static string DevMsg_DeleteFailed {
+            get {
+                return ResourceManager.GetString("DevMsg_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Có  lỗi mã nhân viên trùng nhau.
+        /// </summary>
+        public static string DevMsg_DuplicateCode {
+            get {
+                return ResourceManager.GetString("DevMsg_DuplicateCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Có  lỗi Exception.
+        /// </summary>
+        public static string DevMsg_Exception {
+            get {
+                return ResourceManager.GetString("DevMsg_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get to database return 0.
+        /// </summary>
+        public static string DevMsg_GetFailed {
+            get {
+                return ResourceManager.GetString("DevMsg_GetFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert to database return 0.
         /// </summary>
         public static string DevMsg_InsertFailed {
@@ -75,6 +111,51 @@ namespace Misa.Web082022.QTKD.API.Properties {
         public static string DevMsg_UpdateFailed {
             get {
                 return ResourceManager.GetString("DevMsg_UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input bỏ trống các trường bắt buộc.
+        /// </summary>
+        public static string DevMsg_ValidateFailed {
+            get {
+                return ResourceManager.GetString("DevMsg_ValidateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;https://openapi.misa.com.vn/errorcode/e002&quot;,.
+        /// </summary>
+        public static string MoreInfo_DeleteFailed {
+            get {
+                return ResourceManager.GetString("MoreInfo_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;https://openapi.misa.com.vn/errorcode/e003&quot;,.
+        /// </summary>
+        public static string MoreInfo_DuplicateCode {
+            get {
+                return ResourceManager.GetString("MoreInfo_DuplicateCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;https://openapi.misa.com.vn/errorcode/e001&quot;,.
+        /// </summary>
+        public static string MoreInfo_Exception {
+            get {
+                return ResourceManager.GetString("MoreInfo_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;https://openapi.misa.com.vn/errorcode/e002&quot;,.
+        /// </summary>
+        public static string MoreInfo_GetFailed {
+            get {
+                return ResourceManager.GetString("MoreInfo_GetFailed", resourceCulture);
             }
         }
         
@@ -97,6 +178,42 @@ namespace Misa.Web082022.QTKD.API.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xóa bản ghi không thành công .
+        /// </summary>
+        public static string UserMsg_DeleteFailed {
+            get {
+                return ResourceManager.GetString("UserMsg_DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên không được trùng nhau.
+        /// </summary>
+        public static string UserMsg_DuplicateCode {
+            get {
+                return ResourceManager.GetString("UserMsg_DuplicateCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Có lỗi xảy ra .Vui lòng liên hệ Misa.
+        /// </summary>
+        public static string UserMsg_Exception {
+            get {
+                return ResourceManager.GetString("UserMsg_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy bản ghi nào.
+        /// </summary>
+        public static string UserMsg_GetFailed {
+            get {
+                return ResourceManager.GetString("UserMsg_GetFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm mới không thành công.
         /// </summary>
         public static string UserMsg_InsertFailed {
@@ -111,6 +228,15 @@ namespace Misa.Web082022.QTKD.API.Properties {
         public static string UserMsg_UpdateFailed {
             get {
                 return ResourceManager.GetString("UserMsg_UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Có lỗi bỏ trống các trường bắt buộc.
+        /// </summary>
+        public static string UserMsg_ValidateFailed {
+            get {
+                return ResourceManager.GetString("UserMsg_ValidateFailed", resourceCulture);
             }
         }
     }

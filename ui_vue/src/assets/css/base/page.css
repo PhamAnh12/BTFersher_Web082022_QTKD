@@ -40,15 +40,3 @@
     margin-left: 12px;
     cursor: pointer;
 }
-.pageing__number--active{
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 12px;
-    font-weight: 600;
-    
-}

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Misa.Web082022.QTKD.API.Entities.DTO;
 using Misa.Web082022.QTKD.API.Enums;
 using Misa.Web082022.QTKD.API.Properties;
+using Misa.Web082022.QTKD.API.Validation;
 using MISA.Web082022.QTKD.Api.Entities;
 using MySqlConnector;
 using Swashbuckle.AspNetCore.Annotations;
@@ -81,9 +82,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 {
                   return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
                   QTKDErrorCode.ResultDatabaseFailed,
-                 "It was not possible to connect to the redis server(s)",
-                 "Không tìm danh sách nhân viên",
-                 "https://openapi.misa.com.vn/errorcode/e002",
+                  Resource.DevMsg_GetFailed,
+                  Resource.UserMsg_GetFailed,
+                 Resource.MoreInfo_GetFailed,
                  HttpContext.TraceIdentifier
                 )
             );
@@ -94,10 +95,10 @@ namespace MISA.WebDev2022.Api.Controllers
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(                   
                      QTKDErrorCode.Exception,
-                     "It was not possible to connect to the redis server(s)",
-                     "Có lỗi xảy ra.Vui lòng liên hệ Misa",
-                     "https://openapi.misa.com.vn/errorcode/e001",
-                     HttpContext.TraceIdentifier
+                      Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
+                      HttpContext.TraceIdentifier
                     )
                 ); 
             }
@@ -148,11 +149,12 @@ namespace MISA.WebDev2022.Api.Controllers
                 {
                   
                     return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
-                   QTKDErrorCode.ResultDatabaseFailed,
-                  "It was not possible to connect to the redis server(s)",
-                  "Không tìm thấy nhân viên",
-                  "https://openapi.misa.com.vn/errorcode/e002",
-                  HttpContext.TraceIdentifier
+                    QTKDErrorCode.ResultDatabaseFailed,
+                    Resource.DevMsg_GetFailed,
+                    Resource.UserMsg_GetFailed,
+                    Resource.MoreInfo_GetFailed,
+                    HttpContext.TraceIdentifier
+
                  )
              );
                 }
@@ -163,9 +165,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, "e001"); return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
-                     "It was not possible to connect to the redis server(s)",
-                      "Có lỗi xảy ra.Vui lòng liên hệ Misa",
-                     "https://openapi.misa.com.vn/errorcode/e001",
+                      Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
                      HttpContext.TraceIdentifier
                     )
                 );
@@ -229,9 +231,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
-                     "It was not possible to connect to the redis server(s)",
-                      "Có lỗi xảy ra.Vui lòng liên hệ Misa",
-                     "https://openapi.misa.com.vn/errorcode/e001",
+                       Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
                      HttpContext.TraceIdentifier
                     )
                 );
@@ -253,7 +255,20 @@ namespace MISA.WebDev2022.Api.Controllers
         public IActionResult InsertEmployee([FromBody] Employee employee)
         {
             try
-            {  // Khởi tạo kết nối tới DB MySQL
+            {
+                // validate dữ liệu đầu vào
+                List<string> ValidateErrors = Validation.Validate(employee);
+                if (ValidateErrors.Count > 0)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
+                            QTKDErrorCode.InputValidation,
+                            Resource.DevMsg_ValidateFailed,
+                            Resource.UserMsg_ValidateFailed,
+                            string.Join(", ", ValidateErrors),
+                            HttpContext.TraceIdentifier
+                        ));
+                }
+                // Khởi tạo kết nối tới DB MySQL
                 string connectionString = mySqlconnectionString;
                 var mySqlConnection = new MySqlConnection(connectionString);
 
@@ -312,11 +327,12 @@ namespace MISA.WebDev2022.Api.Controllers
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
                 if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
                 {
+                    Console.WriteLine(mySqlException.Message);
                     return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                       QTKDErrorCode.DuplicateCode,
-                      "It was not possible to connect to the redis server(s)",
-                      "Mã nhân viên không được trùng nhau",
-                      "https://openapi.misa.com.vn/errorcode/e003",
+                       Resource.DevMsg_DuplicateCode,
+                      Resource.UserMsg_DuplicateCode,
+                      Resource.MoreInfo_DuplicateCode,
                       HttpContext.TraceIdentifier
                      )
                  );
@@ -324,9 +340,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 Console.WriteLine(mySqlException.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                     QTKDErrorCode.Exception,
-                    "It was not possible to connect to the redis server(s)",
-                     "Có lỗi xảy ra.Vui lòng liên hệ Misa",
-                    "https://openapi.misa.com.vn/errorcode/e001",
+                      Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
                     HttpContext.TraceIdentifier
                    )
                );
@@ -336,9 +352,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
-                     "It was not possible to connect to the redis server(s)",
-                      "Có lỗi xảy ra.Vui lòng liên hệ Misa",
-                     "https://openapi.misa.com.vn/errorcode/e001",
+                       Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
                      HttpContext.TraceIdentifier
                     )
                 );
@@ -362,7 +378,20 @@ namespace MISA.WebDev2022.Api.Controllers
         {
 
             try
-            {  // Khởi tạo kết nối tới DB MySQL
+            {
+                // validate dữ liệu đầu vào
+                List<string> ValidateErrors = Validation.Validate(employee);
+                if (ValidateErrors.Count > 0)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
+                            QTKDErrorCode.InputValidation,
+                            Resource.DevMsg_ValidateFailed,
+                            Resource.UserMsg_ValidateFailed,
+                            string.Join(", ", ValidateErrors),
+                            HttpContext.TraceIdentifier
+                        ));
+                }
+                // Khởi tạo kết nối tới DB MySQL
                 string connectionString = mySqlconnectionString;
                 var mySqlConnection = new MySqlConnection(connectionString);
 
@@ -423,9 +452,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                     QTKDErrorCode.DuplicateCode,
-                    "It was not possible to connect to the redis server(s)",
-                    "Mã nhân viên không được trùng nhau",
-                    "https://openapi.misa.com.vn/errorcode/e003",
+                    Resource.DevMsg_DuplicateCode,
+                    Resource.UserMsg_DuplicateCode,
+                    Resource.MoreInfo_DuplicateCode,
                     HttpContext.TraceIdentifier
                     )
                    );
@@ -433,9 +462,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 Console.WriteLine(mySqlException.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
-                     "It was not possible to connect to the redis server(s)",
-                      "Có lỗi xảy ra.Vui lòng liên hệ Misa",
-                     "https://openapi.misa.com.vn/errorcode/e001",
+                       Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
                      HttpContext.TraceIdentifier
                     )
                 );
@@ -445,9 +474,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
-                     "It was not possible to connect to the redis server(s)",
-                      "Có lỗi xảy ra.Vui lòng liên hệ Misa",
-                     "https://openapi.misa.com.vn/errorcode/e001",
+                      Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
                      HttpContext.TraceIdentifier
                     )
                 );
@@ -496,9 +525,9 @@ namespace MISA.WebDev2022.Api.Controllers
                 {
                   return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                    QTKDErrorCode.ResultDatabaseFailed,
-                   "It was not possible to connect to the redis server(s)",
-                    "Xóa không thành công",
-                   "https://openapi.misa.com.vn/errorcode/e002",
+                   Resource.DevMsg_DeleteFailed,
+                   Resource.UserMsg_DeleteFailed,
+                   Resource.MoreInfo_DeleteFailed,
                    HttpContext.TraceIdentifier
                   )
                   );
@@ -507,11 +536,12 @@ namespace MISA.WebDev2022.Api.Controllers
             catch (Exception exception)
             {
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
+                Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
-                     "It was not possible to connect to the redis server(s)",
-                      "Có lỗi xảy ra.Vui lòng liên hệ Misa",
-                     "https://openapi.misa.com.vn/errorcode/e001",
+                      Resource.DevMsg_Exception,
+                      Resource.UserMsg_Exception,
+                      Resource.MoreInfo_Exception,
                      HttpContext.TraceIdentifier
                     )
                 );

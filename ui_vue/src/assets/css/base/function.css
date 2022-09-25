@@ -2,7 +2,7 @@
     position: sticky;
     position: -webkit-sticky;
     right: 0;
-    background-color: #ffff  ;
+    background-color: var(--background-color)  ;
      z-index: 3;
   }
 .function__container{
@@ -16,8 +16,7 @@
     padding: 14px;
 }
 .function-text{
-   color:  
-   #0075c0;
+   color:  var( --function-text-color);
    margin-right: 8px;
 }
 .function__icon{
@@ -33,7 +32,7 @@
 
 .function__icon--show{
     border: 1px solid 
-    #0075c0;
+    var( --function-text-color);
 }
 .function__list{
     position: absolute;
@@ -41,7 +40,7 @@
     right: 10%;
     width: 120px;
     border:1px solid #D6D7DB;
-    background-color: #fff;
+    background-color: var(--background-color);
     z-index: 3;
     border-radius: var(--border-radius);
 }
@@ -54,14 +53,8 @@
     padding: 8px 6px;
     cursor: pointer;
 }
-.function__item:hover{
-    background-color: #f8f8f8 ;
-}
 
-.function__item--active{
-    color: var(--primary-color);
-    font-weight: 550;
-}
+
 .sticky-col {
     position: -webkit-sticky;
     position: sticky;

@@ -1,0 +1,24 @@
+.function__item:hover {
+    background-color: var(--item-hover-color);
+}
+
+.btn__base:hover {
+    background-color: var(--item-hover-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+.table tbody tr:hover {
+    background-color: var(--tr-hover-color) !important;
+}
+
+.modal__header__icon:hover {
+    border: 1px solid #D3D7DE;
+    border-radius: var(--border-radius);
+}
+
+.btn:hover {
+    background-color: var(--hover-color);
+}

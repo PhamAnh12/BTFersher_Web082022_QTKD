@@ -1,4 +1,5 @@
 ﻿
+using Misa.Web082022.QTKD.API.Attributes;
 using MISA.Web082022.QTKD.Api.Enums;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,13 +15,13 @@ namespace MISA.Web082022.QTKD.Api.Entities
         /// <summary>
         /// Mã nhân viên 
         /// </summary>
-        [Required(ErrorMessage = "e004")]
+        [IsNotNullOrEmpty("Mã nhân viên không được để trống")]
         public string EmployeeCode { get; set; }
 
         /// <summary>
         /// Tên nhân viên
         /// </summary>
-        [Required(ErrorMessage = "e005")]
+        [IsNotNullOrEmpty("Tên nhân viên không được để trống")]
         public string EmployeeName { get; set; }
 
         /// <summary>
@@ -41,12 +42,12 @@ namespace MISA.Web082022.QTKD.Api.Entities
         /// <summary>
         /// ID phòng ban
         /// </summary>
-        [Required(ErrorMessage = "e006")]
         public Guid DepartmentID { get; set; }
 
         /// <summary>
         /// Tên phòng ban
         /// </summary>
+        [IsNotNullOrEmpty("Đơn vị không được để trống")]
         public string? DepartmentName { get; set; }
 
         /// <summary>

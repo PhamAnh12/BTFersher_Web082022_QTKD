@@ -117,6 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DevMsg_DeleteFailed" xml:space="preserve">
+    <value>Delete to database return 0</value>
+    <comment>Message cho  Dev đọc khi xóa thất bại</comment>
+  </data>
+  <data name="DevMsg_DuplicateCode" xml:space="preserve">
+    <value>Có  lỗi mã nhân viên trùng nhau</value>
+    <comment>Message cho  Dev đọc khi có lỗi mã nhân viên trùng nhau</comment>
+  </data>
+  <data name="DevMsg_Exception" xml:space="preserve">
+    <value>Có  lỗi Exception</value>
+    <comment>Message cho  Dev đọc khi có Exception</comment>
+  </data>
+  <data name="DevMsg_GetFailed" xml:space="preserve">
+    <value>Get to database return 0</value>
+    <comment>Message cho  Dev đọc khi không tìm thấy bản ghi nào</comment>
+  </data>
   <data name="DevMsg_InsertFailed" xml:space="preserve">
     <value>Insert to database return 0</value>
     <comment>Message cho  Dev đọc khi Insert bản ghi vào database thất bại</comment>
@@ -124,6 +140,26 @@
   <data name="DevMsg_UpdateFailed" xml:space="preserve">
     <value>Update  to database return 0</value>
     <comment>Message cho  Dev đọc khi Update bản ghi vào database thất bại</comment>
+  </data>
+  <data name="DevMsg_ValidateFailed" xml:space="preserve">
+    <value>Input bỏ trống các trường bắt buộc</value>
+    <comment>Message cho  Dev đọc khi  có lỗi bỏ trống các trường bắt buộc</comment>
+  </data>
+  <data name="MoreInfo_DeleteFailed" xml:space="preserve">
+    <value>"https://openapi.misa.com.vn/errorcode/e002",</value>
+    <comment>Đường dẫn mô tải lỗi   khi delete không thành công</comment>
+  </data>
+  <data name="MoreInfo_DuplicateCode" xml:space="preserve">
+    <value>"https://openapi.misa.com.vn/errorcode/e003",</value>
+    <comment>Đường dẫn mô tải lỗi   khi có lỗi mã nhân viên trùng nhau</comment>
+  </data>
+  <data name="MoreInfo_Exception" xml:space="preserve">
+    <value>"https://openapi.misa.com.vn/errorcode/e001",</value>
+    <comment>Đường dẫn mô tải lỗi   khi có  Exception</comment>
+  </data>
+  <data name="MoreInfo_GetFailed" xml:space="preserve">
+    <value>"https://openapi.misa.com.vn/errorcode/e002",</value>
+    <comment>Đường dẫn mô tải lỗi   khi không tìm thấy bản ghi nào</comment>
   </data>
   <data name="MoreInfo_InsertFailed" xml:space="preserve">
     <value>"https://openapi.misa.com.vn/errorcode/e002",</value>
@@ -133,12 +169,32 @@
     <value>"https://openapi.misa.com.vn/errorcode/e002",</value>
     <comment>Đường dẫn mô tải lỗi   khi Update bản ghi vào database thất bại</comment>
   </data>
+  <data name="UserMsg_DeleteFailed" xml:space="preserve">
+    <value>Xóa bản ghi không thành công </value>
+    <comment>Message cho User  khi xóa bản ghi không thành công</comment>
+  </data>
+  <data name="UserMsg_DuplicateCode" xml:space="preserve">
+    <value>Mã nhân viên không được trùng nhau</value>
+    <comment>Message cho User  khi có lỗi mã nhân viên trùng nhau</comment>
+  </data>
+  <data name="UserMsg_Exception" xml:space="preserve">
+    <value>Có lỗi xảy ra .Vui lòng liên hệ Misa</value>
+    <comment>Message cho User  khi có lỗi xảy ra</comment>
+  </data>
+  <data name="UserMsg_GetFailed" xml:space="preserve">
+    <value>Không tìm thấy bản ghi nào</value>
+    <comment>Message cho User  khi không tìm thấy bản ghi nào</comment>
+  </data>
   <data name="UserMsg_InsertFailed" xml:space="preserve">
     <value>Thêm mới không thành công</value>
     <comment>Message cho  User  khi Insert bản ghi vào database thất bại</comment>
   </data>
   <data name="UserMsg_UpdateFailed" xml:space="preserve">
     <value>Sửa không thành công</value>
-    <comment>Message cho   khi Update bản ghi vào database thất bại</comment>
+    <comment>Message cho User  khi Update bản ghi vào database thất bại</comment>
+  </data>
+  <data name="UserMsg_ValidateFailed" xml:space="preserve">
+    <value>Có lỗi bỏ trống các trường bắt buộc</value>
+    <comment>Message cho  User  đọc khi  có lỗi bỏ trống các trường bắt buộc</comment>
   </data>
 </root>

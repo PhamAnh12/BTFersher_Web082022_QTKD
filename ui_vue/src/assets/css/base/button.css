@@ -23,9 +23,4 @@
    
     
 }
-.btn__base:hover{
-   background-color: #f8f8f8f8;
-}
-.btn:hover{
-    background-color:var(--hover-color) ;
-}
+

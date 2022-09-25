@@ -14,18 +14,25 @@
 @import url(./base/loadingData.css);
 @import url(./base//toast.css);
 @import url(./base/ms-combobox.css);
+@import url(./controler/hove.css);
+@import url(./controler/active.css);
+
 :root {
   --primary-color: #089740;
   --hover-color: rgba(8, 151, 64, 0.85);
   --white-color: #ffffff;
   --border-color: #babec5;
-  --border-table-color:#c7c7c7;
+  --border-table-color: #c7c7c7;
   --tr-hover-color: #EEF8EC;
   --layout-color: rgba(0, 0, 0, 0.35);
-  --bg-click-color:#DCF1D8;
+  --bg-click-color: #DCF1D8;
   --error-color: #ff4747;
-  --height-button : 36px;
-  --border-radius : 4px;
+  --item-hover-color: #f8f8f8;
+  --scrollbar-thumb-hover: #7C869C;
+  --background-color: #ffff;
+  --function-text-color: #0075c0;
+  --height-button: 36px;
+  --border-radius: 4px;
   --height-input: 32px;
 }
 
@@ -33,17 +40,20 @@ body {
   color: #1f1f1f;
   margin: 0;
   padding: 0;
- 
+
   font-size: 14px;
 }
+
 * {
   box-sizing: border-box;
   font-family: GoogleSans-Regular;
 }
+
 @font-face {
   font-family: GoogleSans-Regular;
   src: url(../fonts/notosans-regular.2cb88a13.woff2);
 }
+
 @font-face {
   font-family: GoogleSans-Medium;
   src: url(../fonts/notosans-semibold.df3e6dc4.woff2);
@@ -58,11 +68,13 @@ body {
   justify-content: center;
   align-items: center;
 }
-.align__items__center{
+
+.align__items__center {
   display: flex;
   align-items: center;
 }
-.flex__between{
+
+.flex__between {
   display: flex;
   justify-content: space-between;
 }
@@ -70,12 +82,13 @@ body {
 ::-webkit-scrollbar {
   height: 8px;
   width: 8px;
-  
+
 }
+
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 4px;
-  
+
 }
 
 /* Handle */
@@ -83,9 +96,4 @@ body {
   background: #bbb;
   border-radius: 4px;
   cursor: pointer;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #7C869C;
 }
