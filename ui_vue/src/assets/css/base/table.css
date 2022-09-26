@@ -1,0 +1,106 @@
+.table {
+  border-collapse:separate;
+  width: 100%;
+  position: relative;
+
+}
+
+.table thead th,
+td {
+  text-align: left;
+  border-bottom: 1px solid var(--border-table-color);
+  border-right: 1px solid var(--border-table-color);
+  padding-left: 8px;
+
+}
+.table td{
+  border-right-style:dotted;
+} 
+.td__loading{
+  position: relative;
+}
+.table thead th {
+  background-color: #F5F5F5;
+  position: sticky;
+  height: 44px;
+  top: 0;
+  z-index: 1;
+}
+
+.trClick  {
+  background-color: var(--bg-click-color) !important;
+}
+
+.th__wd__gender {
+  min-width: 120px;
+}
+
+.th__wd {
+  min-width: 212px;
+}
+
+.th__wd__date {
+  min-width: 150px;
+}
+
+.th__wd__function {
+  min-width: 120px;
+}
+
+.th__wd__code {
+  min-width: 120px;
+}
+/* .table tr{
+  position: relative;
+} */
+.table tbody {
+  position: relative;
+}
+.table tr{
+  position: relative;
+}
+.table tr {
+  max-height: 44px;
+  cursor: pointer;
+  vertical-align: inherit;
+  line-height: inherit;
+
+}
+
+.align-center {
+  text-align: center !important;
+  padding: 0 !important;
+}
+
+.table .checkbox__tb__container {
+  padding: 0 8px;
+  width: 30px;
+}
+
+.td__checkbox__sticky {
+  background-color: var(--background-color);
+}
+.sticky__col{
+  position: sticky;
+  position: -webkit-sticky;
+  left: 0;
+  background: var(--background-color);
+  z-index: 3 ;
+
+}
+.th__sticky__col{
+  z-index: 4 !important;
+}
+
+.sticky__col__code{
+  left: 38px;
+}
+.td__border__left{
+  border-left: 1px solid var(--border-table-color);
+  border-right: none !important;
+  border-left-style: dotted;
+}
+.th__border__left{
+  border-left: 1px solid var(--border-table-color);
+  border-right: none;
+}
