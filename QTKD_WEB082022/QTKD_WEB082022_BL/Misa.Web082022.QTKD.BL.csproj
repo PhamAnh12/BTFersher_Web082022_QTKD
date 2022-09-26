@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QTKD_WEB082022_COMMON\Misa.Web082022.QTKD.Common.csproj" />
+    <ProjectReference Include="..\QTKD_WEB082022_DL\Misa.Web082022.QTKD.DL.csproj" />
+  </ItemGroup>
+
+</Project>
