@@ -41,7 +41,7 @@ namespace MISA.WebDev2022.Api.Controllers
         [SwaggerResponse(StatusCodes.Status404NotFound)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult FilterEmployees([FromQuery] string? search, [FromQuery] string? sort, [FromQuery] int limit = 100, [FromQuery] int offset = 0)
+        public IActionResult Employees([FromQuery] string? search, [FromQuery] string? sort, [FromQuery] int limit = 100, [FromQuery] int offset = 0)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace MISA.WebDev2022.Api.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetEmployeeByID([FromRoute] Guid employeeID)
+        public IActionResult Employee([FromRoute] Guid employeeID)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace MISA.WebDev2022.Api.Controllers
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, "e001"); return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
                       Resource.DevMsg_Exception,
                       Resource.UserMsg_Exception,
@@ -252,7 +252,7 @@ namespace MISA.WebDev2022.Api.Controllers
         /// </summary>
         /// Created by: PCTUANANH(22/09/2022)
         [HttpPost]
-        public IActionResult InsertEmployee([FromBody] Employee employee)
+        public IActionResult Employee([FromBody] Employee employee)
         {
             try
             {
@@ -374,7 +374,7 @@ namespace MISA.WebDev2022.Api.Controllers
         /// </summary>
         /// Created by: PCTUANANH(18/09/2022)
         [HttpPut("{employeeID}")]
-        public IActionResult UpdateEmployee([FromRoute] Guid employeeID, [FromBody] Employee employee)
+        public IActionResult Employee([FromRoute] Guid employeeID, [FromBody] Employee employee)
         {
 
             try

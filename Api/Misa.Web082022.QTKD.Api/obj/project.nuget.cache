@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pDD9cVnYJUojfnoDQIfbr9YnQ5hb0Zto/i1B/wS1S5BwHDg9C3m3OU/CnBmNfImVLhCrlm/PqFQAzUXRMOnzzw==",
+  "dgSpecHash": "SRjHyJXsFVnRG3pzr6CWzPozXtVM7pHioAuOqtNXAUmKfQ2Sk9aY+Um3ekACbJLTjEww5nILtWTk1ef+BSGLFA==",
   "success": true,
-  "projectFilePath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\Api\\Misa.Web082022.QTKD.Api\\Misa.Web082022.QTKD.API.csproj",
+  "projectFilePath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Api\\Misa.Web082022.QTKD.Api\\Misa.Web082022.QTKD.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

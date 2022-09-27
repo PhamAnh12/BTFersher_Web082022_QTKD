@@ -31,7 +31,7 @@ namespace MISA.WebDev2022.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<Department>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetAllPositions()
+        public IActionResult Deapartments()
         {
             try
             {
