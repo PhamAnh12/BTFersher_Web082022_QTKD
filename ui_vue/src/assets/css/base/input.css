@@ -29,6 +29,9 @@
    font-size: 14px;
  
 }
+.input:hover ~ .input__show__error{
+    display: block;
+}
 .input::placeholder{
     color:   #9E9E9E;
   }
@@ -91,17 +94,21 @@
     align-items: center;
     text-align: center;
     color: var(--white-color);
-    background-color:  var( --error-color) ;
+    background-color:  var(--error-color) ;
     border-radius:  var(--border-radius);
     z-index: 2;
     padding: 4px;
     min-width: 200px;
+    display: none;
+}
+.show__error__department{
+    top: 38px;
 }
 .input__show__error::after{
     content: "";
     border: solid;
     border-width: 12px 14px;
-    border-color:    transparent   transparent  var( --error-color)transparent ;
+    border-color:    transparent   transparent  var(--error-color) transparent ;
     position: absolute;
     bottom: 74%;
     right:40%;
@@ -111,13 +118,3 @@
 .input:focus~ .input__show__error{
     display: none !important;
 }
-
-
-/* .input__show__error{
-   position: absolute; 
-   color:  var( --error-color) ;
-   bottom: -21px;
-   left: 0;
-   padding-left: 4px;
-   
-} */

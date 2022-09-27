@@ -1,21 +1,26 @@
 .table {
-  border-collapse:separate;
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
   position: relative;
 
 }
-
+.table tbody{
+  position: relative;
+}
 .table thead th,
 td {
   text-align: left;
-  border-bottom: 1px solid var(--border-table-color);
-  border-right: 1px solid var(--border-table-color);
+  border-bottom: 0.5px solid var(--border-table-color) ;
+  border-right: 0.5px dotted var(--border-table-color);
   padding-left: 8px;
+ 
 
 }
-.table td{
-  border-right-style:dotted;
-} 
+.table thead th{
+  border-right: 0.5px solid var(--border-table-color) !important;
+}
+
 .td__loading{
   position: relative;
 }
@@ -29,6 +34,7 @@ td {
 
 .trClick  {
   background-color: var(--bg-click-color) !important;
+  box-sizing: border-box;
 }
 
 .th__wd__gender {
@@ -86,7 +92,6 @@ td {
   left: 0;
   background: var(--background-color);
   z-index: 3 ;
-
 }
 .th__sticky__col{
   z-index: 4 !important;
@@ -96,11 +101,11 @@ td {
   left: 38px;
 }
 .td__border__left{
-  border-left: 1px solid var(--border-table-color);
+  border-left: 0.5px solid var(--border-table-color);
   border-right: none !important;
   border-left-style: dotted;
 }
 .th__border__left{
-  border-left: 1px solid var(--border-table-color);
-  border-right: none;
+  border-left: 0.5px solid var(--border-table-color);
+  border-right: none ;
 }

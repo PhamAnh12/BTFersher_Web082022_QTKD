@@ -45,7 +45,7 @@
                   <th class="th__wd" style="">TÊN ĐƠN VỊ</th>
                   <th class="th__wd" style="">SỐ TÀI KHOẢN</th>
                   <th class="th__wd" style="">TÊN NGÂN HÀNG</th>
-                  <th class="th__wd" style="border-right: none">
+                  <th class="th__wd" style="border-right: none !important">
                     CHI NHÁNH NGÂN HÀNG
                   </th>
                   <th
@@ -118,7 +118,7 @@
                     {{ employee.branchBank }}
                     <Loading v-if="isLoading"></Loading>
                   </td>
-                  
+
                   <td
                     class="align-center function function__sticky sticky__col td__border__left"
                     :class="{ trClick: isClick && indexEmployee == index }"
@@ -138,30 +138,31 @@
                           'function__icon--show':
                             isShowFunction && indexEmployee == index,
                         }"
-                      ></div>
-                    </div>
-                   <Loading v-if="isLoading"></Loading>
-                  </td>    
-                       <div
-                      class="function__list"
-                      v-show="isShowFunction && indexEmployee == index"
-                    >
-                      <div class="function__item">Nhân bản</div>
-                      <div
-                        class="function__item function__item--active"
-                        @click="
-                          showDialogDelete(
-                            employee.employeeID,
-                            employee.employeeCode
-                          )
-                        "
                       >
-                        Xóa
+                      
                       </div>
-                      <div class="function__item">Ngưng sử dụng</div>
-                    </div>         
-                </tr> 
-                            
+                    </div>
+                    <Loading v-if="isLoading"></Loading>
+                  </td>
+                    <div
+                          class="function__list"
+                          v-show="isShowFunction && indexEmployee == index"
+                        >
+                          <div class="function__item">Nhân bản</div>
+                          <div
+                            class="function__item function__item--active"
+                            @click="
+                              showDialogDelete(
+                                employee.employeeID,
+                                employee.employeeCode
+                              )
+                            "
+                          >
+                            Xóa
+                          </div>
+                          <div class="function__item">Ngưng sử dụng</div>
+                        </div>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -234,7 +235,6 @@ export default {
       employeeCode: "",
       totalRecords: 0,
       search: "",
-
     };
   },
   methods: {
@@ -281,13 +281,13 @@ export default {
         console.log(error);
       }
     },
-     /*
+    /*
      * Hàm dùng để resetForm
      * PCTUANANH(26/09/2022)
      */
-    resetModal(){
+    resetModal() {
       try {
-         this.employeeSelect = {};
+        this.employeeSelect = {};
       } catch (error) {
         console.log(error);
       }
@@ -414,8 +414,8 @@ export default {
         console.log(error);
       }
     },
-     /*
-     * Hàm dùng để  xử lý tìm lism 
+    /*
+     * Hàm dùng để  xử lý tìm lism
      * PCTUANANH(26/09/2022)
      */
     searchEmployee() {

@@ -26,12 +26,12 @@
 .function__list{
     position: absolute;
     top:36px;
-    right: 988px;
+    right: 966px;
     width: 120px;
     border:1px solid #D6D7DB;
     background-color: var(--background-color);
     border-radius: var(--border-radius);
-    z-index: 4 !important;
+    z-index: 12 !important;
 }
 .function__item{
     float: left;

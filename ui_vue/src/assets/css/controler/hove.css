@@ -13,6 +13,9 @@
 .table tbody tr:hover td {
     background-color: var(--tr-hover-color) !important;
 }
+.table tbody tr:hover {
+    background-color: var(--tr-hover-color) !important;
+}
 .table tbody tr:hover ~ .sticky__col{
     background-color: var(--tr-hover-color) !important;
 }

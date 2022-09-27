@@ -41,3 +41,6 @@
     display:  flex;
     justify-content: space-between;
   }
+  .wd__dialog__error{
+    width: 480px;
+  }

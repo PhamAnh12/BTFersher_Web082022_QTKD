@@ -18,9 +18,9 @@ export default{
 
      },
      Errors:{
-      ErrorName:"Tên không được để trống",
-      ErrorCode:"Mã không được để trống",
-      ErrorDepartment:"Đơn vị không được để trống"
+      errorName:"Tên không được để trống",
+      errorCode:"Mã không được để trống",
+      errorDepartment:"Đơn vị không được để trống"
      },
      keyCode : { //sk bàn phím
       LEFT: 37,

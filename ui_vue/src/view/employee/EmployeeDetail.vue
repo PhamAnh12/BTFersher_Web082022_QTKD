@@ -31,12 +31,12 @@
                   >Mã <span class="required">*</span>
                 </label>
                 <input
-                  id="empCode"
                   tabindex="1"
                   class="input"
                   type="text"
                   placeholder="Mã nhân viên "
                   v-model="employee.employeeCode"
+                  errorCode="errorCode"
                   ref="empCode"
                   :class="{ input__error: errors.errorCode }"
                   @blur="blurValidate"
@@ -55,7 +55,7 @@
                   type="text"
                   placeholder="Tên nhân viên"
                   ref="empName"
-                  id="errorName"
+                  errorCode="errorName"
                   v-model="employee.employeeName"
                   :class="{ input__error: errors.errorName }"
                   @blur="blurValidate"
@@ -69,7 +69,7 @@
               <div class="container__input input__160">
                 <label class="input__label" for=""> Ngày sinh </label>
                 <input
-                  tabindex="3"
+                  tabindex="5"
                   class="input input_date"
                   type="date"
                   :max="maxDate"
@@ -84,7 +84,7 @@
                     name="gender"
                     id="male"
                     value="0"
-                    tabindex="4"
+                    tabindex="6"
                     checked
                     v-model="employee.gender"
                   />
@@ -94,6 +94,7 @@
                     name="gender"
                     id="female"
                     value="1"
+                    tabindex="7"
                     v-model="employee.gender"
                   />
                   <label for="">Nữ</label>
@@ -102,6 +103,7 @@
                     name="gender"
                     id="other"
                     value="2"
+                    tabindex="8"
                     v-model="employee.gender"
                   />
                   <label for="other">Khác</label>
@@ -122,18 +124,17 @@
                   propText="departmentName"
                   @getValueDepart="getValueDepart"
                   :departmentName="employee.departmentName"
-                  :class="{ input__error: errors.errorDepartment }"
+                  :errorDepartment="errors.errorDepartment"
+                  tabindex="3"
+                  errorCode="errorDepartment"
                 ></MCombobox>
-                <div :class="{ input__show__error: errors.errorDepartment }">
-                  {{ errors.errorDepartment }}
-                </div>
               </div>
             </div>
             <div class="body__row__rigth">
               <div class="container__input input__320">
                 <label class="input__label" for="">Số CMND</label>
                 <input
-                  tabindex="7"
+                  tabindex="9"
                   class="input"
                   type="text"
                   placeholder="Số chứng minh nhân dân"
@@ -143,7 +144,7 @@
               <div class="container__input input__margin_6 input__160">
                 <label class="input__label" for="">Ngày cấp</label>
                 <input
-                  tabindex="8"
+                  tabindex="10"
                   class="input input_date"
                   :max="maxDate"
                   type="date"
@@ -157,7 +158,7 @@
               <div class="container__input input__480">
                 <label class="input__label" for="">Chức danh</label>
                 <input
-                  tabindex="6"
+                  tabindex="4"
                   class="input"
                   type="text"
                   placeholder="Chức danh"
@@ -169,7 +170,7 @@
               <div class="container__input input__480">
                 <label class="input__label" for="">Nơi cấp</label>
                 <input
-                  tabindex="9"
+                  tabindex="11"
                   class="input"
                   type="text"
                   placeholder="Nơi cấp chứng minh nhân dân"
@@ -182,7 +183,7 @@
             <div class="container__input">
               <label class="input__label" for="">Địa chỉ</label>
               <input
-                tabindex="10"
+                tabindex="12"
                 class="input"
                 type="text"
                 placeholder="Địa chỉ"
@@ -194,7 +195,7 @@
             <div class="container__input input__240">
               <label class="input__label" for="">ĐT di động </label>
               <input
-                tabindex="11"
+                tabindex="13"
                 class="input"
                 type="text"
                 placeholder="Số địa thoại di động"
@@ -204,7 +205,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">ĐT có định </label>
               <input
-                tabindex="12"
+                tabindex="14"
                 class="input"
                 type="text"
                 placeholder="Số điện thoại cố định"
@@ -214,7 +215,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">Email </label>
               <input
-                tabindex="13"
+                tabindex="15"
                 class="input"
                 type="text"
                 placeholder="Email"
@@ -226,7 +227,7 @@
             <div class="container__input input__240">
               <label class="input__label" for="">Tài khoản ngân hàng </label>
               <input
-                tabindex="14"
+                tabindex="16"
                 class="input"
                 type="text"
                 placeholder="Tài khoản ngân hàng"
@@ -236,7 +237,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">Tên ngân hàng </label>
               <input
-                tabindex="15"
+                tabindex="17"
                 class="input"
                 type="text"
                 placeholder="Tên ngân hàng"
@@ -246,7 +247,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for=""> Chi nhánh </label>
               <input
-                tabindex="16"
+                tabindex="18"
                 class="input"
                 type="text"
                 placeholder="Chi nhánh ngân hàng"
@@ -273,18 +274,25 @@
     @hideCloseForm="hideCloseForm"
     @saveModal="saveModal"
   ></DialogFormClose>
+  <DialogError
+    v-if="isErrorFrom"
+    @hideErrorFrom="hideErrorFrom"
+    :textPopupError="textPopupError"
+  ></DialogError>
 </template>
 <script>
 import Common from "../../script/common/common";
 import Enumeration from "../../script/common/enumeration";
 import DialogFormClose from "../../components/base/DialogFormClose.vue";
 import MCombobox from "../../components/base/msCombobox/MCombobox.vue";
+import DialogError from "../../components/base/Dialog.vue";
 var urlBase = process.env.VUE_APP_URL;
 export default {
   name: "EmployeeDetailComponent",
   components: {
     DialogFormClose,
     MCombobox,
+    DialogError,
   },
   props: {
     employeeSelect: Object,
@@ -311,7 +319,6 @@ export default {
      *Dùng để thêm một mã nhân viên tự động tăng
      */
     this.newEmployeeCode();
-
     /*
      *Dùng để format ngày tháng
      */
@@ -335,6 +342,8 @@ export default {
       },
       urlDepartment: `${urlBase}/Departments`,
       SaveMode: Enumeration.SaveMode.Save,
+      isErrorFrom: false,
+      textErrorPopup: "",
     };
   },
   methods: {
@@ -448,6 +457,18 @@ export default {
       }
     },
     /*
+     * Hàm dùng để ẩn popup show Error
+     * PCTUANANH(28/09/2022)
+     */
+    hideErrorFrom() {
+      try {
+        this.isErrorFrom = false;
+        this.$refs.empCode.focus();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
      * Hàm dùng để validate
      * PCTUANANH(24/09/2022)
      */
@@ -459,15 +480,15 @@ export default {
         errorDepartment: "",
       };
       if (!this.employee.employeeCode) {
-        this.errors.errorCode = Enumeration.Errors.ErrorCode;
+        this.errors.errorCode = Enumeration.Errors.errorCode;
         isValidate = false;
       }
       if (!this.employee.employeeName) {
-        this.errors.errorName = Enumeration.Errors.ErrorName;
+        this.errors.errorName = Enumeration.Errors.errorName;
         isValidate = false;
       }
       if (!this.employee.departmentID) {
-        this.errors.errorDepartment = Enumeration.Errors.ErrorDepartment;
+        this.errors.errorDepartment = Enumeration.Errors.errorDepartment;
         isValidate = false;
       }
 
@@ -475,13 +496,30 @@ export default {
     },
     /*
      * Hàm dùng để blur validate
-     * PCTUANANH(24/09/2022)
+     * PCTUANANH(27/09/2022)
      */
     blurValidate(e) {
-      if (!e.currentTarget.value) {
-        this.errors.errorName = Enumeration.Errors.ErrorName;
+      let errorCode = e.currentTarget.getAttribute("errorCode");
+      if (e.currentTarget.value) {
+        this.errors[errorCode] = "";
       } else {
-        this.errors.errorName = "";
+        this.errors[errorCode] = Enumeration.Errors[errorCode];
+      }
+    },
+    /*
+     * Hàm dùng  validatebackend
+     * PCTUANANH(28/09/2022)
+     */
+    validateBackend(response) {
+      if (response.userMsg) {
+        this.isErrorFrom = true;
+        this.textPopupError = response.userMsg;
+      }
+      else{
+        if( this.SaveMode == Enumeration.SaveMode.Save){
+            this.$emit("loadingData");
+            this.$emit("hideModal");
+        } 
       }
     },
     /*
@@ -491,6 +529,9 @@ export default {
     getValueDepart(department) {
       this.employee.departmentID = department.departmentID;
       this.employee.departmentName = department.departmentName;
+      if (this.employee.departmentID) {
+        this.errors.errorDepartment = "";
+      }
     },
     ///
     /// Các hàm dùng để lưu
@@ -522,6 +563,7 @@ export default {
       try {
         this.SaveMode = Enumeration.SaveMode.Save;
         this.handleSave();
+
       } catch (error) {
         console.log(error);
       }
@@ -534,15 +576,9 @@ export default {
       try {
         this.SaveMode = Enumeration.SaveMode.SaveAdd;
         this.handleSave();
-        this.employee = {};
-        /*
-         *Dùng để focus vào ô đầu tiên
-         */
-        this.$refs.empCode.focus();
-        /*
-         *Dùng để thêm một mã nhân viên tự động tăng
-         */
-        this.newEmployeeCode();
+        this.$emit("loadingData");
+        this.$emit("hideModal");
+        
       } catch (error) {
         console.log(error);
       }
@@ -568,11 +604,7 @@ export default {
         })
           .then((response) => response.json())
           .then((response) => {
-            console.log(response);
-            if (this.SaveMode === Enumeration.SaveMode.Save) {
-              this.$emit("loadingData");
-              this.$emit("hideModal");
-            }
+            this.validateBackend(response);
           })
           .catch((error) => {
             console.log(data);
@@ -589,7 +621,6 @@ export default {
     saveAddEmployee() {
       try {
         this.formatInputForm();
-        // this.employee.departmentID = "59d19422-6657-452e-a7db-e5d54223c257";
         let data = this.employee;
         let url = `${urlBase}/Employees`;
         fetch(url, {
@@ -601,9 +632,7 @@ export default {
         })
           .then((response) => response.json())
           .then((response) => {
-            console.log(response);
-            this.$emit("loadingData");
-            this.$emit("hideModal");
+            this.validateBackend(response);
           })
           .catch((error) => {
             console.error("Error:", error);

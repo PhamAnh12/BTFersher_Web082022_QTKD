@@ -1,12 +1,17 @@
 <template>
-  <div class="combobox" >
+  <div class="combobox">
     <input
       type="text"
       class="input combobox__input"
       v-model="textInput"
       @input="inputOnChange"
       @keydown="selecItemUpDown"
+      placeholder="<None>"
+      :class="{ input__error: errorDepartment }"
     />
+     <div class="show__error__department" :class="{ input__show__error: errorDepartment }">
+                  {{ errorDepartment }}
+                </div>
     <button
       class="button combobox__button"
       @click="btnSelectDataOnClick"
@@ -140,11 +145,12 @@ export default {
     url: String,
     propValue: String,
     propText: String,
-    departmentName : String,
+    departmentName: String,
     isLoadData: {
       type: Boolean,
       default: true,
     },
+    errorDepartment: String,
   },
   methods: {
     /**
@@ -168,8 +174,9 @@ export default {
      * NVMANH (31/07/2022)
      */
     btnSelectDataOnClick() {
+      //  this.getAPI();
       this.dataFilter = this.data;
-      this.isShowListData = !this.showListData;
+      this.isShowListData = !this.isShowListData;
     },
 
     /**
@@ -182,7 +189,7 @@ export default {
       this.textInput = text; // Hiển thị text lên input.
       this.indexItemSelected = index;
       this.isShowListData = false;
-      this.$emit("getValueDepart",item);
+      this.$emit("getValueDepart", item);
     },
 
     /**
@@ -227,11 +234,12 @@ export default {
             this.indexItemFocus = 0;
           } else {
             this.indexItemFocus += 1;
-            if( this.indexItemFocus >=3){
-            this.$refs.combobox__data.scrollTo(0, (this.indexItemFocus-2)*36);
-           
+            if (this.indexItemFocus >= 3) {
+              this.$refs.combobox__data.scrollTo(
+                0,
+                (this.indexItemFocus - 2) * 36
+              );
             }
-
           }
           break;
         case keyCode.ArrowUp:
@@ -258,51 +266,51 @@ export default {
           break;
       }
     },
-  
+    getAPI() {
+      let me = this;
+      // Thực hiện lấy dữ liệu từ api:
+      if (this.url) {
+        fetch(this.url)
+          .then((res) => res.json())
+          .then((res) => {
+            this.data = res;
+            if (me.departmentName) {
+              this.data.filter(function (item, index) {
+                if (item.departmentName === me.departmentName) {
+                  me.indexItemSelected = index;
+                  return;
+                }
+              });
+            }
+
+            this.dataFilter = res;
+          })
+          .catch((res) => {
+            console.log(res);
+          });
+      }
+    },
   },
   created() {
     let me = this;
-    if(this.departmentName){
+    if (this.departmentName) {
       this.textInput = this.departmentName;
     }
-   
-    // Thực hiện lấy dữ liệu từ api:
-    if (this.url) {
-      fetch(this.url)
-        .then((res) => res.json())
-        .then((res) => {
-          this.data = res;
-          console.log(this.data);
-          console.log(this.departmentName);
-           this.data.filter(
-            function(item,index){
-             if(item.departmentName === me.departmentName){
-               me.indexItemSelected = index;
-               return;
-             }
-             
-            }
-           )
-          this.dataFilter = res;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-       
-    };
-   
+    this.getAPI();
   },
   data() {
     return {
       data: [], // data gốc
-      textInput: "<None>",
+      textInput: "",
       dataFilter: [], // data đã được filter
       isShowListData: false, // Hiển thị list data hay không
       indexItemFocus: null, // Index của item focus hiện tại
       indexItemSelected: null, // Index của item được selected
-
     };
   },
+  updated(){
+  
+   
+  }
 };
 </script>
-
