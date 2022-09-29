@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj": {}
+    "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj": {}
   },
   "projects": {
-    "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj": {
+    "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj",
+        "projectUniqueName": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj",
         "projectName": "Misa.Web082022.QTKD.Multilayer.BL",
-        "projectPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj",
+        "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\obj\\",
+        "outputPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -31,11 +31,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {
-                "projectPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj"
+              "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {
+                "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj"
               },
-              "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj": {
-                "projectPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj"
+              "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj": {
+                "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj"
               }
             }
           }
@@ -49,6 +49,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Swashbuckle.AspNetCore.Annotations": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -68,14 +74,14 @@
         }
       }
     },
-    "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {
+    "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj",
+        "projectUniqueName": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj",
         "projectName": "Misa.Web082022.QTKD.Multilayer.Common",
-        "projectPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj",
+        "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\obj\\",
+        "outputPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -125,14 +131,14 @@
         }
       }
     },
-    "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj": {
+    "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj",
+        "projectUniqueName": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj",
         "projectName": "Misa.Web082022.QTKD.Multilayer.DL",
-        "projectPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj",
+        "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\Misa.Web082022.QTKD.Multilayer.DL.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\obj\\",
+        "outputPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.DL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -152,8 +158,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {
-                "projectPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj"
+              "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {
+                "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj"
               }
             }
           }

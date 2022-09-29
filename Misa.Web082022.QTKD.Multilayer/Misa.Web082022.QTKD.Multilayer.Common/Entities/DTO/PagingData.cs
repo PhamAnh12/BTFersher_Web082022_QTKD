@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Misa.Web082022.QTKD.Multilayer.Common
+namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
 {
     /// <summary>
     /// Dữ liệu trả về khi lọc và phân trang

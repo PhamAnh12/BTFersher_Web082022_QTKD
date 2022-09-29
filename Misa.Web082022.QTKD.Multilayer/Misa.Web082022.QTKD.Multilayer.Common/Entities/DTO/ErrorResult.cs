@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Misa.Web082022.QTKD.Multilayer.Common.Enums;
 
-namespace Misa.Web082022.QTKD.Multilayer.Common
+namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
 {
     public class ErrorResult
     {
@@ -35,7 +36,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common
         /// <summary>
         /// Mã để tra cứu thông tin log
         /// </summary>
-        public string TraceId { get; set; }
+        public string? TraceId { get; set; }
 
     }
 }

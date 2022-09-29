@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "GMscdir37Wp9lgHq3mBQau20PwYysf7Uq5Cd5HgHVfySodi2eJRPY6wjwPjBJVTSZziWNizlchVTrhdRSis+sQ==",
+  "dgSpecHash": "DxHWwFaxQUjHLGEoBq3EOepAqpHlN4GChN/YmHuJeXYJk3mUxrFidE4w/TPC62rejI4y2JuTWAA/6KAKO1J1tQ==",
   "success": true,
-  "projectFilePath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj",
+  "projectFilePath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\mysqlconnector\\2.1.13\\mysqlconnector.2.1.13.nupkg.sha512"
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\mysqlconnector\\2.1.13\\mysqlconnector.2.1.13.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\6.4.0\\swashbuckle.aspnetcore.annotations.6.4.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512"
   ],
   "logs": []
 }

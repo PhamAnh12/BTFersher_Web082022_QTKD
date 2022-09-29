@@ -178,6 +178,69 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proc_Department_Get_All.
+        /// </summary>
+        public static string Proc_Department_Get_All {
+            get {
+                return ResourceManager.GetString("Proc_Department_Get_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_Employee_DeleteByEmployeeID.
+        /// </summary>
+        public static string Proc_Employee_DeleteByEmployeeID {
+            get {
+                return ResourceManager.GetString("Proc_Employee_DeleteByEmployeeID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_Employee_GetByEmployeeID.
+        /// </summary>
+        public static string Proc_Employee_GetByEmployeeID {
+            get {
+                return ResourceManager.GetString("Proc_Employee_GetByEmployeeID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_Employee_GetMaxEmployeeCode.
+        /// </summary>
+        public static string Proc_Employee_GetMaxEmployeeCode {
+            get {
+                return ResourceManager.GetString("Proc_Employee_GetMaxEmployeeCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_Employee_GetPaing.
+        /// </summary>
+        public static string Proc_Employee_GetPaing {
+            get {
+                return ResourceManager.GetString("Proc_Employee_GetPaing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_Employee_InsertEmployee.
+        /// </summary>
+        public static string Proc_Employee_InsertEmployee {
+            get {
+                return ResourceManager.GetString("Proc_Employee_InsertEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_Employee_UpdateEmployee.
+        /// </summary>
+        public static string Proc_Employee_UpdateEmployee {
+            get {
+                return ResourceManager.GetString("Proc_Employee_UpdateEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xóa bản ghi không thành công .
         /// </summary>
         public static string UserMsg_DeleteFailed {

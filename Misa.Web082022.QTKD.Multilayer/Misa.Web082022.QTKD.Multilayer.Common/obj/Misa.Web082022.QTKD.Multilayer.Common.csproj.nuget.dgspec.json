@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {}
+    "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {}
   },
   "projects": {
-    "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {
+    "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj",
+        "projectUniqueName": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj",
         "projectName": "Misa.Web082022.QTKD.Multilayer.Common",
-        "projectPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj",
+        "projectPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\Misa.Web082022.QTKD.Multilayer.Common.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\obj\\",
+        "outputPath": "D:\\WorkSpace\\Misa\\BaiTap_Fresher_Web082002\\BTFersher_Web082022_QTKD\\backend\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

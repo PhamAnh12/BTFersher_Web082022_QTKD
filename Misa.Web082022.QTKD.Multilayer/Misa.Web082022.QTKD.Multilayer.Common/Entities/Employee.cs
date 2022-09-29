@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Misa.Web082022.QTKD.Multilayer.Common.Enums;
+using Misa.Web082022.QTKD.Multilayer.Common.Attributes;
 
-namespace Misa.Web082022.QTKD.Multilayer.Common
+namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
 {
     public class Employee
     {

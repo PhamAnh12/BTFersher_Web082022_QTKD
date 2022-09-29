@@ -169,6 +169,34 @@
     <value>"https://openapi.misa.com.vn/errorcode/e002",</value>
     <comment>Đường dẫn mô tải lỗi   khi Update bản ghi vào database thất bại</comment>
   </data>
+  <data name="Proc_Department_Get_All" xml:space="preserve">
+    <value>Proc_Department_Get_All</value>
+    <comment>Tên Proc lấy toàn bộ đơn vị</comment>
+  </data>
+  <data name="Proc_Employee_DeleteByEmployeeID" xml:space="preserve">
+    <value>Proc_Employee_DeleteByEmployeeID</value>
+    <comment>Tên Proc xóa một nhân viên</comment>
+  </data>
+  <data name="Proc_Employee_GetByEmployeeID" xml:space="preserve">
+    <value>Proc_Employee_GetByEmployeeID</value>
+    <comment>Templatte string cho Procedure lấy một bản ghi trong bảng trong một bảng</comment>
+  </data>
+  <data name="Proc_Employee_GetMaxEmployeeCode" xml:space="preserve">
+    <value>Proc_Employee_GetMaxEmployeeCode</value>
+    <comment> String cho Procedure lấy  Max nhân viên trong bảng nhân viên </comment>
+  </data>
+  <data name="Proc_Employee_GetPaing" xml:space="preserve">
+    <value>Proc_Employee_GetPaing</value>
+    <comment>Templatte string cho Procedure filter bảng trong một bảng</comment>
+  </data>
+  <data name="Proc_Employee_InsertEmployee" xml:space="preserve">
+    <value>Proc_Employee_InsertEmployee</value>
+    <comment>Tên Proc thêm mới nhân viên</comment>
+  </data>
+  <data name="Proc_Employee_UpdateEmployee" xml:space="preserve">
+    <value>Proc_Employee_UpdateEmployee</value>
+    <comment>Tên Proc sửa một nhân viên</comment>
+  </data>
   <data name="UserMsg_DeleteFailed" xml:space="preserve">
     <value>Xóa bản ghi không thành công </value>
     <comment>Message cho User  khi xóa bản ghi không thành công</comment>
