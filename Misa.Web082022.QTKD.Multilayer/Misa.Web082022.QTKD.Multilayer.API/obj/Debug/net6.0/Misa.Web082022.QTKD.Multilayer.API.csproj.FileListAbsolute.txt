@@ -70,3 +70,4 @@ D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\backend\Misa
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\backend\Misa.Web082022.QTKD.Multilayer\Misa.Web082022.QTKD.Multilayer.API\obj\Debug\net6.0\Misa.Web082022.QTKD.Multilayer.API.pdb
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\backend\Misa.Web082022.QTKD.Multilayer\Misa.Web082022.QTKD.Multilayer.API\obj\Debug\net6.0\Misa.Web082022.QTKD.Multilayer.API.genruntimeconfig.cache
 D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\backend\Misa.Web082022.QTKD.Multilayer\Misa.Web082022.QTKD.Multilayer.API\obj\Debug\net6.0\ref\Misa.Web082022.QTKD.Multilayer.API.dll
+D:\WorkSpace\Misa\BaiTap_Fresher_Web082002\BTFersher_Web082022_QTKD\backend\Misa.Web082022.QTKD.Multilayer\Misa.Web082022.QTKD.Multilayer.API\bin\Debug\net6.0\NLog.dll

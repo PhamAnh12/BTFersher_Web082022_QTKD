@@ -9,6 +9,7 @@
       "Misa.Web082022.QTKD.Multilayer.API/1.0.0": {
         "dependencies": {
           "Misa.Web082022.QTKD.Multilayer.BL": "1.0.0",
+          "NLog": "5.0.4",
           "NSwag.Annotations": "13.17.0",
           "Swashbuckle.AspNetCore": "6.2.3",
           "Swashbuckle.AspNetCore.Annotations": "6.4.0"
@@ -39,6 +40,14 @@
           "lib/net6.0/MySqlConnector.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.1.13.0"
+          }
+        }
+      },
+      "NLog/5.0.4": {
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.4.1331"
           }
         }
       },
@@ -159,6 +168,13 @@
       "sha512": "sha512-Y3qts7mnuZ4EGEQOI4xJ1n+9ZJOmrcwD2CdqyAXuQONBkrc2ENDywE6ZBysFaRojXrnWzLXpc595+GYlN/PI9Q==",
       "path": "mysqlconnector/2.1.13",
       "hashPath": "mysqlconnector.2.1.13.nupkg.sha512"
+    },
+    "NLog/5.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hMyC7jq1m7c339DZXTRz96b+0YsIYSwAUB8sAWMtqXd2uwJjYe+y1k74fbItODPqDuE/krd6A4mxew9gLMS+PQ==",
+      "path": "nlog/5.0.4",
+      "hashPath": "nlog.5.0.4.nupkg.sha512"
     },
     "NSwag.Annotations/13.17.0": {
       "type": "package",
