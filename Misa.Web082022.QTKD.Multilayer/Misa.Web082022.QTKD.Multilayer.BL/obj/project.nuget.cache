@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "GMscdir37Wp9lgHq3mBQau20PwYysf7Uq5Cd5HgHVfySodi2eJRPY6wjwPjBJVTSZziWNizlchVTrhdRSis+sQ==",
+  "success": true,
+  "projectFilePath": "D:\\Desktop\\Misa.Web082022.QTKD.Multilayer\\Misa.Web082022.QTKD.Multilayer.BL\\Misa.Web082022.QTKD.Multilayer.BL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\mysqlconnector\\2.1.13\\mysqlconnector.2.1.13.nupkg.sha512"
+  ],
+  "logs": []
+}

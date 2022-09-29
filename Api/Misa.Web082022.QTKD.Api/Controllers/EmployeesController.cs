@@ -76,31 +76,31 @@ namespace MISA.WebDev2022.Api.Controllers
                     {
                         Data = employees.ToList(),
                         TotalCount = totalCount
-                    }) ; 
+                    });
                 }
                 else
                 {
-                  return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
-                  QTKDErrorCode.ResultDatabaseFailed,
-                  Resource.DevMsg_GetFailed,
-                  Resource.UserMsg_GetFailed,
-                 Resource.MoreInfo_GetFailed,
-                 HttpContext.TraceIdentifier
-                )
-            );
+                    return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
+                    QTKDErrorCode.ResultDatabaseFailed,
+                    Resource.DevMsg_GetFailed,
+                    Resource.UserMsg_GetFailed,
+                   Resource.MoreInfo_GetFailed,
+                   HttpContext.TraceIdentifier
+                  )
+              );
                 }
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(                   
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                      QTKDErrorCode.Exception,
                       Resource.DevMsg_Exception,
                       Resource.UserMsg_Exception,
                       Resource.MoreInfo_Exception,
                       HttpContext.TraceIdentifier
                     )
-                ); 
+                );
             }
         }
 
@@ -147,7 +147,7 @@ namespace MISA.WebDev2022.Api.Controllers
                 // Thất bại
                 else
                 {
-                  
+
                     return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
                     QTKDErrorCode.ResultDatabaseFailed,
                     Resource.DevMsg_GetFailed,
@@ -209,12 +209,12 @@ namespace MISA.WebDev2022.Api.Controllers
                     newEmployeeCode = "NV00" + (Int64.Parse(maxEmployeeCode.Substring(4)) + 1).ToString();
 
                 }
-               else if (maxEmployeeCode.Substring(0,3) == "NV0")
+                else if (maxEmployeeCode.Substring(0, 3) == "NV0")
                 {
                     newEmployeeCode = "NV0" + (Int64.Parse(maxEmployeeCode.Substring(3)) + 1).ToString();
 
                 }
-                else if(maxEmployeeCode.Substring(0, 2) == "NV")
+                else if (maxEmployeeCode.Substring(0, 2) == "NV")
                 {
                     newEmployeeCode = "NV" + (Int64.Parse(maxEmployeeCode.Substring(2)) + 1).ToString();
 
@@ -224,7 +224,7 @@ namespace MISA.WebDev2022.Api.Controllers
                 // Trả về dữ liệu cho client
                 return StatusCode(StatusCodes.Status200OK, newEmployeeCode);
             }
-               
+
             catch (Exception exception)
             {
 
@@ -309,7 +309,8 @@ namespace MISA.WebDev2022.Api.Controllers
                     // Trả về dữ liệu cho client
                     return StatusCode(StatusCodes.Status201Created, employeeID);
                 }
-                else {
+                else
+                {
 
                     return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
                     QTKDErrorCode.ResultDatabaseFailed,
@@ -513,7 +514,7 @@ namespace MISA.WebDev2022.Api.Controllers
                 parameters.Add("v_EmployeeID", employeeID);
 
                 // Thực hiện gọi vào DB để chạy câu lệnh DELETE với tham số đầu vào ở trên
-                int numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters,commandType: System.Data.CommandType.StoredProcedure);
+                int numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
 
                 // Xử lý kết quả trả về từ DB
                 if (numberOfAffectedRows > 0)
@@ -523,14 +524,14 @@ namespace MISA.WebDev2022.Api.Controllers
                 }
                 else
                 {
-                  return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                   QTKDErrorCode.ResultDatabaseFailed,
-                   Resource.DevMsg_DeleteFailed,
-                   Resource.UserMsg_DeleteFailed,
-                   Resource.MoreInfo_DeleteFailed,
-                   HttpContext.TraceIdentifier
-                  )
-                  );
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
+                     QTKDErrorCode.ResultDatabaseFailed,
+                     Resource.DevMsg_DeleteFailed,
+                     Resource.UserMsg_DeleteFailed,
+                     Resource.MoreInfo_DeleteFailed,
+                     HttpContext.TraceIdentifier
+                    )
+                    );
                 }
             }
             catch (Exception exception)
