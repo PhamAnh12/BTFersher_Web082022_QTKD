@@ -222,7 +222,7 @@
     <comment>Message cho User  khi Update bản ghi vào database thất bại</comment>
   </data>
   <data name="UserMsg_ValidateFailed" xml:space="preserve">
-    <value>Có lỗi bỏ trống các trường bắt buộc</value>
+    <value>Dữ liệu đầu vào không hợp lệ</value>
     <comment>Message cho  User  đọc khi  có lỗi bỏ trống các trường bắt buộc</comment>
   </data>
 </root>

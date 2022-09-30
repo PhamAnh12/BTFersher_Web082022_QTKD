@@ -32,11 +32,13 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         /// <summary>
         /// Thông tin chi tiết hơn về vấn đề.
         /// </summary>
-        public string MoreInfo { get; set; }
+        public string? MoreInfo { get; set; }
         /// <summary>
         /// Mã để tra cứu thông tin log
         /// </summary>
         public string? TraceId { get; set; }
+
+
 
     }
 }

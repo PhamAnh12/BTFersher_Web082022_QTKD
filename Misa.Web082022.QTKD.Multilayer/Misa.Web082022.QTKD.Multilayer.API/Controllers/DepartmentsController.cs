@@ -2,7 +2,7 @@
 using Misa.Web082022.QTKD.Multilayer.BL;
 using Misa.Web082022.QTKD.Multilayer.Common.Entities;
 using Misa.Web082022.QTKD.Multilayer.Common.Enums;
-using Misa.Web082022.QTKD.Multilayer.Common.Resource;
+using Misa.Web082022.QTKD.Multilayer.Common;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Misa.Web082022.QTKD.Multilayer.API.Controllers
@@ -10,19 +10,20 @@ namespace Misa.Web082022.QTKD.Multilayer.API.Controllers
 
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class DepartmentsController : ControllerBase
     {
         #region Field
 
         private IDepartmentBL _departmentBL;
-
+        private ResponeErrorResult responeErrorResult;
         #endregion
 
         #region Controctor
 
-        public DepartmentController(IDepartmentBL departmentBL)
+        public DepartmentsController(IDepartmentBL departmentBL)
         {
             _departmentBL = departmentBL;
+            responeErrorResult = new ResponeErrorResult();
         }
 
         #endregion
@@ -50,27 +51,14 @@ namespace Misa.Web082022.QTKD.Multilayer.API.Controllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
-                     QTKDErrorCode.ResultDatabaseFailed,
-                     Resource.DevMsg_GetFailed,
-                     Resource.UserMsg_GetFailed,
-                     Resource.MoreInfo_GetFailed,
-                     HttpContext.TraceIdentifier
-                  )
-              );
+                    return StatusCode(StatusCodes.Status404NotFound, responeErrorResult.ErrorResultGet(HttpContext.TraceIdentifier));
                 }
             }
             catch (Exception exception)
             {
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                     QTKDErrorCode.Exception,
-                      Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                      HttpContext.TraceIdentifier
-                    )
-                );
+                return StatusCode(StatusCodes.Status400BadRequest,
+                    responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Misa.Web082022.QTKD.Multilayer.Common.Entities;
-using Misa.Web082022.QTKD.Multilayer.Common.Resource;
+using Misa.Web082022.QTKD.Multilayer.Common;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;

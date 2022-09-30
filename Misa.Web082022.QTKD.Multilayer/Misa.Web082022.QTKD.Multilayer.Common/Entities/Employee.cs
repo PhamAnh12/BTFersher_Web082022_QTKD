@@ -46,13 +46,14 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         /// <summary>
         /// ID phòng ban
         /// </summary>
+        [IsNotNullOrEmpty("Đơn vị không được để trống")]
         public Guid DepartmentID { get; set; }
 
         /// <summary>
         /// Tên phòng ban
         /// </summary>
         [IsNotNullOrEmpty("Đơn vị không được để trống")]
-        public string? DepartmentName { get; set; }
+        public string DepartmentName { get; set; }
 
         /// <summary>
         /// Số CMND

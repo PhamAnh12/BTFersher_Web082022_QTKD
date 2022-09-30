@@ -10,6 +10,11 @@ namespace Misa.Web082022.QTKD.Multilayer.Common
    /// </summary>
     public class Validation
     {
+
+        /// <summary>
+        /// hàm  xử lý Validate dữ liệu
+        ///  CreatedBy PCTUANANH(25/09/2022)
+        /// </summary>
         public static List<string> Validate(Employee employee)
         {
 

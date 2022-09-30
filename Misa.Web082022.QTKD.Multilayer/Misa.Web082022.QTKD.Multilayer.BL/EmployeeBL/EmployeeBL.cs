@@ -59,7 +59,6 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
 
         #endregion
 
-
         #region Get NewEmployeeCode
 
         /// <summary>
@@ -109,10 +108,13 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
             List<string> ValidateErrors = Validation.Validate(employee);
             if (ValidateErrors.Count > 0)
             {
+                string listValidateErrors = string.Join(", ", ValidateErrors);
                 return new ServiceResponse
-                {   IsValidate = false,
+                {   
+                    IsValidate = false,
+                    strValidate = listValidateErrors,
                     Success = false,
-                    Data = ValidateErrors
+                    Data = listValidateErrors
                 };
             }
             else
@@ -123,6 +125,7 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
                     return new ServiceResponse
                     {
                         IsValidate = true,
+                        strValidate = "",
                         Success = true,
                         Data = employeeID
                     };
@@ -132,6 +135,7 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
                     return new ServiceResponse
                     {
                         IsValidate = true,
+                        strValidate = "",
                         Success = false,
                         Data = null,
                     };
@@ -158,11 +162,13 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
             List<string> ValidateErrors = Validation.Validate(employee);
             if (ValidateErrors.Count > 0)
             {
+                string listValidateErrors = string.Join(", ", ValidateErrors);
                 return new ServiceResponse
                 {
                     IsValidate = false,
+                    strValidate = listValidateErrors,
                     Success = false,
-                    Data = ValidateErrors
+                    Data = listValidateErrors
                 };
             }
             else
@@ -173,6 +179,7 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
                     return new ServiceResponse
                     {
                         IsValidate = true,
+                        strValidate = "",
                         Success = true,
                         Data = employeeID
                     };
@@ -182,6 +189,7 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
                     return new ServiceResponse
                     {
                         IsValidate = true,
+                        strValidate = "",
                         Success = false,
                         Data = null,
                     };

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Misa.Web082022.QTKD.Multilayer.BL;
 using Misa.Web082022.QTKD.Multilayer.Common.Entities;
 using Misa.Web082022.QTKD.Multilayer.Common.Enums;
-using Misa.Web082022.QTKD.Multilayer.Common.Resource;
+
 using MySqlConnector;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -17,6 +17,7 @@ namespace Misa.WebDev2022.QTKD.Controllers
         #region Field
 
         private IEmployeeBL _employeeBL;
+        private ResponeErrorResult responeErrorResult;
 
         #endregion
 
@@ -25,6 +26,7 @@ namespace Misa.WebDev2022.QTKD.Controllers
         public EmployeesController(IEmployeeBL employeeBL)
         {
             _employeeBL = employeeBL;
+            responeErrorResult = new ResponeErrorResult();
         }
 
         #endregion
@@ -59,27 +61,13 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
-                    QTKDErrorCode.ResultDatabaseFailed,
-                    Resource.DevMsg_GetFailed,
-                    Resource.UserMsg_GetFailed,
-                   Resource.MoreInfo_GetFailed,
-                   HttpContext.TraceIdentifier
-                  )
-              );
+                    return StatusCode(StatusCodes.Status404NotFound, responeErrorResult.ErrorResultGet(HttpContext.TraceIdentifier));
                 }
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                     QTKDErrorCode.Exception,
-                      Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                      HttpContext.TraceIdentifier
-                    )
-                );
+                return StatusCode(StatusCodes.Status400BadRequest, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
         }
 
@@ -112,29 +100,14 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 else
                 {
 
-                    return StatusCode(StatusCodes.Status404NotFound, new ErrorResult(
-                    QTKDErrorCode.ResultDatabaseFailed,
-                    Resource.DevMsg_GetFailed,
-                    Resource.UserMsg_GetFailed,
-                    Resource.MoreInfo_GetFailed,
-                    HttpContext.TraceIdentifier
-
-                 )
-             );
+                    return StatusCode(StatusCodes.Status404NotFound, responeErrorResult.ErrorResultGet(HttpContext.TraceIdentifier));
                 }
             }
             // Try catch exception
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                     QTKDErrorCode.Exception,
-                      Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                     HttpContext.TraceIdentifier
-                    )
-                );
+                return StatusCode(StatusCodes.Status400BadRequest, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
         }
@@ -165,14 +138,8 @@ namespace Misa.WebDev2022.QTKD.Controllers
             {
 
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                     QTKDErrorCode.Exception,
-                       Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                     HttpContext.TraceIdentifier
-                    )
-                );
+                return StatusCode(StatusCodes.Status400BadRequest,
+                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
         }
@@ -198,15 +165,11 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 var employeeBLResponse = _employeeBL.InsertEmployee(employee);
                 if (!employeeBLResponse.IsValidate)
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                            QTKDErrorCode.InputValidation,
-                            Resource.DevMsg_ValidateFailed,
-                            Resource.UserMsg_ValidateFailed,
-                            string.Join(", ", employeeBLResponse.Data),
-                            HttpContext.TraceIdentifier
-                        ));
+                    string? strValidate = employeeBLResponse.strValidate;
+                    return StatusCode(StatusCodes.Status400BadRequest,
+                    responeErrorResult.ErrorResultValidate(HttpContext.TraceIdentifier, strValidate));
                 }
-              
+
                 if (employeeBLResponse.IsValidate && employeeBLResponse.Success)
                 {
                     // Trả về dữ liệu cho client
@@ -215,16 +178,11 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 else
                 {
 
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                    QTKDErrorCode.ResultDatabaseFailed,
-                     Resource.DevMsg_InsertFailed,
-                     Resource.UserMsg_InsertFailed,
-                     Resource.MoreInfo_InsertFailed,
-                     HttpContext.TraceIdentifier
-                   )
+                    return StatusCode(StatusCodes.Status400BadRequest,
+                    responeErrorResult.ErrorResultInsert(HttpContext.TraceIdentifier)
                );
                 }
-                
+
             }
             catch (MySqlException mySqlException)
             {
@@ -232,36 +190,19 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
                 {
                     Console.WriteLine(mySqlException.Message);
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                      QTKDErrorCode.DuplicateCode,
-                       Resource.DevMsg_DuplicateCode,
-                      Resource.UserMsg_DuplicateCode,
-                      Resource.MoreInfo_DuplicateCode,
-                      HttpContext.TraceIdentifier
-                     )
+                    return StatusCode(StatusCodes.Status400BadRequest,
+                        responeErrorResult.ErrorResultDuplicateCode(HttpContext.TraceIdentifier)
                  );
                 }
                 Console.WriteLine(mySqlException.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                    QTKDErrorCode.Exception,
-                      Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                    HttpContext.TraceIdentifier
-                   )
-               );
+                return StatusCode(StatusCodes.Status400BadRequest,
+                responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                     QTKDErrorCode.Exception,
-                       Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                     HttpContext.TraceIdentifier
-                    )
-                );
+                return StatusCode(StatusCodes.Status400BadRequest,
+                responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
         }
@@ -287,13 +228,9 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 var employeeBLResponse = _employeeBL.UpDateEmployee(employeeID, employee);
                 if (!employeeBLResponse.IsValidate)
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                            QTKDErrorCode.InputValidation,
-                            Resource.DevMsg_ValidateFailed,
-                            Resource.UserMsg_ValidateFailed,
-                            string.Join(", ", employeeBLResponse.Data),
-                            HttpContext.TraceIdentifier
-                        ));
+                    string? strValidate = employeeBLResponse.strValidate;
+                    return StatusCode(StatusCodes.Status400BadRequest,
+                     responeErrorResult.ErrorResultValidate(HttpContext.TraceIdentifier, strValidate));
                 }
 
                 if (employeeBLResponse.IsValidate && employeeBLResponse.Success)
@@ -304,13 +241,8 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 else
                 {
 
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                    QTKDErrorCode.ResultDatabaseFailed,
-                     Resource.DevMsg_InsertFailed,
-                     Resource.UserMsg_InsertFailed,
-                     Resource.MoreInfo_InsertFailed,
-                     HttpContext.TraceIdentifier
-                   )
+                    return StatusCode(StatusCodes.Status400BadRequest, 
+                        responeErrorResult.ErrorResultUpdate(HttpContext.TraceIdentifier)
                );
                 }
             }
@@ -319,36 +251,19 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
                 if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                    QTKDErrorCode.DuplicateCode,
-                    Resource.DevMsg_DuplicateCode,
-                    Resource.UserMsg_DuplicateCode,
-                    Resource.MoreInfo_DuplicateCode,
-                    HttpContext.TraceIdentifier
-                    )
-                   );
+                    return StatusCode(StatusCodes.Status400BadRequest,
+                      responeErrorResult.ErrorResultDuplicateCode(HttpContext.TraceIdentifier)
+                      );
                 }
                 Console.WriteLine(mySqlException.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                    QTKDErrorCode.Exception,
-                      Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                    HttpContext.TraceIdentifier
-                   )
-               );
+                return StatusCode(StatusCodes.Status400BadRequest,
+                  responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                     QTKDErrorCode.Exception,
-                      Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                     HttpContext.TraceIdentifier
-                    )
-                );
+                return StatusCode(StatusCodes.Status400BadRequest,
+                   responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
 
@@ -378,13 +293,8 @@ namespace Misa.WebDev2022.QTKD.Controllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                     QTKDErrorCode.ResultDatabaseFailed,
-                     Resource.DevMsg_DeleteFailed,
-                     Resource.UserMsg_DeleteFailed,
-                     Resource.MoreInfo_DeleteFailed,
-                     HttpContext.TraceIdentifier
-                    )
+                    return StatusCode(StatusCodes.Status400BadRequest,
+                     responeErrorResult.ErrorResultDelete(HttpContext.TraceIdentifier)
                     );
                 }
             }
@@ -392,14 +302,8 @@ namespace Misa.WebDev2022.QTKD.Controllers
             {
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult(
-                     QTKDErrorCode.Exception,
-                      Resource.DevMsg_Exception,
-                      Resource.UserMsg_Exception,
-                      Resource.MoreInfo_Exception,
-                     HttpContext.TraceIdentifier
-                    )
-                );
+                return StatusCode(StatusCodes.Status400BadRequest,
+                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
 
         }

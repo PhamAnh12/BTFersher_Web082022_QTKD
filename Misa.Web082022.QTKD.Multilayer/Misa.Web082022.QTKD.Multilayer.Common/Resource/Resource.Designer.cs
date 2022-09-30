@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Misa.Web082022.QTKD.Multilayer.Common.Resource {
+namespace Misa.Web082022.QTKD.Multilayer.Common {
     using System;
     
     
@@ -295,7 +295,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Có lỗi bỏ trống các trường bắt buộc.
+        ///   Looks up a localized string similar to Dữ liệu đầu vào không hợp lệ.
         /// </summary>
         public static string UserMsg_ValidateFailed {
             get {
