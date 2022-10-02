@@ -8,9 +8,9 @@
 
 <script>
 
-import NavBarComponent from './components/layout/NavBar.vue';
-import HeaderComponent from './components/layout/Header.vue';
-import ContentComponents from './components/layout/Content.vue'
+import NavBarComponent from './components/layout/TheNavBar.vue';
+import HeaderComponent from './components/layout/TheHeader.vue';
+import ContentComponents from './components/layout/TheContent.vue'
 
 export default {
   name: 'App',

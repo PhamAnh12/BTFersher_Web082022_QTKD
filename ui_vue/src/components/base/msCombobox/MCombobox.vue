@@ -1,13 +1,17 @@
 <template>
-  <div class="combobox">
+  <div class="combobox" >
     <input
       type="text"
       class="input combobox__input"
       v-model="textInput"
       @input="inputOnChange"
       @keydown="selecItemUpDown"
+      @blur="blurValidate"
       placeholder="<None>"
       :class="{ input__error: errorDepartment }"
+      tabindex="3"
+      errorCode="errorDepartment"
+      
     />
      <div class="show__error__department" :class="{ input__show__error: errorDepartment }">
                   {{ errorDepartment }}
@@ -152,6 +156,7 @@ export default {
     },
     errorDepartment: String,
   },
+  emits:["blurValidate"],
   methods: {
     /**
      * Lưu lại index của item đã focus
@@ -290,13 +295,36 @@ export default {
           });
       }
     },
+    blurValidate(e){
+      this.$emit("blurValidate",e);
+    }
   },
   created() {
     let me = this;
     if (this.departmentName) {
       this.textInput = this.departmentName;
     }
-    this.getAPI();
+      // Thực hiện lấy dữ liệu từ api:
+      if (this.url) {
+        fetch(this.url)
+          .then((res) => res.json())
+          .then((res) => {
+            this.data = res;
+            if (me.departmentName) {
+              this.data.filter(function (item, index) {
+                if (item.departmentName === me.departmentName) {
+                  me.indexItemSelected = index;
+                  return;
+                }
+              });
+            }
+
+            this.dataFilter = res;
+          })
+          .catch((res) => {
+            console.log(res);
+          });
+      }
   },
   data() {
     return {

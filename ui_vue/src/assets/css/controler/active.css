@@ -1,4 +1,4 @@
-.pageing__number--active{
+.paging__number--active{
     width: 24px;
     height: 24px;
     border-radius: var(--border-radius);
@@ -10,7 +10,7 @@
     font-weight: 600;
     
 }
-.function__item--active{
+/* .function__item--active{
     color: var(--primary-color);
     font-weight: 550;
-}
+} */

@@ -123,10 +123,10 @@
                   propValue="departmentID"
                   propText="departmentName"
                   @getValueDepart="getValueDepart"
+                   @blurValidate="blurValidate"
                   :departmentName="employee.departmentName"
                   :errorDepartment="errors.errorDepartment"
-                  tabindex="3"
-                  errorCode="errorDepartment"
+                 
                 ></MCombobox>
               </div>
             </div>
@@ -355,11 +355,7 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     formatInputForm() {
-      try {
         this.traneGenderNumber();
-      } catch (error) {
-        console.log(error);
-      }
     },
     /*
      * Hàm dùng để format ngày tháng trong employee
@@ -385,15 +381,11 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     traneGenderNumber() {
-      try {
         if (!this.employee.gender) {
           this.employee.gender = 0;
         } else {
           this.employee.gender = Number(this.employee.gender);
         }
-      } catch (error) {
-        console.log(error);
-      }
     },
     /*
      * Hàm dùng để  thêm mới một mã nhân viên tự động tăng

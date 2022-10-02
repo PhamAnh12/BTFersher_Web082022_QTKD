@@ -3,6 +3,7 @@
     accent-color: var(--primary-color);
     height: 16px;
     width: 16px;
+    outline: none;
 
 }
 .checkbox__24{

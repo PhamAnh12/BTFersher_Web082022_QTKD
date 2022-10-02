@@ -1,5 +1,6 @@
 .function__item:hover {
     background-color: var(--item-hover-color);
+    color: var(--primary-color);
 }
 
 .btn__base:hover {
@@ -26,4 +27,8 @@
 
 .btn:hover {
     background-color: var(--hover-color);
+}
+.data__item:hover{
+    color:  var(--primary-color);
+    background-color: var(--item-hover-color);
 }

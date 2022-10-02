@@ -1,0 +1,92 @@
+
+.list__data{
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #E0E0E0;
+    width: 150px;
+    right: 65px;
+    z-index: 12;
+}
+
+.data{
+    padding-left: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+/* .drop-data-choose{
+    background-color: #DCF1D8;
+} */
+
+/* droplist v2 */
+.dropList__page{
+    height: 36px;
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    width: 230px;
+    padding-left: 12px;
+    position: relative;
+}
+.dropList__page__active{
+    border: 1px solid var(--primary-color);
+}
+.dropList__text{
+    margin-top: 8px;
+}
+.dropList__data{
+    position: absolute;
+    width: 229px;
+    background-color: var(--white-color);
+    border-radius: 3px;
+    border: 1px solid #ccc2c2;
+    left: 0;
+    top: -180px;
+
+}
+
+.data__item{
+    padding-left: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    cursor: pointer;
+
+}
+
+.dropList__icon__drop{
+    background: url('../../img/Sprites.64af8f61.svg') no-repeat -560px -360px;
+    height: 16px;
+    width: 16px;
+    margin-top: 9px;
+    margin-left: 10px;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+}
+
+.dropList__icon__drop__rotate{
+    transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    margin-top: 8px;
+}
+
+.dropList__icon{
+    position: absolute;
+    height: 34px;
+    width: 36px;
+    top: 0;
+    right: 0;
+}
+
+.dropList__page .dropList__active{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.choose__dropList__icon{
+    background-color: #ccc2c2;
+}

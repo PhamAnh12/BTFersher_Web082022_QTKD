@@ -24,7 +24,7 @@
               <div class="icon__18 icon__search"></div>
             </div>
             <div class="item__icon">
-              <div class="icon__24 icon__load"></div>
+              <div class="icon__24 icon__load" @click="reload"></div>
             </div>
           </div>
           <div class="container__table" ref="scrollbar">
@@ -167,7 +167,10 @@
             </table>
           </div>
         </div>
-        <PageComponent :totalRecords="totalRecords"> </PageComponent>
+        <PageComponent 
+        :totalRecords="totalRecords"
+        @selectRecordPage="selectRecordPage"
+        > </PageComponent>
       </div>
     </div>
   </div>
@@ -235,6 +238,7 @@ export default {
       employeeCode: "",
       totalRecords: 0,
       search: "",
+      recordPage: 100
     };
   },
   methods: {
@@ -415,12 +419,20 @@ export default {
       }
     },
     /*
-     * Hàm dùng để  xử lý tìm lism
+     * Hàm dùng để  xử lý tìm kiếm 
      * PCTUANANH(26/09/2022)
      */
     searchEmployee() {
       this.getListEmployee();
       this.$refs.scrollbar.scrollTo(0, 0);
+    },
+     /*
+     * Hàm dùng để  xử lý lựa chọn số bản ghi trên một trang
+     * PCTUANANH(26/09/2022)
+     */
+    selectRecordPage(recordPage){      
+         this.recordPage = recordPage;
+         this.reload()
     },
     ///
     /// Các hàm dùng để gọi đển API
@@ -429,9 +441,13 @@ export default {
      * Hàm dùng để  lấy danh sách nhân viên
      * PCTUANANH(12/09/2022)
      */
+    reload(){
+         this.isLoading = true;
+         this.getListEmployee();
+    },
     getListEmployee() {
       try {
-        let url = `${urlBase}/Employees?limit=100&offset=0&search=${this.search}`;
+        let url = `${urlBase}/Employees?limit=${this.recordPage}&offset=0&search=${this.search}`;
         fetch(url)
           .then((res) => res.json())
           .then((res) => {
@@ -440,6 +456,7 @@ export default {
             setTimeout(() => (this.isLoading = false), 500);
             setTimeout(() => (this.isLoadingData = false), 500);
             this.indexEmployee = 0;
+            this.isShowFunction =false;
           })
           .catch((error) => {
             console.log("Error! Could not reach the API. " + error);

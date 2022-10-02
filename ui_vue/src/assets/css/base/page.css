@@ -4,13 +4,14 @@
     justify-content: space-between;
   
 }
-.content__footer_letf{
+.content__footer_left{
     display: flex;
     align-items: center;
 }
-.content__footer_letf  b{
+.content__footer_left b{
    
     margin: 0 4px;
+    
 }
 .content__footer__right{
   display: flex;
