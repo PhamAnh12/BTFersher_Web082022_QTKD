@@ -169,7 +169,9 @@
         </div>
         <PageComponent 
         :totalRecords="totalRecords"
-        @selectRecordPage="selectRecordPage"
+        :recordNumber="recordNumber"
+        @getRecordPage="getRecordPage"
+        @pagingEmployee="pagingEmployee"
         > </PageComponent>
       </div>
     </div>
@@ -198,7 +200,7 @@
 import Common from "../../script/common/common";
 import Enumeration from "../../script/common/enumeration";
 import EmployeeDetail from "./EmployeeDetail.vue";
-import PageComponent from "../../components/base/Page.vue";
+import PageComponent from "../../components/base/ThePage.vue";
 import Loading from "../../components/base/Load.vue";
 import DialogDelete from "../../components/base/DialogDelete.vue";
 import LoadData from "../../components/base/LoadData.vue";
@@ -238,7 +240,8 @@ export default {
       employeeCode: "",
       totalRecords: 0,
       search: "",
-      recordPage: 100
+      recordNumber: 100,
+      numPage:0
     };
   },
   methods: {
@@ -430,10 +433,18 @@ export default {
      * Hàm dùng để  xử lý lựa chọn số bản ghi trên một trang
      * PCTUANANH(26/09/2022)
      */
-    selectRecordPage(recordPage){      
-         this.recordPage = recordPage;
-         this.reload()
+    getRecordPage( recordNumber){      
+         this.recordNumber =  recordNumber;
+         this.reload();
     },
+     /*
+     * Hàm dùng để  xử lý phân trang
+     * PCTUANANH(26/09/2022)
+     */
+     pagingEmployee( numPage){
+      this.numPage = numPage;
+       this.reload();
+     },
     ///
     /// Các hàm dùng để gọi đển API
     ///
@@ -447,14 +458,14 @@ export default {
     },
     getListEmployee() {
       try {
-        let url = `${urlBase}/Employees?limit=${this.recordPage}&offset=0&search=${this.search}`;
+        let url = `${urlBase}/Employees?limit=${this.recordNumber}&offset=${this.numPage}&search=${this.search}`;
         fetch(url)
           .then((res) => res.json())
           .then((res) => {
             this.employees = res.data;
             this.totalRecords = res.totalCount;
             setTimeout(() => (this.isLoading = false), 500);
-            setTimeout(() => (this.isLoadingData = false), 500);
+            setTimeout(() => (this.isLoadingData = false), 1000);
             this.indexEmployee = 0;
             this.isShowFunction =false;
           })

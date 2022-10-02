@@ -1,6 +1,10 @@
 <template>
   <div class="loading__data__container">
-    <div class="lds-roller">
+    <div class="lds-spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
       <div></div>
       <div></div>
       <div></div>

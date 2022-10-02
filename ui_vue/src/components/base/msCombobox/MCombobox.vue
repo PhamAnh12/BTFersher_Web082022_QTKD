@@ -296,6 +296,9 @@ export default {
       }
     },
     blurValidate(e){
+      if (!e.currentTarget.value){
+         this.indexItemSelected =  null;
+      }
       this.$emit("blurValidate",e);
     }
   },

@@ -32,6 +32,7 @@
     width: 100%;
     height: calc(100% - 28px);
    
+   
 }
 .content__footer{
     display: flex;
@@ -45,7 +46,7 @@
     height:  calc(100% - 32px);  
     padding-bottom: 6px; 
     position: relative; 
-    overflow-y: auto; 
     overflow-x: auto;
+    overflow-y:auto ;
 }
 

@@ -23,6 +23,8 @@
     align-items: center;
     justify-content: space-between;
    
+    list-style: none;
+   
 }
 .page--dislabel{
     color: rgba(0, 0, 0, 0.4); ;
@@ -38,6 +40,9 @@
    
     display: flex;
     align-items: center;
-    margin-left: 12px;
+    margin: 8px;
+    cursor: pointer;
+}
+.page-item{
     cursor: pointer;
 }
