@@ -20,20 +20,24 @@
                     </div>
                     <div class="navbar__item-text">Tổng quan</div>
                 </router-link>
-                <router-link to="/employee" class="navbar__item " refs="item__navbar">
+                <router-link to="/employee" class="navbar__item " refs="item__navbar" 
+                v-tooltip="{
+                 content:'Nhân viên',
+                 class:'tooltip'
+                 }">
                     <div class="item__icon">
                         <div class="icon__18 icon icon__employee"></div>
                     </div>
                     <div class="navbar__item-text">Nhân viên</div>
                 </router-link>
 
-                <router-link to="/deposits" class="navbar__item" refs="item__navbar">
+                <router-link to="/deposits" class="navbar__item" refs="item__navbar" v-tooltip="'Tiền gửi'">
                     <div class="item__icon">
                         <div class="icon__18 icon icon__deposits"></div>
                     </div>
                     <div class="navbar__item-text">Tiền gửi</div>
                 </router-link>
-                <router-link to="/purchase" class="navbar__item" refs="item__navbar">
+                <router-link to="/purchase" class="navbar__item" refs="item__navbar"  >
                     <div class="item__icon">
                         <div class="icon__18 icon icon_purchase"></div>
                     </div>
@@ -117,3 +121,17 @@ export default {
  
 }
 </script>
+<style>
+ .tooltip{
+     width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 99;
+ }
+</style>

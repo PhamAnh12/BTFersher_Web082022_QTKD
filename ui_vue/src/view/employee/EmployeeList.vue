@@ -220,7 +220,9 @@ export default {
   },
   created() {
     this.isLoading = true;
+    this.recordNumber = JSON.parse(localStorage.getItem('recordNumberPage'))
     this.getListEmployee();
+   
   },
   mounted() {
     this.$refs.scrollbar.scrollTo(0, 300);
@@ -241,7 +243,7 @@ export default {
       employeeCode: "",
       search: "",
       totalRecords: 0,
-      recordNumber: 50,
+      recordNumber: 0,
       numPage:0,
       pageCount: 1
     };
@@ -437,6 +439,7 @@ export default {
      */
     getRecordPage( recordNumber){      
          this.recordNumber =  recordNumber;
+         localStorage.setItem('recordNumberPage', recordNumber);
          this.reload();
     },
      /*

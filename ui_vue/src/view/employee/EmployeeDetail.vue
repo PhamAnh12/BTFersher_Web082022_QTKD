@@ -12,13 +12,20 @@
             <label for="">Là nhà cung cấp</label>
           </div>
           <div class="modal__header__rigth">
-            <div class="item__icon modal__header__icon">
+            <div class="item__icon modal__header__icon"
+            v-tooltip.bottom="{
+                 content:'Trợ giúp(F1)',
+                 }">
+            
               <div class="icon__18 icon__help"></div>
             </div>
             <div
               class="item__icon modal__header__icon margin__letf_8"
               @click="isCloseModal"
-            >
+              v-tooltip.bottom="{
+                 content:'Đóng (ESC)',
+                 }">
+            
               <div class="icon__18 icon__close"></div>
             </div>
           </div>
@@ -35,6 +42,7 @@
                   class="input"
                   type="text"
                   placeholder="Mã nhân viên "
+                  maxlength="25"
                   v-model="employee.employeeCode"
                   errorCode="errorCode"
                   ref="empCode"
@@ -53,6 +61,7 @@
                   tabindex="2"
                   class="input"
                   type="text"
+                  maxlength="100"
                   placeholder="Tên nhân viên"
                   ref="empName"
                   errorCode="errorName"
@@ -73,6 +82,7 @@
                   class="input input_date"
                   type="date"
                   :max="maxDate"
+                  placeholder="DD/MM/YYYY"
                   v-model="employee.dateOfBirth"
                 />
               </div>
@@ -137,6 +147,7 @@
                   tabindex="9"
                   class="input"
                   type="text"
+                  maxlength="15"
                   placeholder="Số chứng minh nhân dân"
                   v-model="employee.identityNumber"
                 />
@@ -161,6 +172,7 @@
                   tabindex="4"
                   class="input"
                   type="text"
+                  maxlength="50"
                   placeholder="Chức danh"
                   v-model="employee.positionName"
                 />
@@ -173,6 +185,7 @@
                   tabindex="11"
                   class="input"
                   type="text"
+                   maxlength="150"
                   placeholder="Nơi cấp chứng minh nhân dân"
                   v-model="employee.identityIssuedPlace"
                 />
@@ -186,6 +199,7 @@
                 tabindex="12"
                 class="input"
                 type="text"
+                maxlength="255"
                 placeholder="Địa chỉ"
                 v-model="employee.address"
               />
@@ -218,6 +232,7 @@
                 tabindex="15"
                 class="input"
                 type="text"
+                maxlength="100"
                 placeholder="Email"
                 v-model="employee.email"
               />
@@ -230,6 +245,7 @@
                 tabindex="16"
                 class="input"
                 type="text"
+                maxlength="20"
                 placeholder="Tài khoản ngân hàng"
                 v-model="employee.accountBank"
               />
@@ -240,6 +256,7 @@
                 tabindex="17"
                 class="input"
                 type="text"
+                maxlength="50"
                 placeholder="Tên ngân hàng"
                 v-model="employee.nameBank"
               />
@@ -250,6 +267,7 @@
                 tabindex="18"
                 class="input"
                 type="text"
+                maxlength="50"
                 placeholder="Chi nhánh ngân hàng"
                 v-model="employee.branchBank"
               />
@@ -259,8 +277,16 @@
         <div class="modal__footer">
           <div class="btn__base content__center" @click="closeModal">Hủy</div>
           <div class="modal__footer__rigth">
-            <div class="btn__base content__center" @click="saveModal">Cất</div>
-            <div class="btn margin__letf_8" @click="saveModalAdd">
+            <div class="btn__base content__center"
+             v-tooltip="{
+                 content:'Cất (Ctrl + S)',
+                 }"
+             @click="saveModal">Cất</div>
+            <div class="btn margin__letf_8" 
+             v-tooltip="{
+                 content:'Cất (Ctrl + Shift + S)',
+                 }"
+            @click="saveModalAdd">
               Cất và thêm
             </div>
           </div>

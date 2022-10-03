@@ -58,15 +58,25 @@ export default {
     pageCount : Number
   },
   created() {
-     this.indexRecord  = 3,
-     this.text = "50 bản ghi trên một trang"
+     let me = this;
+      me.listRecordPages = Enumeration.listRecordPages;
+      // xử lý khi load lại trang thì số lượng bản ghi trên một trang vẫn giữ nguên 
+      if (me.recordNumber) {
+              me.listRecordPages.filter(function (item, index) {
+                if (item.num === me.recordNumber) {
+                  me.indexRecord = index;
+                  me.text = item.textData;
+                  return;
+                }
+              });
+            }
   },
   emits: ["getRecordPage","pagingEmployee"],
   data() {
     return {
-      text: "---- Tùy chọn ----",
+      text: "",
       isShow: false,
-      listRecordPages: Enumeration.listRecordPages,
+      listRecordPages: [],
       indexRecord: null,
      
     };

@@ -157,7 +157,7 @@ export default {
     },
     errorDepartment: String,
   },
-  emits:["blurValidate"],
+  emits:["blurValidate","getValueDepart"],
   methods: {
     /**
      * Lưu lại index của item đã focus
@@ -272,48 +272,21 @@ export default {
           break;
       }
     },
-    getAPI() {
-      let me = this;
-      // Thực hiện lấy dữ liệu từ api:
-      if (this.url) {
-        fetch(this.url)
-          .then((res) => res.json())
-          .then((res) => {
-            this.data = res;
-            if (me.departmentName) {
-              this.data.filter(function (item, index) {
-                if (item.departmentName === me.departmentName) {
-                  me.indexItemSelected = index;
-                  return;
-                }
-              });
-            }
-
-            this.dataFilter = res;
-          })
-          .catch((res) => {
-            console.log(res);
-          });
-      }
-    },
     blurValidate(e){
       if (!e.currentTarget.value){
          this.indexItemSelected =  null;
       }
       this.$emit("blurValidate",e);
-    }
+    },
+    
   },
   created() {
     let me = this;
     if (this.departmentName) {
       this.textInput = this.departmentName;
     }
-      // Thực hiện lấy dữ liệu từ api:
-      if (this.url) {
-        fetch(this.url)
-          .then((res) => res.json())
-          .then((res) => {
-            this.data = res;
+      // Thực hiện gán danh sách department từ localStorage:        
+       this.data =JSON.parse(localStorage.getItem('departments'));
             if (me.departmentName) {
               this.data.filter(function (item, index) {
                 if (item.departmentName === me.departmentName) {
@@ -322,13 +295,8 @@ export default {
                 }
               });
             }
-
-            this.dataFilter = res;
-          })
-          .catch((res) => {
-            console.log(res);
-          });
-      }
+      this.dataFilter =JSON.parse(localStorage.getItem('departments'));
+        
   },
   data() {
     return {
