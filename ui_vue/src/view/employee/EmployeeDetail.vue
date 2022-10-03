@@ -1,7 +1,7 @@
 <template>
   <!-- Form nhập -->
-  <div class="modal" @keypress.esc="isCloseModal()">
-    <div class="modal__container">
+  <div class="modal">
+    <div class="modal__container" @keydown="handleKeyModel" >
       <div class="modal__content">
         <div class="modal__header">
           <div class="modal__header__left">
@@ -473,6 +473,7 @@ export default {
       };
       if (!this.employee.employeeCode) {
         this.errors.errorCode = Enumeration.Errors.errorCode;
+        
         isValidate = false;
       }
       if (!this.employee.employeeName) {
@@ -483,7 +484,6 @@ export default {
         this.errors.errorDepartment = Enumeration.Errors.errorDepartment;
         isValidate = false;
       }
-
       return isValidate;
     },
     /*
@@ -499,13 +499,15 @@ export default {
       }
     },
     /*
-     * Hàm dùng  validatebackend
+     * Hàm dùng  validate backend
      * PCTUANANH(28/09/2022)
      */
-    validateBackend(response) {
-      if (response.userMsg) {
+    validateBackend(response,employeeCode) {
+      if (response.errorCode && response.errorCode === Enumeration.resErrorCodes.errorDuplicate) {
         this.isErrorFrom = true;
-        this.textPopupError = response.userMsg;
+       
+        this.textPopupError = `${Enumeration.textErrorBackend.textCodeLeft} ${employeeCode} ${Enumeration.textErrorBackend.textCodeRight}` ;
+
       }
       else{
         if( this.SaveMode == Enumeration.SaveMode.Save){
@@ -534,6 +536,7 @@ export default {
           this.isCloseForm = false;
         }
         if (this.validate()) {
+        
           // sửa nhân viên
           if (this.formMode === Enumeration.FormMode.Edit) {
             this.saveEditEmployee();
@@ -575,6 +578,20 @@ export default {
         console.log(error);
       }
     },
+    /*
+     * Hàm dùng để lưu  modal và thêm mới modal
+     * PCTUANANH(03/10/2022)
+     */
+    handleKeyModel(e){
+      if(e.keyCode === Enumeration.keyCode.S && e.ctrlKey){
+        e.preventDefault();
+        this.saveModal();
+      }
+      if(e.keyCode === Enumeration.keyCode.ESC){
+        e.preventDefault();
+        this.isCloseModal();
+      }
+    },
     ///
     /// Các hàm  để  thêm, sửa  gọi đến API
     ///
@@ -596,7 +613,7 @@ export default {
         })
           .then((response) => response.json())
           .then((response) => {
-            this.validateBackend(response);
+            this.validateBackend(response,data.employeeCode);
           })
           .catch((error) => {
             console.log(data);
@@ -624,7 +641,7 @@ export default {
         })
           .then((response) => response.json())
           .then((response) => {
-            this.validateBackend(response);
+            this.validateBackend(response,data.employeeCode);
           })
           .catch((error) => {
             console.error("Error:", error);

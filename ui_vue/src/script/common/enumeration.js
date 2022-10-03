@@ -27,7 +27,9 @@ export default {
         UP: 38,
         RIGHT: 39,
         DOWN: 40,
-        ENTER: 13
+        ENTER: 13,
+        ESC: 27,
+        S: 83
     },
     listRecordPages: [
         {
@@ -51,7 +53,15 @@ export default {
             num: 100,
             textData: '100 bản ghi trên một trang'
         }
-    ]
+    ],
+    textErrorBackend:{
+        textCodeLeft: "Mã nhân viên ",
+        textCodeRight:"đã tồn tại vui lòng kiểm tra lại"
+    },
+    resErrorCodes:{
+        errorDuplicate : 3,
+    }
+
 
 
 

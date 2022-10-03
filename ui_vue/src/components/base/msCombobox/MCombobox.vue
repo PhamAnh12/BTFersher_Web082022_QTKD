@@ -11,6 +11,7 @@
       :class="{ input__error: errorDepartment }"
       tabindex="3"
       errorCode="errorDepartment"
+      ref="empDepartment"
       
     />
      <div class="show__error__department" :class="{ input__show__error: errorDepartment }">

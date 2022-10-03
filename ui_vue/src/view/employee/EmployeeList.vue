@@ -170,6 +170,7 @@
         <PageComponent 
         :totalRecords="totalRecords"
         :recordNumber="recordNumber"
+        :pageCount="pageCount"
         @getRecordPage="getRecordPage"
         @pagingEmployee="pagingEmployee"
         > </PageComponent>
@@ -205,7 +206,7 @@ import Loading from "../../components/base/Load.vue";
 import DialogDelete from "../../components/base/DialogDelete.vue";
 import LoadData from "../../components/base/LoadData.vue";
 import Toast from "../../components/base/Toast.vue";
-// import Vue_url from "../../script/common/resource.js"
+
 var urlBase = process.env.VUE_APP_URL;
 export default {
   name: "EmployeeList",
@@ -238,10 +239,11 @@ export default {
       isShowDelete: false,
       employeeID: "",
       employeeCode: "",
-      totalRecords: 0,
       search: "",
-      recordNumber: 100,
-      numPage:0
+      totalRecords: 0,
+      recordNumber: 50,
+      numPage:0,
+      pageCount: 1
     };
   },
   methods: {
@@ -464,6 +466,7 @@ export default {
           .then((res) => {
             this.employees = res.data;
             this.totalRecords = res.totalCount;
+            this.pageCount = parseInt(this.totalRecords/this.recordNumber) +1;
             setTimeout(() => (this.isLoading = false), 500);
             setTimeout(() => (this.isLoadingData = false), 1000);
             this.indexEmployee = 0;
@@ -501,5 +504,8 @@ export default {
       }
     },
   },
+ beforeUnmount (){
+  
+  }
 };
 </script>

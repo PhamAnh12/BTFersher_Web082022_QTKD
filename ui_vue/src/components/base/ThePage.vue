@@ -27,8 +27,7 @@
       </div>
 
       <paginate
-        v-model="page"
-        :page-count=" pageCount"
+        :page-count="pageCount"
         :page-range="3"
         :margin-pages="2"
         :click-handler="pagingHandle"
@@ -37,7 +36,8 @@
         :container-class="'page'"
         :page-class="'page__number'"
         :active-class="'paging__number--active'"
-        :disabled-class="'page--dislabel'"
+        :disabled-class="'page--disable'"
+        :initial-page="1"
       >
       </paginate>
     </div>
@@ -54,10 +54,12 @@ export default {
 
   props: {
     totalRecords: Number,
-    recordNumber: Number
+    recordNumber: Number,
+    pageCount : Number
   },
   created() {
-   
+     this.indexRecord  = 3,
+     this.text = "50 bản ghi trên một trang"
   },
   emits: ["getRecordPage","pagingEmployee"],
   data() {
@@ -66,7 +68,7 @@ export default {
       isShow: false,
       listRecordPages: Enumeration.listRecordPages,
       indexRecord: null,
-      pageCount: 10
+     
     };
   },
   methods: {
@@ -86,6 +88,7 @@ export default {
      */
     pagingHandle(numPage){
      this.$emit("pagingEmployee",numPage);
+     
     }
   },
 };
