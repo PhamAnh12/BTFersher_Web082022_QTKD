@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Misa.Web082022.QTKD.Multilayer.DL
 {
-    public class EmployeeDL : IEmployeeDL
+    public class EmployeeDL : BaseDL<Employee>, IEmployeeDL
     {
-        #region  Filter Employee
+        #region  Filter Employee DL
 
         /// <summary>
         /// API Lấy danh sách nhân viên cho phép lọc và phân trang
@@ -30,7 +30,7 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
             using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
             {
                 // Chuẩn bị tên Stored procedure
-                string storedProcedureName =Resource.Proc_Employee_GetPaing;
+                string storedProcedureName =Resource.Proc_Filter_Employee;
 
                 // Chuẩn bị tham số đầu vào cho stored procedure
                 var parameters = new DynamicParameters();
@@ -66,39 +66,7 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
 
         #endregion
 
-        #region  Get Employee By ID 
-
-        /// <summary>
-        ///  Lấy thông tin chi tiết của 1 nhân viên
-        /// </summary>
-        /// <param name="employeeID">ID của nhân viên muốn lấy thông tin chi tiết</param>
-        /// <returns>Đối tượng nhân viên muốn lấy thông tin chi tiết</returns>
-        /// Created by: PCTUANANH(12/07/2022)
-        public Employee GetEmployeeByID(Guid employeeID)
-        {
-
-            using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
-            {
-
-                // Chuẩn bị tên Stored procedure
-                string storedProcedureName = Resource.Proc_Employee_GetByEmployeeID;
-
-                // Chuẩn bị tham số đầu vào cho stored procedure
-                var parameters = new DynamicParameters();
-                parameters.Add("v_EmployeeID", employeeID);
-
-                // Thực hiện gọi vào DB để chạy stored procedure với tham số đầu vào ở trên
-                var employee = mySqlConnection.QueryFirstOrDefault<Employee>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
-                return employee;
-            }
-
-        }
-
-
-
-        #endregion
-
-        #region Get New EmployeeCode 
+        #region Get New EmployeeCode  DL
 
         /// <summary>
         /// API Lấy mã nhân viên mới tự động tăng
@@ -110,143 +78,16 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
             using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
             {
                 // Chuẩn bị tên stored procedure
-                string storedProcedureName = Resource.Proc_Employee_GetMaxEmployeeCode;
+                string storedProcedureName = Resource.Proc_GetMaxEmpCode_Employee;
 
                 // Thực hiện gọi vào DB để chạy stored procedure ở trên
                 string maxEmployeeCode = mySqlConnection.QueryFirstOrDefault<string>(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
-
                 return maxEmployeeCode;
-
-            }
-        }
-
-        #endregion
-
-        #region Insert Employee
-
-        /// <summary>
-        /// API thêm mới một nhân viên 
-        /// <param name="employee">Đối tượng nhân viên mới</param>
-        /// <returns>Số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// Created by: PCTUANANH(29/09/2022)
-        public int InsertEmployee(Employee employee)
-        {
-            using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
-            {
-                // Chuẩn bị tên stored procedure
-                string storedProcedureName =Resource.Proc_Employee_InsertEmployee;
-
-                // Chuẩn bị tham số đầu vào cho câu lệnh INSERT INTO
-              
-                var parameters = new DynamicParameters();
-                parameters.Add("v_EmployeeID", employee.EmployeeID);
-                parameters.Add("v_EmployeeCode", employee.EmployeeCode);
-                parameters.Add("v_EmployeeName", employee.EmployeeName);
-                parameters.Add("v_DateOfBirth", employee.DateOfBirth);
-                parameters.Add("v_Gender", employee.Gender);
-                parameters.Add("v_DepartmentID", employee.DepartmentID);
-                parameters.Add("v_IdentityNumber", employee.IdentityNumber);
-                parameters.Add("v_IdentityIssuedDate", employee.IdentityIssuedDate);
-                parameters.Add("v_IdentityIssuedPlace", employee.IdentityIssuedPlace);
-                parameters.Add("v_PositionName", employee.PositionName);
-                parameters.Add("v_Address", employee.Address);
-                parameters.Add("v_MobilePhoneNumber", employee.MobilePhoneNumber);
-                parameters.Add("v_LandlinePhoneNumber", employee.LandlinePhoneNumber);
-                parameters.Add("v_Email", employee.Email);
-                parameters.Add("v_AccountBank", employee.AccountBank);
-                parameters.Add("v_NameBank", employee.NameBank);
-                parameters.Add("v_BranchBank", employee.BranchBank);
-                parameters.Add("v_CreatedDate", DateTime.Now);
-                parameters.Add("v_CreatedBy", "Admin");
-                parameters.Add("v_ModifiedDate", DateTime.Now);
-                parameters.Add("v_ModifiedBy", "Admin");
-
-                // Thực hiện gọi vào DB để chạy câu lệnh INSERT INTO với tham số đầu vào ở trên
-                int numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
-
-                return numberOfAffectedRows;
-            }
-        }
-
-        #endregion
-
-        #region Update Employee
-
-        /// <summary>
-        /// API thêm mới một nhân viên 
-        /// <param name="employee">Đối tượng nhân viên mới</param>
-        /// <returns>Số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// Created by: PCTUANANH(29/09/2022)
-        public int UpdateEmployee(Guid employeeID, Employee employee)
-        {
-            using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
-            {
-                // Chuẩn bị tên stored procedure
-                string storedProcedureName =Resource.Proc_Employee_UpdateEmployee;
-
-                // Chuẩn bị tham số đầu vào cho câu lệnh INSERT INTO
-                var parameters = new DynamicParameters();
-                parameters.Add("v_EmployeeID", employeeID);
-                parameters.Add("v_EmployeeCode", employee.EmployeeCode);
-                parameters.Add("v_EmployeeName", employee.EmployeeName);
-                parameters.Add("v_DateOfBirth", employee.DateOfBirth);
-                parameters.Add("v_Gender", employee.Gender);
-                parameters.Add("v_DepartmentID", employee.DepartmentID);
-                parameters.Add("v_IdentityNumber", employee.IdentityNumber);
-                parameters.Add("v_IdentityIssuedDate", employee.IdentityIssuedDate);
-                parameters.Add("v_IdentityIssuedPlace", employee.IdentityIssuedPlace);
-                parameters.Add("v_PositionName", employee.PositionName);
-                parameters.Add("v_Address", employee.Address);
-                parameters.Add("v_MobilePhoneNumber", employee.MobilePhoneNumber);
-                parameters.Add("v_LandlinePhoneNumber", employee.LandlinePhoneNumber);
-                parameters.Add("v_Email", employee.Email);
-                parameters.Add("v_AccountBank", employee.AccountBank);
-                parameters.Add("v_NameBank", employee.NameBank);
-                parameters.Add("v_BranchBank", employee.BranchBank);
-                parameters.Add("v_CreatedDate", employee.CreatedDate);
-                parameters.Add("v_CreatedBy", employee.CreatedBy);
-                parameters.Add("v_ModifiedDate", DateTime.Now);
-                parameters.Add("v_ModifiedBy", "Admin");
-
-                // Thực hiện gọi vào DB để chạy câu lệnh INSERT INTO với tham số đầu vào ở trên
-                int numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
-                return numberOfAffectedRows;
             }
 
         }
 
         #endregion
-
-        #region Delete Employee
-
-        /// <summary>
-        /// API thêm mới một nhân viên 
-        /// <param name="employee">Đối tượng nhân viên mới</param>
-        /// <returns>Số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// Created by: PCTUANANH(29/09/2022)
-        public int DeleteEmployee(Guid employeeID)
-        {
-            using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
-            {
-                // Chuẩn bị tên Stored procedure
-                string storedProcedureName = Resource.Proc_Employee_DeleteByEmployeeID;
-
-                // Chuẩn bị tham số đầu vào cho stored procedure
-                var parameters = new DynamicParameters();
-                parameters.Add("v_EmployeeID", employeeID);
-
-                // Thực hiện gọi vào DB để chạy câu lệnh DELETE với tham số đầu vào ở trên
-                int numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
-                return numberOfAffectedRows;
-            }
-           
-        }
-
-        #endregion
-
 
     }
 }

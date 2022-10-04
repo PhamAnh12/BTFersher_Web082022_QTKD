@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misa.Web082022.QTKD.Multilayer.Common.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,19 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         /// <summary>
         /// ID phòng ban
         /// </summary>
+        [Primarykey]
         public Guid DepartmentID { get; set; }
 
         /// <summary>
         /// Mã phòng ban
-        /// </summary>
+        /// </summary
+        [IsNotNullOrEmpty("Mã phòng ban không được để trống")]
         public string DepartmentCode { get; set; }
 
         /// <summary>
         /// Tên phòng ban
         /// </summary>
+        [IsNotNullOrEmpty("Tên phòng ban không được để trống")]
         public string DepartmentName { get; set; }
 
         /// <summary>

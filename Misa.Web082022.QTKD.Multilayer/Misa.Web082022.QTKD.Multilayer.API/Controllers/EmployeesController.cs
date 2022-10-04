@@ -5,15 +5,19 @@ using Misa.Web082022.QTKD.Multilayer.Common.Entities;
 using Misa.Web082022.QTKD.Multilayer.Common.Enums;
 
 using MySqlConnector;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Drawing;
 
-namespace Misa.WebDev2022.QTKD.Controllers
+namespace Misa.Web082022.QTKD.Multilayer.API
 {
 
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class EmployeesController : ControllerBase
+    public class EmployeesController : BasicController<Employee>
     {
+
         #region Field
 
         private IEmployeeBL _employeeBL;
@@ -23,7 +27,7 @@ namespace Misa.WebDev2022.QTKD.Controllers
 
         #region Controctor
 
-        public EmployeesController(IEmployeeBL employeeBL)
+        public EmployeesController(IEmployeeBL employeeBL) : base(employeeBL)
         {
             _employeeBL = employeeBL;
             responeErrorResult = new ResponeErrorResult();
@@ -31,7 +35,7 @@ namespace Misa.WebDev2022.QTKD.Controllers
 
         #endregion
 
-        #region GetPaging API
+        #region GetFilter API
 
         /// <summary>
         /// API Lấy danh sách nhân viên cho phép lọc và phân trang
@@ -44,11 +48,7 @@ namespace Misa.WebDev2022.QTKD.Controllers
         /// + Danh sách nhân viên thỏa mãn điều kiện lọc và phân trang
         /// + Tổng số nhân viên thỏa mãn điều kiện</returns>
         /// Created by: PCTUANANH(12/07/2022)
-        [HttpGet]
-        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(PagingData<Employee>))]
-        [SwaggerResponse(StatusCodes.Status404NotFound)]
-        [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        [HttpGet("filter")]
         public IActionResult Employees([FromQuery] string? search, [FromQuery] string? sort, [FromQuery] int limit = 100, [FromQuery] int offset = 0)
         {
             try
@@ -73,47 +73,6 @@ namespace Misa.WebDev2022.QTKD.Controllers
 
         #endregion
 
-        #region  Get By ID API
-
-        /// <summary>
-        /// API Lấy thông tin chi tiết của 1 nhân viên
-        /// </summary>
-        /// <param name="employeeID">ID của nhân viên muốn lấy thông tin chi tiết</param>
-        /// <returns>Đối tượng nhân viên muốn lấy thông tin chi tiết</returns>
-        /// Created by: PCTUANANH(12/07/2022)
-        [HttpGet("{employeeID}")]
-        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(Employee))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [SwaggerResponse(StatusCodes.Status404NotFound)]
-        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetEmployeeByID([FromRoute] Guid employeeID)
-        {
-            try
-            {
-
-                var employee = _employeeBL.GetEmployeeByID(employeeID);
-                // Thành công
-                if (employee != null)
-                {
-                    return StatusCode(StatusCodes.Status200OK, employee);
-                }
-                else
-                {
-
-                    return StatusCode(StatusCodes.Status404NotFound, responeErrorResult.ErrorResultGet(HttpContext.TraceIdentifier));
-                }
-            }
-            // Try catch exception
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
-
-            }
-        }
-
-        #endregion
-
         #region Get New-Code API
 
         /// <summary>
@@ -122,9 +81,6 @@ namespace Misa.WebDev2022.QTKD.Controllers
         /// <returns>Mã nhân viên mới tự động tăng</returns>
         /// Created by: PCTUANANH(12/07/2022)
         [HttpGet("new-code")]
-        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(Employee))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
         public IActionResult GetNewEmployeeCode()
         {
             try
@@ -146,166 +102,151 @@ namespace Misa.WebDev2022.QTKD.Controllers
 
         #endregion
 
-        #region  POST Eployee API 
+        #region  Export-Excel
 
         /// <summary>
-        /// API thêm mới một nhân viên 
-        /// <param name="employee">Đối tượng nhân viên mới</param>
-        /// <returns>ID của nhân viên vừa thêm mới</returns>
+        /// API lấy xuất khẩu dữ liệu ra excel
         /// </summary>
-        /// Created by: PCTUANANH(22/09/2022)
-        [HttpPost]
-        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult Employee([FromBody] Employee employee)
+        /// <returns>file excel</returns>
+        /// CreatedBy Phạm Công Tuấn Anh(06-10-2022)
+        [HttpGet("export-excel")]
+        public IActionResult Export()
         {
             try
-            {
-                var employeeBLResponse = _employeeBL.InsertEmployee(employee);
-                if (!employeeBLResponse.IsValidate)
-                {
-                    string? strValidate = employeeBLResponse.strValidate;
-                    return StatusCode(StatusCodes.Status400BadRequest,
-                    responeErrorResult.ErrorResultValidate(HttpContext.TraceIdentifier, strValidate));
-                }
+            {       //epplus
 
-                if (employeeBLResponse.IsValidate && employeeBLResponse.Success)
-                {
-                    // Trả về dữ liệu cho client
-                    return StatusCode(StatusCodes.Status201Created, employeeBLResponse.Data);
-                }
-                else
-                {
+                IEnumerable<Employee> listEmployee = new List<Employee>();
 
-                    return StatusCode(StatusCodes.Status400BadRequest,
-                    responeErrorResult.ErrorResultInsert(HttpContext.TraceIdentifier)
-               );
-                }
+                listEmployee = _employeeBL.GetAllRecords();
 
+                var stream = new MemoryStream();
+
+                using (var xlPackage = new ExcelPackage(stream))
+                {
+                    var worksheet = xlPackage.Workbook.Worksheets.Add("Danh_sach_nhan_vien");
+       
+                    worksheet.Cells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+
+                    worksheet.Row(2).Height = 18;
+
+                    var startRow = 5;
+
+                    var row = startRow;
+
+                    worksheet.Cells["A1"].Value = "Danh sách nhân viên";
+
+                    using (var r = worksheet.Cells["A1:J1"])
+                    {
+                        r.Merge = true;
+
+                        r.Style.Font.Color.SetColor(Color.Black);
+                        r.Style.Font.Size = 16;
+
+                        r.Style.Font.Bold = true;
+
+                        r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+
+                        r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+                        r.Style.Fill.BackgroundColor.SetColor(Color.White);
+
+                        r.Style.Border.Top.Style = ExcelBorderStyle.Hair;
+                        r.Style.Border.Left.Style = ExcelBorderStyle.Hair;
+                        r.Style.Border.Right.Style = ExcelBorderStyle.Hair;
+                        r.Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+                    }
+
+                    using (var r = worksheet.Cells["A2:J2"])
+                    {
+                        r.Merge = true;
+                    }
+                    using (var r = worksheet.Cells["A3:J3"])
+                    {
+                        // r.Style.Font.Color.SetColor(Color.B);
+                        r.Style.Font.Size = 10;
+                        r.Style.Font.Bold = true;
+                        r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        r.Style.Fill.BackgroundColor.SetColor(Color.DarkGray);
+                        r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        r.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        r.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                      
+                    }
+                    worksheet.Cells["A3"].Value = "STT";
+                    worksheet.Cells["B3"].Value = "Mã nhân viên";
+                    worksheet.Cells["C3"].Value = "Tên nhân viên";
+                    worksheet.Cells["D3"].Value = "Giới tính";
+                    worksheet.Cells["E3"].Value = "Ngày sinh";
+                    worksheet.Cells["F3"].Value = "Vị trí";
+                    worksheet.Cells["G3"].Value = "Phòng ban";
+                    worksheet.Cells["H3"].Value = "Số tài khoản";
+                    worksheet.Cells["I3"].Value = "Tên ngân hàng";
+                    worksheet.Cells["J3"].Value = "Chi nhánh ngân hàng";
+
+
+                    row = 4;
+                    int STT = 1;
+                    int start = 4;
+                    int end = 4;
+                    foreach (var item in listEmployee)
+                    {
+                        string gender = "";
+                        switch (item.Gender)
+                        {
+                            case Gender.Male:
+                                gender = "Nam";
+                                break;
+                            case Gender.Female:
+                                gender = "Nữ";
+                                break;
+                            case Gender.Other:
+                                gender = "Khác";
+                                break;
+                        }
+
+                        worksheet.Cells[row, 1].Value = STT++;
+                        worksheet.Cells[row, 2].Value = item.EmployeeCode;
+                        worksheet.Cells[row, 3].Value = item.EmployeeName;
+                        worksheet.Cells[row, 4].Value = gender;
+                        worksheet.Cells[row, 5].Value = item.DateOfBirth?.ToString("MM/dd/yyyy");
+                        worksheet.Cells[row, 6].Value = item.PositionName;
+                        worksheet.Cells[row, 7].Value = item.DepartmentName;
+                        worksheet.Cells[row, 8].Value = item.AccountBank?.ToString();
+                        worksheet.Cells[row, 9].Value = item.NameBank;
+                        worksheet.Cells[row, 10].Value = item.BranchBank;
+
+                        // tạo cell border
+                        string modelRange = "A" + start++ + ":J" + end++;
+                        var modelTable = worksheet.Cells[modelRange];
+
+                        modelTable.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        modelTable.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        modelTable.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        modelTable.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+
+                        row++;
+                    }
+                    xlPackage.Workbook.Properties.Title = "DANH SÁCH NHÂN VIÊN";
+
+                    xlPackage.Workbook.Properties.Author = " Phạm Công Tuấn Anh";
+
+                    worksheet.Cells.AutoFitColumns();
+
+                    worksheet.Cells.Style.Font.Name = "Arial";
+
+                    xlPackage.Save();
+
+                }
+                stream.Position = 0;
+
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Danh_sach_nhan_vien.xlsx");
             }
-            catch (MySqlException mySqlException)
+            catch (Exception ex)
             {
-                // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
-                if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
-                {
-                    Console.WriteLine(mySqlException.Message);
-                    return StatusCode(StatusCodes.Status400BadRequest,
-                        responeErrorResult.ErrorResultDuplicateCode(HttpContext.TraceIdentifier)
-                 );
-                }
-                Console.WriteLine(mySqlException.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
-                responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
-                responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
-
-            }
-        }
-
-        #endregion
-
-        #region PUT API 
-
-        /// <summary>
-        /// API sửa một nhân viên 
-        /// <param name="employeeID">ID của nhân viên muốn sửa</param>
-        /// <param name="employee">Đối tượng nhân viên muốn sửa</param>
-        /// <returns>ID của nhân viên vừa sửa</returns>
-        /// </summary>
-        /// Created by: PCTUANANH(18/09/2022)
-        [HttpPut("{employeeID}")]
-        public IActionResult Employee([FromRoute] Guid employeeID, [FromBody] Employee employee)
-        {
-
-            try
-            {
-
-                var employeeBLResponse = _employeeBL.UpDateEmployee(employeeID, employee);
-                if (!employeeBLResponse.IsValidate)
-                {
-                    string? strValidate = employeeBLResponse.strValidate;
-                    return StatusCode(StatusCodes.Status400BadRequest,
-                     responeErrorResult.ErrorResultValidate(HttpContext.TraceIdentifier, strValidate));
-                }
-
-                if (employeeBLResponse.IsValidate && employeeBLResponse.Success)
-                {
-                    // Trả về dữ liệu cho client
-                    return StatusCode(StatusCodes.Status200OK, employeeBLResponse.Data);
-                }
-                else
-                {
-
-                    return StatusCode(StatusCodes.Status400BadRequest, 
-                        responeErrorResult.ErrorResultUpdate(HttpContext.TraceIdentifier)
-               );
-                }
-            }
-            catch (MySqlException mySqlException)
-            {
-                // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
-                if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest,
-                      responeErrorResult.ErrorResultDuplicateCode(HttpContext.TraceIdentifier)
-                      );
-                }
-                Console.WriteLine(mySqlException.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
-                  responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
-                   responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
-
-            }
-
-        }
-
-        #endregion
-
-        #region Delete  Eployee API
-
-        /// <summary>
-        /// API xóa mới một nhân viên 
-        /// <param name="employeeID">ID của nhân viên muốn xóa</param>
-        /// <returns>ID của nhân viên vừa sửa</returns>
-        /// </summary>
-        ///Created by: PCTUANANH(18/09/2022)
-        [HttpDelete("{employeeID}")]
-        public IActionResult Employee([FromRoute] Guid employeeID)
-        {
-
-            try
-            {
-                var employeeBLResponse = _employeeBL.DeleteEmployee(employeeID);
-                if (employeeBLResponse.Success)
-                {
-                    // Trả về dữ liệu cho client
-                    return StatusCode(StatusCodes.Status200OK, employeeID);
-                }
-                else
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest,
-                     responeErrorResult.ErrorResultDelete(HttpContext.TraceIdentifier)
-                    );
-                }
-            }
-            catch (Exception exception)
-            {
-                // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
-                Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
-                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
-            }
-
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Attributes
     /// Attributes dùng để xác định 1 prop là khóa chính
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class PrimarykeyAttribute : Attribute
+    public class Primarykey : Attribute
     {
 
     }

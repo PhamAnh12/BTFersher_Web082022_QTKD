@@ -3,8 +3,9 @@ using Misa.Web082022.QTKD.Multilayer.Common.Entities;
 
 namespace Misa.Web082022.QTKD.Multilayer.BL
 {
-    public interface IEmployeeBL
+    public interface IEmployeeBL : IBaseBL<Employee>
     {
+
         #region Filter Employees
 
         /// <summary>
@@ -22,18 +23,6 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
 
         #endregion
 
-        #region Get Employee by ID
-
-        /// <summary>
-        ///  lấy thông tin chi tiết của 1 nhân viên
-        /// </summary>
-        /// <param name="employeeid">id của nhân viên muốn lấy thông tin chi tiết</param>
-        /// <returns>đối tượng nhân viên muốn lấy thông tin chi tiết</returns>
-        /// created by: pctuananh(29/09/2022)
-        public Employee GetEmployeeByID(Guid employeeid);
-
-        #endregion
-
         #region Get New EmployeeCode
 
         /// <summary>
@@ -44,43 +33,6 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
         public string GetNewEmployeeCode();
 
         #endregion
-
-        #region Insert Employee
-
-        /// <summary>
-        /// api thêm mới một nhân viên 
-        /// <param name="employee">đối tượng nhân viên mới</param>
-        /// <returns>số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// created by: pctuananh(29/09/2022)
-        public ServiceResponse InsertEmployee(Employee employee);
-
-        #endregion
-
-        #region Update Employee
-
-        /// <summary>
-        /// api thêm mới một nhân viên 
-        /// <param name="employee">đối tượng nhân viên mới</param>
-        /// <returns>số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// created by: pctuananh(29/09/2022)
-        public ServiceResponse UpDateEmployee(Guid employeeID, Employee employee);
-
-        #endregion
-
-        #region Delete Employee
-
-        /// <summary>
-        /// api thêm mới một nhân viên 
-        /// <param name="employee">đối tượng nhân viên mới</param>
-        /// <returns>số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// created by: pctuananh(29/09/2022)
-        public ServiceResponse DeleteEmployee(Guid employeeID);
-
-        #endregion
-
 
     }
 }

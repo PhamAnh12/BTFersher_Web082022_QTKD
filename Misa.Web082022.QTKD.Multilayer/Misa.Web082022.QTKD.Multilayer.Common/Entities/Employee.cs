@@ -14,6 +14,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         /// <summary>
         /// Id nhân viên
         /// </summary>
+        [Primarykey]
         public Guid EmployeeID { get; set; }
 
         /// <summary>

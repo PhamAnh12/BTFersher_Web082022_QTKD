@@ -4,7 +4,7 @@ using Misa.Web082022.QTKD.Multilayer.DL;
 
 namespace Misa.Web082022.QTKD.Multilayer.BL
 {
-    public class EmployeeBL : IEmployeeBL
+    public class EmployeeBL : BaseBL<Employee>,IEmployeeBL
     {
         #region Field
 
@@ -14,7 +14,7 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
 
         #region Controctor
 
-        public EmployeeBL(IEmployeeDL employeeDL)
+        public EmployeeBL(IEmployeeDL employeeDL):base(employeeDL)
         {
             _employeeDL = employeeDL;
         }
@@ -40,21 +40,6 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
         {
              return _employeeDL.FilterEmployees(search, sort, limit, offset);
             
-        }
-
-        #endregion
-
-        #region Get Employee BY ID
-
-        /// <summary>
-        ///  Lấy thông tin chi tiết của 1 nhân viên
-        /// </summary>
-        /// <param name="employeeID">ID của nhân viên muốn lấy thông tin chi tiết</param>
-        /// <returns>Đối tượng nhân viên muốn lấy thông tin chi tiết</returns>
-        /// Created by: PCTUANANH(29/09/2022)
-        public Employee GetEmployeeByID(Guid employeeID)
-        {
-            return _employeeDL.GetEmployeeByID(employeeID);
         }
 
         #endregion
@@ -91,148 +76,7 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
 
         #endregion
 
-        #region Insert Employee
-
-        /// <summary>
-        /// API thêm mới một nhân viên 
-        /// <param name="employee">Đối tượng nhân viên mới</param>
-        /// <returns>Số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// Created by: PCTUANANH(29/09/2022)
-        public ServiceResponse InsertEmployee(Employee employee)
-        {
-            var employeeID = Guid.NewGuid();
-           
-            employee.EmployeeID = employeeID;
-            // validate dữ liệu đầu vào
-            List<string> ValidateErrors = Validation.Validate(employee);
-            if (ValidateErrors.Count > 0)
-            {
-                string listValidateErrors = string.Join(", ", ValidateErrors);
-                return new ServiceResponse
-                {   
-                    IsValidate = false,
-                    strValidate = listValidateErrors,
-                    Success = false,
-                    Data = listValidateErrors
-                };
-            }
-            else
-            {
-                int numberOfAffectedRows = _employeeDL.InsertEmployee(employee);
-                if (numberOfAffectedRows > 0)
-                {
-                    return new ServiceResponse
-                    {
-                        IsValidate = true,
-                        strValidate = "",
-                        Success = true,
-                        Data = employeeID
-                    };
-                }
-                else
-                {
-                    return new ServiceResponse
-                    {
-                        IsValidate = true,
-                        strValidate = "",
-                        Success = false,
-                        Data = null,
-                    };
-                }
-
-            }
-
-            
-        }
-
         #endregion
 
-        #region Update Employee
-
-        /// <summary>
-        /// API thêm mới một nhân viên 
-        /// <param name="employee">Đối tượng nhân viên mới</param>
-        /// <returns>Số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// Created by: PCTUANANH(29/09/2022)
-        public ServiceResponse UpDateEmployee(Guid employeeID, Employee employee)
-        {
-            // validate dữ liệu đầu vào
-            List<string> ValidateErrors = Validation.Validate(employee);
-            if (ValidateErrors.Count > 0)
-            {
-                string listValidateErrors = string.Join(", ", ValidateErrors);
-                return new ServiceResponse
-                {
-                    IsValidate = false,
-                    strValidate = listValidateErrors,
-                    Success = false,
-                    Data = listValidateErrors
-                };
-            }
-            else
-            {
-                int numberOfAffectedRows = _employeeDL.UpdateEmployee(employeeID, employee);
-                if (numberOfAffectedRows > 0)
-                {
-                    return new ServiceResponse
-                    {
-                        IsValidate = true,
-                        strValidate = "",
-                        Success = true,
-                        Data = employeeID
-                    };
-                }
-                else
-                {
-                    return new ServiceResponse
-                    {
-                        IsValidate = true,
-                        strValidate = "",
-                        Success = false,
-                        Data = null,
-                    };
-                }
-            }
-        }
-
-        #endregion
-
-        #region Delete Employee
-
-        /// <summary>
-        /// API thêm mới một nhân viên 
-        /// <param name="employee">Đối tượng nhân viên mới</param>
-        /// <returns>Số bản ghi bị thay đổi</returns>
-        /// </summary>
-        /// Created by: PCTUANANH(29/09/2022)
-        public ServiceResponse DeleteEmployee(Guid employeeID)
-        {
-            int numberOfAffectedRows = _employeeDL.DeleteEmployee(employeeID);
-            if (numberOfAffectedRows > 0)
-            {
-                return new ServiceResponse
-                {   IsValidate= true,
-                    Success = true,
-                    Data = employeeID
-                };
-            }
-            else
-            {
-                return new ServiceResponse
-                {
-                    IsValidate = true,
-                    Success = false,
-                    Data = ""
-                };
-            }
-        }
-
-
-
-        #endregion
-
-        #endregion
     }
 }

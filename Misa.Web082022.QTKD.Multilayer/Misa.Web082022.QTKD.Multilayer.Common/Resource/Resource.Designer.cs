@@ -178,20 +178,11 @@ namespace Misa.Web082022.QTKD.Multilayer.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proc_Department_Get_All.
+        ///   Looks up a localized string similar to Proc_DeleteByID_{0}.
         /// </summary>
-        public static string Proc_Department_Get_All {
+        public static string Proc_DeleteByID {
             get {
-                return ResourceManager.GetString("Proc_Department_Get_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Proc_Employee_DeleteByEmployeeID.
-        /// </summary>
-        public static string Proc_Employee_DeleteByEmployeeID {
-            get {
-                return ResourceManager.GetString("Proc_Employee_DeleteByEmployeeID", resourceCulture);
+                return ResourceManager.GetString("Proc_DeleteByID", resourceCulture);
             }
         }
         
@@ -205,38 +196,56 @@ namespace Misa.Web082022.QTKD.Multilayer.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proc_Employee_GetMaxEmployeeCode.
+        ///   Looks up a localized string similar to Proc_Filter_Employee.
         /// </summary>
-        public static string Proc_Employee_GetMaxEmployeeCode {
+        public static string Proc_Filter_Employee {
             get {
-                return ResourceManager.GetString("Proc_Employee_GetMaxEmployeeCode", resourceCulture);
+                return ResourceManager.GetString("Proc_Filter_Employee", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proc_Employee_GetPaing.
+        ///   Looks up a localized string similar to Proc_GetAll_{0}.
         /// </summary>
-        public static string Proc_Employee_GetPaing {
+        public static string Proc_GetAll {
             get {
-                return ResourceManager.GetString("Proc_Employee_GetPaing", resourceCulture);
+                return ResourceManager.GetString("Proc_GetAll", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proc_Employee_InsertEmployee.
+        ///   Looks up a localized string similar to Proc_GetByID_{0}.
         /// </summary>
-        public static string Proc_Employee_InsertEmployee {
+        public static string Proc_GetByID {
             get {
-                return ResourceManager.GetString("Proc_Employee_InsertEmployee", resourceCulture);
+                return ResourceManager.GetString("Proc_GetByID", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proc_Employee_UpdateEmployee.
+        ///   Looks up a localized string similar to Proc_GetMaxEmpCode_Employee.
         /// </summary>
-        public static string Proc_Employee_UpdateEmployee {
+        public static string Proc_GetMaxEmpCode_Employee {
             get {
-                return ResourceManager.GetString("Proc_Employee_UpdateEmployee", resourceCulture);
+                return ResourceManager.GetString("Proc_GetMaxEmpCode_Employee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_Insert_{0}.
+        /// </summary>
+        public static string Proc_Insert {
+            get {
+                return ResourceManager.GetString("Proc_Insert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proc_Update_{0}.
+        /// </summary>
+        public static string Proc_Update {
+            get {
+                return ResourceManager.GetString("Proc_Update", resourceCulture);
             }
         }
         
