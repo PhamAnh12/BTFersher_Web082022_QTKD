@@ -67,7 +67,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                return StatusCode(StatusCodes.Status500InternalServerError, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
         }
 
@@ -94,7 +94,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
             {
 
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
+                return StatusCode(StatusCodes.Status500InternalServerError,
                  responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
@@ -134,6 +134,17 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                     var row = startRow;
 
                     worksheet.Cells["A1"].Value = "Danh sách nhân viên";
+                    worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Column(1).Width = 10;
+                    worksheet.Column(2).Width = 150;
+                    worksheet.Column(3).Width = 210;
+                    worksheet.Column(4).Width = 100;
+                    worksheet.Column(5).Width = 150;
+                    worksheet.Column(6).Width = 150;
+                    worksheet.Column(7).Width = 150;
+                    worksheet.Column(8).Width = 100;
+                    worksheet.Column(9).Width = 150;
+                    worksheet.Column(10).Width = 150;
 
                     using (var r = worksheet.Cells["A1:J1"])
                     {

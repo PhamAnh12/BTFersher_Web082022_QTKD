@@ -66,5 +66,7 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
         public Guid DeleteRecord(Guid ID);
 
         #endregion
+
+
     }
 }

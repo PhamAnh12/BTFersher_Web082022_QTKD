@@ -57,7 +57,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
             catch (Exception exception)
             {
 
-                return StatusCode(StatusCodes.Status400BadRequest, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                return StatusCode(StatusCodes.Status500InternalServerError, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
         }
@@ -94,7 +94,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
             catch (Exception exception)
             {
 
-                return StatusCode(StatusCodes.Status400BadRequest, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                return StatusCode(StatusCodes.Status500InternalServerError, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
         }
@@ -147,13 +147,13 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                  );
                 }
                 Console.WriteLine(mySqlException.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
+                return StatusCode(StatusCodes.Status500InternalServerError,
                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
+                return StatusCode(StatusCodes.Status500InternalServerError,
                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
@@ -209,17 +209,17 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                  );
                 }
                 Console.WriteLine(mySqlException.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
+                return StatusCode(StatusCodes.Status500InternalServerError,
                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
+                return StatusCode(StatusCodes.Status500InternalServerError,
                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
 
             }
-
+            
         }
 
         #endregion
@@ -255,7 +255,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
             {
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status400BadRequest,
+                return StatusCode(StatusCodes.Status500InternalServerError,
                  responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
             }
 

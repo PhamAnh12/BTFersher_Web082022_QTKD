@@ -124,7 +124,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         /// <summary>
         /// Ngày sửa gần nhất
         /// </summary>
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; } 
 
         /// <summary>
         /// Người sửa gần nhất
