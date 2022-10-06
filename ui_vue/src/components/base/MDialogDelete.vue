@@ -11,7 +11,7 @@
                         <div class=" icon__warning"></div>
                      
                     <div class="dialog__body__text">
-                        Bạn muốn thực sự muốn xóa Nhân viên {{employeeCode}}
+                     {{textDelete}} {{employeeCode}}
                     </div>
                 </div>
                 <div class="dialog__footer align__items__center dialog__footer-delete">
@@ -25,6 +25,7 @@
  
 </template>
 <script>
+import Enum from '../../script/common/enumeration'
 export default {
    name : 'DialogDelete',
    props:{
@@ -56,6 +57,11 @@ export default {
         }
        
     }
-   }
+   },
+   data() {
+    return {
+        textDelete : Enum.textDelete
+    }
+   },
 }
 </script>

@@ -60,8 +60,10 @@ export default {
     },
     resErrorCodes:{
         errorDuplicate : 3,
-    }
-
+    },
+    nameFileExport: "Danh sách nhân viên",
+    textDelete: " Bạn muốn thực sự muốn xóa Nhân viên có mã là"
+    
 
 
 

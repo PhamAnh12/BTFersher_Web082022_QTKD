@@ -20,10 +20,10 @@
 .table tbody tr:hover ~ .sticky__col{
     background-color: var(--tr-hover-color) !important;
 }
-.modal__header__icon:hover {
+/* .modal__header__icon:hover {
     border: 1px solid #D3D7DE;
     border-radius: var(--border-radius);
-}
+} */
 
 .btn:hover {
     background-color: var(--hover-color);

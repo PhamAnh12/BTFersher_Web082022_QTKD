@@ -277,6 +277,7 @@ export default {
          this.indexItemSelected =  null;
       }
       this.$emit("blurValidate",e);
+      this.isShowListData = false;
     },
     
   },

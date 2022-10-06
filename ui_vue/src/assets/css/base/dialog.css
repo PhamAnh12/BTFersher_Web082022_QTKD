@@ -19,6 +19,7 @@
     background-color: var(--background-color);
     border-radius: var( --border-radius);
     padding: 32px;
+    animation:  growth linear 0.22s;
     
   }
   .dialog__delete{

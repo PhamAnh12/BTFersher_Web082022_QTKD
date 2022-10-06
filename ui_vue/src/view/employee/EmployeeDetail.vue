@@ -1,7 +1,7 @@
 <template>
   <!-- Form nhập -->
   <div class="modal">
-    <div class="modal__container" @keydown="handleKeyModel" >
+    <div class="modal__container" @keydown="handleKeyModel" :draggable="true">
       <div class="modal__content">
         <div class="modal__header">
           <div class="modal__header__left">
@@ -12,20 +12,21 @@
             <label for="">Là nhà cung cấp</label>
           </div>
           <div class="modal__header__rigth">
-            <div class="item__icon modal__header__icon"
-            v-tooltip.bottom="{
-                 content:'Trợ giúp(F1)',
-                 }">
-            
+            <div
+              class="item__icon modal__header__icon"
+              v-tooltip.bottom="{
+                content: 'Trợ giúp(F1)',
+              }"
+            >
               <div class="icon__18 icon__help"></div>
             </div>
             <div
               class="item__icon modal__header__icon margin__letf_8"
               @click="isCloseModal"
               v-tooltip.bottom="{
-                 content:'Đóng (ESC)',
-                 }">
-            
+                content: 'Đóng (ESC)',
+              }"
+            >
               <div class="icon__18 icon__close"></div>
             </div>
           </div>
@@ -77,12 +78,27 @@
             <div class="body__row__rigth">
               <div class="container__input input__160">
                 <label class="input__label" for=""> Ngày sinh </label>
+                <!-- <datePicker
+                 
+                  placeholder="DD/MM/YYYY"
+                  :enterSubmit="true"
+                  :tabSubmit="true"
+                  :maxDate="new Date()"
+                  locale="vn"
+                  format="dd/MM/yyyy"
+                  textInput
+                  :dayNames="['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']"
+                  autoApply
+                  utc
+                  v-model="employee.dateOfBirth"
+                  inputClassName="input"
+                /> -->
+
                 <input
                   tabindex="5"
                   class="input input_date"
                   type="date"
                   :max="maxDate"
-                  placeholder="DD/MM/YYYY"
                   v-model="employee.dateOfBirth"
                 />
               </div>
@@ -133,16 +149,22 @@
                   propValue="departmentID"
                   propText="departmentName"
                   @getValueDepart="getValueDepart"
-                   @blurValidate="blurValidate"
+                  @blurValidate="blurValidate"
                   :departmentName="employee.departmentName"
                   :errorDepartment="errors.errorDepartment"
-                 
                 ></MCombobox>
               </div>
             </div>
             <div class="body__row__rigth">
               <div class="container__input input__320">
-                <label class="input__label" for="">Số CMND</label>
+                <label
+                  class="input__label"
+                  for=""
+                  v-tooltip.left="{
+                    content: 'Số chứng minh nhân dân',
+                  }"
+                  >Số CMND</label
+                >
                 <input
                   tabindex="9"
                   class="input"
@@ -154,6 +176,20 @@
               </div>
               <div class="container__input input__margin_6 input__160">
                 <label class="input__label" for="">Ngày cấp</label>
+                 <!-- <datePicker
+                  :tabIndex="5"
+                  placeholder="DD/MM/YYYY"
+                  :enterSubmit="true"
+                  :tabSubmit="true"
+                  :maxDate="new Date()"
+                  locale="vn"
+                  format="dd/MM/yyyy"
+                  textInput
+                  :dayNames="['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']"
+                  autoApply
+                  utc
+                  v-model="employee.identityIssuedDate"
+                /> -->
                 <input
                   tabindex="10"
                   class="input input_date"
@@ -185,7 +221,7 @@
                   tabindex="11"
                   class="input"
                   type="text"
-                   maxlength="150"
+                  maxlength="150"
                   placeholder="Nơi cấp chứng minh nhân dân"
                   v-model="employee.identityIssuedPlace"
                 />
@@ -207,7 +243,14 @@
           </div>
           <div class="modal__body__row">
             <div class="container__input input__240">
-              <label class="input__label" for="">ĐT di động </label>
+              <label
+                class="input__label"
+                for=""
+                v-tooltip.left="{
+                  content: 'Số điện thoại di động',
+                }"
+                >ĐT di động
+              </label>
               <input
                 tabindex="13"
                 class="input"
@@ -217,7 +260,14 @@
               />
             </div>
             <div class="container__input input__margin_6 input__240">
-              <label class="input__label" for="">ĐT có định </label>
+              <label
+                class="input__label"
+                for=""
+                v-tooltip.left="{
+                  content: 'Số điện thoại cố định',
+                }"
+                >ĐT cố định
+              </label>
               <input
                 tabindex="14"
                 class="input"
@@ -277,16 +327,22 @@
         <div class="modal__footer">
           <div class="btn__base content__center" @click="closeModal">Hủy</div>
           <div class="modal__footer__rigth">
-            <div class="btn__base content__center"
-             v-tooltip="{
-                 content:'Cất (Ctrl + S)',
-                 }"
-             @click="saveModal">Cất</div>
-            <div class="btn margin__letf_8" 
-             v-tooltip="{
-                 content:'Cất (Ctrl + Shift + S)',
-                 }"
-            @click="saveModalAdd">
+            <div
+              class="btn__base content__center"
+              v-tooltip="{
+                content: 'Cất (Ctrl + S)',
+              }"
+              @click="saveModal"
+            >
+              Cất
+            </div>
+            <div
+              class="btn margin__letf_8"
+              v-tooltip="{
+                content: 'Cất (Ctrl + Shift + S)',
+              }"
+              @click="saveModalAdd"
+            >
               Cất và thêm
             </div>
           </div>
@@ -308,11 +364,11 @@
 </template>
 <script>
 import Common from "../../script/common/common";
-import Enumeration from "../../script/common/enumeration";
-import DialogFormClose from "../../components/base/DialogFormClose.vue";
+import Enum from "../../script/common/enumeration";
+import DialogFormClose from "../../components/base/MDialogFormClose.vue";
 import MCombobox from "../../components/base/msCombobox/MCombobox.vue";
-import DialogError from "../../components/base/Dialog.vue";
-var urlBase = process.env.VUE_APP_URL;
+import DialogError from "../../components/base/MDialog.vue";
+const urlBase = process.env.VUE_APP_URL;
 export default {
   name: "EmployeeDetailComponent",
   components: {
@@ -335,6 +391,9 @@ export default {
   created() {
     this.employee = this.employeeSelect;
     this.employeeOld = this.employee;
+    console.log(this.employeeOld);
+    console.log(this.employeeNew);
+    
   },
   mounted() {
     /*
@@ -359,17 +418,17 @@ export default {
       isCloseForm: false,
       changeData: false,
       maxDate: Common.maxDate(),
-      employeeOld: {},
-      employeeNew: {},
       errors: {
         errorCode: "",
         errorName: "",
         errorDepartment: "",
       },
       urlDepartment: `${urlBase}/Departments`,
-      SaveMode: Enumeration.SaveMode.Save,
+      saveMode: Enum.SaveMode.Save,
       isErrorFrom: false,
       textErrorPopup: "",
+      employeeOld :{},
+      employeeNew: {},
     };
   },
   methods: {
@@ -381,7 +440,7 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     formatInputForm() {
-        this.traneGenderNumber();
+      this.traneGenderNumber();
     },
     /*
      * Hàm dùng để format ngày tháng trong employee
@@ -389,7 +448,7 @@ export default {
      */
     formatDateEmployee() {
       try {
-        if (this.formMode == Enumeration.FormMode.Edit) {
+        if (this.formMode == Enum.FormMode.Edit) {
           this.employee.dateOfBirth = Common.formatDate2(
             this.employee.dateOfBirth
           );
@@ -407,11 +466,11 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     traneGenderNumber() {
-        if (!this.employee.gender) {
-          this.employee.gender = 0;
-        } else {
-          this.employee.gender = Number(this.employee.gender);
-        }
+      if (!this.employee.gender) {
+        this.employee.gender = 0;
+      } else {
+        this.employee.gender = Number(this.employee.gender);
+      }
     },
     /*
      * Hàm dùng để  thêm mới một mã nhân viên tự động tăng
@@ -419,7 +478,7 @@ export default {
      */
     newEmployeeCode() {
       try {
-        if (this.formMode == Enumeration.FormMode.Add) {
+        if (this.formMode == Enum.FormMode.Add) {
           fetch(`${urlBase}/Employees/new-code`)
             .then((res) => res.text())
             .then((res) => {
@@ -441,26 +500,19 @@ export default {
      * PCTUANANH(18/09/2022)
      */
     closeModal() {
-      try {
-        this.$emit("notLoadingData");
-        this.$emit("hideModal");
-      } catch (error) {
-        console.log(error);
-      }
+      this.$emit("notLoadingData");
+      this.$emit("hideModal");
+    
     },
     /*
      * Hàm dùng để đóng modal bằng nút X
      * PCTUANANH(18/09/2022)
      */
     isCloseModal() {
-      try {
-        if (!this.changeData) {
-          this.closeModal();
-        } else {
-          this.isCloseForm = true;
-        }
-      } catch (error) {
-        console.log(error);
+      if (!this.changeData) {
+        this.closeModal();
+      } else {
+        this.isCloseForm = true;
       }
     },
     /*
@@ -468,23 +520,15 @@ export default {
      * PCTUANANH(18/09/2022)
      */
     hideCloseForm() {
-      try {
-        this.isCloseForm = false;
-      } catch (error) {
-        console.log(error);
-      }
+      this.isCloseForm = false;
     },
     /*
      * Hàm dùng để ẩn popup show Error
      * PCTUANANH(28/09/2022)
      */
     hideErrorFrom() {
-      try {
-        this.isErrorFrom = false;
-        this.$refs.empCode.focus();
-      } catch (error) {
-        console.log(error);
-      }
+      this.isErrorFrom = false;
+      this.$refs.empCode.focus();
     },
     /*
      * Hàm dùng để validate
@@ -498,16 +542,16 @@ export default {
         errorDepartment: "",
       };
       if (!this.employee.employeeCode) {
-        this.errors.errorCode = Enumeration.Errors.errorCode;
-        
+        this.errors.errorCode = Enum.Errors.errorCode;
+
         isValidate = false;
       }
       if (!this.employee.employeeName) {
-        this.errors.errorName = Enumeration.Errors.errorName;
+        this.errors.errorName = Enum.Errors.errorName;
         isValidate = false;
       }
       if (!this.employee.departmentID) {
-        this.errors.errorDepartment = Enumeration.Errors.errorDepartment;
+        this.errors.errorDepartment = Enum.Errors.errorDepartment;
         isValidate = false;
       }
       return isValidate;
@@ -521,25 +565,31 @@ export default {
       if (e.currentTarget.value) {
         this.errors[errorCode] = "";
       } else {
-        this.errors[errorCode] = Enumeration.Errors[errorCode];
+        this.errors[errorCode] = Enum.Errors[errorCode];
       }
     },
     /*
      * Hàm dùng  validate backend
      * PCTUANANH(28/09/2022)
      */
-    validateBackend(response,employeeCode) {
-      if (response.errorCode && response.errorCode === Enumeration.resErrorCodes.errorDuplicate) {
+    validateBackend(response, employeeCode) {
+      if (
+        response.errorCode &&
+        response.errorCode === Enum.resErrorCodes.errorDuplicate
+      ) {
         this.isErrorFrom = true;
-       
-        this.textPopupError = `${Enumeration.textErrorBackend.textCodeLeft} ${employeeCode} ${Enumeration.textErrorBackend.textCodeRight}` ;
-
-      }
-      else{
-        if( this.SaveMode == Enumeration.SaveMode.Save){
-            this.$emit("loadingData");
-            this.$emit("hideModal");
-        } 
+        this.textPopupError = `${Enum.textErrorBackend.textCodeLeft} <${employeeCode}> ${Enum.textErrorBackend.textCodeRight}`;
+      } else {
+        if (this.saveMode === Enum.SaveMode.Save) {
+          this.$emit("loadingData");
+          this.$emit("hideModal");
+        }
+        else {
+              this.$emit("loadingData");
+              setTimeout(()=>{
+               this.$emit("notLoadingData");
+              },500)
+        }
       }
     },
     /*
@@ -562,13 +612,12 @@ export default {
           this.isCloseForm = false;
         }
         if (this.validate()) {
-        
           // sửa nhân viên
-          if (this.formMode === Enumeration.FormMode.Edit) {
+          if (this.formMode === Enum.FormMode.Edit) {
             this.saveEditEmployee();
           }
           // thêm mới nhân viên
-          else if (this.formMode === Enumeration.FormMode.Add) {
+          else if (this.formMode === Enum.FormMode.Add) {
             this.saveAddEmployee();
           }
         }
@@ -582,9 +631,8 @@ export default {
      */
     saveModal() {
       try {
-        this.SaveMode = Enumeration.SaveMode.Save;
+        this.SaveMode = Enum.SaveMode.Save;
         this.handleSave();
-
       } catch (error) {
         console.log(error);
       }
@@ -595,11 +643,10 @@ export default {
      */
     saveModalAdd() {
       try {
-        this.SaveMode = Enumeration.SaveMode.SaveAdd;
+        this.SaveMode = Enum.SaveMode.SaveAdd;
         this.handleSave();
-        this.$emit("loadingData");
-        this.$emit("hideModal");
-        
+        this.employee = {};
+        this.newEmployeeCode();
       } catch (error) {
         console.log(error);
       }
@@ -608,12 +655,12 @@ export default {
      * Hàm dùng để lưu  modal và thêm mới modal
      * PCTUANANH(03/10/2022)
      */
-    handleKeyModel(e){
-      if(e.keyCode === Enumeration.keyCode.S && e.ctrlKey){
+    handleKeyModel(e) {
+      if (e.keyCode === Enum.keyCode.S && e.ctrlKey) {
         e.preventDefault();
         this.saveModal();
       }
-      if(e.keyCode === Enumeration.keyCode.ESC){
+      if (e.keyCode === Enum.keyCode.ESC) {
         e.preventDefault();
         this.isCloseModal();
       }
@@ -639,10 +686,9 @@ export default {
         })
           .then((response) => response.json())
           .then((response) => {
-            this.validateBackend(response,data.employeeCode);
+            this.validateBackend(response, data.employeeCode);
           })
           .catch((error) => {
-            console.log(data);
             console.error("Error:", error);
           });
       } catch (error) {
@@ -667,7 +713,7 @@ export default {
         })
           .then((response) => response.json())
           .then((response) => {
-            this.validateBackend(response,data.employeeCode);
+            this.validateBackend(response, data.employeeCode);
           })
           .catch((error) => {
             console.error("Error:", error);

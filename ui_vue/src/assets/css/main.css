@@ -18,8 +18,9 @@
 @import url(./controler/active.css);
 @import url(./base//tooltip.css);
 @import url(./base/dropList.css);
+@import url(./base//datapicker.css);
 :root {
-  --primary-color: #2ca01c;;
+  --primary-color: #2ca01c;
   --hover-color: #35bf22;
   --white-color: #ffffff;
   --border-color: #babec5;
@@ -35,6 +36,8 @@
   --height-button: 36px;
   --border-radius: 4px;
   --height-input: 32px;
+  --growth-from: 0.7;
+  --growth-to: 1;
 }
 
 body {
@@ -83,7 +86,7 @@ body {
 ::-webkit-scrollbar {
   height: 8px;
   width: 8px;
-
+ 
 }
 
 ::-webkit-scrollbar-track {
@@ -97,4 +100,12 @@ body {
   background: #bbb;
   border-radius: 4px;
   cursor: pointer;
+}
+@keyframes growth{
+  from{
+      transform: scale(var(--growth-from));
+  }
+  to{
+      transform: scale(var(--growth-to));
+  }
 }

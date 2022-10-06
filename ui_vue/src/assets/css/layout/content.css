@@ -26,7 +26,14 @@
     display: flex;
     justify-content: right;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+}
+.btn__sidebar{
+    display: flex;
+    justify-content: space-between;
+}
+.btn__sidebar__item{
+    margin: 6px;
 }
 .content__body__wrapper{
     width: 100%;
@@ -38,15 +45,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px  0 ;
+    padding: 10px  16px ;
     border-top: 1px solid  #F8F8F8;
     height: 56px;
 }
 .container__table{
-    height:  calc(100% - 32px);  
+    height:  calc(100% - 46px);  
     padding-bottom: 6px; 
     position: relative; 
     overflow-x: auto;
     overflow-y:auto ;
+
 }
 

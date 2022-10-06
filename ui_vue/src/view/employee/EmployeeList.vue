@@ -21,10 +21,27 @@
                 @input="searchEmployee"
                 @keyup.enter="searchEmployee"
               />
-              <div class="icon__18 icon__search"></div>
+              <div class="icon__18 icon__search" @click="searchEmployee"></div>
             </div>
-            <div class="item__icon">
-              <div class="icon__24 icon__load" @click="reload"></div>
+            <div class="btn__sidebar">
+              <div
+                class="item__icon btn__sidebar__item"
+                v-tooltip="{
+                  content: 'Lấy lại dữ liệu',
+                }"
+              >
+                <div class="icon__24 icon__load" @click="reload"></div>
+              </div>
+              <div
+                class="item__icon btn__sidebar__item"
+                v-tooltip="{
+                  content: 'Xuất ra Excel',
+                }"
+              >
+                <a :href="exportLink">
+                  <div class="icon__24 icon__export"></div>
+                </a>
+              </div>
             </div>
           </div>
           <div class="container__table" ref="scrollbar">
@@ -40,7 +57,15 @@
                   <th class="th__wd">TÊN NHÂN VIÊN</th>
                   <th class="th__wd__gender">GIỚI TÍNH</th>
                   <th class="align-center th__wd__date">NGÀY SINH</th>
-                  <th class="th__wd" style="">SỐ CMND</th>
+                  <th
+                    class="th__wd"
+                    style=""
+                    v-tooltip.left-start="{
+                      content: 'Số chứng minh nhân dân',
+                    }"
+                  >
+                    SỐ CMND
+                  </th>
                   <th class="th__wd" style="">CHỨC DANH</th>
                   <th class="th__wd" style="">TÊN ĐƠN VỊ</th>
                   <th class="th__wd" style="">SỐ TÀI KHOẢN</th>
@@ -133,47 +158,36 @@
                       </div>
                       <div
                         class="function__icon"
-                        @click="showFunction($event, index)"
+                        @click="
+                          showFunction(
+                            $event,
+                            index,
+                            employee.employeeID,
+                            employee.employeeCode,
+                            employee
+                          )
+                        "
                         :class="{
                           'function__icon--show':
                             isShowFunction && indexEmployee == index,
                         }"
-                      >
-                      
-                      </div>
+                      ></div>
                     </div>
                     <Loading v-if="isLoading"></Loading>
                   </td>
-                    <div
-                          class="function__list"
-                          v-show="isShowFunction && indexEmployee == index"
-                        >
-                          <div class="function__item">Nhân bản</div>
-                          <div
-                            class="function__item function__item--active"
-                            @click="
-                              showDialogDelete(
-                                employee.employeeID,
-                                employee.employeeCode
-                              )
-                            "
-                          >
-                            Xóa
-                          </div>
-                          <div class="function__item">Ngưng sử dụng</div>
-                        </div>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <PageComponent 
-        :totalRecords="totalRecords"
-        :recordNumber="recordNumber"
-        :pageCount="pageCount"
-        @getRecordPage="getRecordPage"
-        @pagingEmployee="pagingEmployee"
-        > </PageComponent>
+        <PageComponent
+          :totalRecords="totalRecords"
+          :recordNumber="recordNumber"
+          :pageCount="pageCount"
+          @getRecordPage="getRecordPage"
+          @pagingEmployee="pagingEmployee"
+        >
+        </PageComponent>
       </div>
     </div>
   </div>
@@ -196,18 +210,33 @@
   ></EmployeeDetail>
 
   <LoadData v-if="isLoadingData"></LoadData>
+
+  <div
+    class="function__list"
+    v-if="isShowFunction"
+    :style="{ top: `${topDropList}px`, left: `${leftDorpList}px` }"
+  >
+    <div class="function__item" @click="replication">Nhân bản</div>
+    <div
+      class="function__item function__item--active"
+      @click="showDialogDelete"
+    >
+      Xóa
+    </div>
+    <div class="function__item">Ngưng sử dụng</div>
+  </div>
 </template>
 <script>
 import Common from "../../script/common/common";
-import Enumeration from "../../script/common/enumeration";
+import Enum from "../../script/common/enumeration";
 import EmployeeDetail from "./EmployeeDetail.vue";
-import PageComponent from "../../components/base/ThePage.vue";
-import Loading from "../../components/base/Load.vue";
-import DialogDelete from "../../components/base/DialogDelete.vue";
-import LoadData from "../../components/base/LoadData.vue";
-import Toast from "../../components/base/Toast.vue";
+import PageComponent from "../../components/base/MPage.vue";
+import Loading from "../../components/base/MLoad.vue";
+import DialogDelete from "../../components/base/MDialogDelete.vue";
+import LoadData from "../../components/base/MLoadData.vue";
+import Toast from "../../components/base/MToast.vue";
 
-var urlBase = process.env.VUE_APP_URL;
+const urlBase = process.env.VUE_APP_URL;
 export default {
   name: "EmployeeList",
   components: {
@@ -220,9 +249,8 @@ export default {
   },
   created() {
     this.isLoading = true;
-    this.recordNumber = JSON.parse(localStorage.getItem('recordNumberPage'))
+    this.recordNumber = JSON.parse(localStorage.getItem("recordNumberPage"));
     this.getListEmployee();
-   
   },
   mounted() {
     this.$refs.scrollbar.scrollTo(0, 300);
@@ -236,7 +264,7 @@ export default {
       isLoadingData: false,
       isShowFunction: false,
       indexEmployee: null,
-      formMode: Enumeration.FormMode.Add,
+      formMode: Enum.FormMode.Add,
       isClick: false,
       isShowDelete: false,
       employeeID: "",
@@ -244,8 +272,12 @@ export default {
       search: "",
       totalRecords: 0,
       recordNumber: 0,
-      numPage:0,
-      pageCount: 1
+      numPage: 1,
+      pageCount: 1,
+      topDropList: 0,
+      leftDorpList: 0,
+      empReplication: {},
+      exportLink : `${urlBase}/Employees/export-excel`
     };
   },
   methods: {
@@ -257,24 +289,16 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     formatDateEmployee(date) {
-      try {
-        let dateFormat = Common.formatDate(date);
-        return dateFormat;
-      } catch (error) {
-        console.log(error);
-      }
+      let dateFormat = Common.formatDate(date);
+      return dateFormat;
     },
     /*
      * Hàm dùng để hiển thị  giới tính từ các số "0,1,2"sang "Nam, Nữ, Khác"
      * PCTUANANH(16/09/2022)
      */
     showGenderName(gender) {
-      try {
-        let genderName = Common.formatGender(gender);
-        return genderName;
-      } catch (error) {
-        console.log(error);
-      }
+      let genderName = Common.formatGender(gender);
+      return genderName;
     },
     ///
     /// Các hàm dùng để show, hiển thị
@@ -284,66 +308,50 @@ export default {
      * PCTUANANH(12/09/2022)
      */
     showModal() {
-      try {
-        this.isShow = true;
-        this.formMode = Enumeration.FormMode.Add;
-        this.employeeSelect = {};
-      } catch (error) {
-        console.log(error);
-      }
+      this.isShow = true;
+      this.formMode = Enum.FormMode.Add;
+      this.employeeSelect = {};
     },
     /*
      * Hàm dùng để resetForm
      * PCTUANANH(26/09/2022)
      */
     resetModal() {
-      try {
-        this.employeeSelect = {};
-      } catch (error) {
-        console.log(error);
-      }
+      this.employeeSelect = {};
     },
     /*
      * Hàm dùng hiển thị các chức năng
      * PCTUANANH(12/09/2022)
      */
-    showFunction(event, index) {
-      try {
-        this.indexEmployee = index;
-        this.isShowFunction = !this.isShowFunction;
-      } catch (error) {
-        console.log.error;
-      }
+    showFunction(event, index, employeeID, employeeCode, empReplication) {
+      this.employeeID = employeeID;
+      this.employeeCode = employeeCode;
+      this.indexEmployee = index;
+      this.empReplication = empReplication;
+      this.isShowFunction = !this.isShowFunction;
+      //get element được chọn
+      this.topDropList = event.target.getBoundingClientRect().y + 24;
+      this.leftDorpList = event.target.getBoundingClientRect().x - 72;
     },
     /*
      * Hàm dùng  để hiển thị Dialog xóa
      * PCTUANANH(16/09/2022)
      */
-    showDialogDelete(employeeID, employeeCode) {
-      try {
-        this.employeeID = employeeID;
-        this.employeeCode = employeeCode;
-        this.isShowDelete = true;
-        this.isShowFunction = false;
-      } catch (error) {
-        console.log(error);
-      }
+    showDialogDelete() {
+      this.isShowDelete = true;
+      this.isShowFunction = false;
     },
     ///
     /// Các hàm dùng để hide, ẩn đi
     ///
     /*
-     * Hàm dùng để ẳn modal
+     * Hàm dùng để ẩn modal
      * PCTUANANH(12/09/2022)
      */
     hideModal() {
-      try {
-        this.isShow = false;
-        if (this.isLoadingData == true) {
-          this.getListEmployee();
-        }
-      } catch (error) {
-        console.log.error;
+      this.isShow = false;
+      if (this.isLoadingData == true) {
+        this.getListEmployee();
       }
     },
     /*
@@ -351,11 +359,8 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     hideDialogDelete() {
-      try {
-        this.isShowDelete = false;
-      } catch (error) {
-        console.log(error);
-      }
+      this.isShowDelete = false;
+      this.getListEmployee();
     },
     ///
     /// Các hàm xử lý loading dữ liệu
@@ -365,22 +370,14 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     notLoadingData() {
-      try {
-        this.isLoadingData = false;
-      } catch (error) {
-        console.log(error);
-      }
+      this.isLoadingData = false;
     },
     /*
      * Hàm dùng để  load lại dữ liệu khi ấn nút  cất hoặc cất thêm
      * PCTUANANH(16/09/2022)
      */
     loadingData() {
-      try {
-        this.isLoadingData = true;
-      } catch (error) {
-        console.log(error);
-      }
+      this.isLoadingData = true;
     },
     ///
     /// Các hàm để sử lý các sự kiện
@@ -390,26 +387,18 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     clickEmployee(index) {
-      try {
-        this.indexEmployee = index;
-        this.isClick = true;
-      } catch (error) {
-        console.log(error);
-      }
+      this.indexEmployee = index;
+      this.isClick = true;
     },
     /*
      * Hàm dùng để db  click  để sửa
      * PCTUANANH(12/09/2022)
      */
     showFormEdit(employee) {
-      try {
-        this.employeeSelect = employee;
-        this.isShow = true;
-        this.isShowFunction = false;
-        this.formMode = Enumeration.FormMode.Edit;
-      } catch (error) {
-        console.log.error;
-      }
+      this.employeeSelect = employee;
+      this.isShow = true;
+      this.isShowFunction = false;
+      this.formMode = Enum.FormMode.Edit;
     },
     /*
      * Hàm dùng  để xử xóa nhân viên theo id
@@ -418,7 +407,7 @@ export default {
     handleDeleteEmployee() {
       try {
         this.isShowDelete = false;
-        this.formMode = Enumeration.FormMode.Delete;
+        this.formMode = Enum.FormMode.Delete;
         this.deleteEmployee(this.employeeID);
         this.isClick = false;
       } catch (error) {
@@ -426,54 +415,76 @@ export default {
       }
     },
     /*
-     * Hàm dùng để  xử lý tìm kiếm 
+     * Hàm dùng  để nhân bản nhân viên
+     * PCTUANANH(04/10/2022)
+     */
+    replication() {
+      try {
+        this.isShow = true;
+        this.formMode = Enum.FormMode.Add;
+        this.employeeSelect = this.empReplication;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /*
+     * Hàm dùng để  xử lý tìm kiếm
      * PCTUANANH(26/09/2022)
      */
     searchEmployee() {
+      this.isLoading = true;
       this.getListEmployee();
       this.$refs.scrollbar.scrollTo(0, 0);
     },
-     /*
+    /*
      * Hàm dùng để  xử lý lựa chọn số bản ghi trên một trang
      * PCTUANANH(26/09/2022)
      */
-    getRecordPage( recordNumber){      
-         this.recordNumber =  recordNumber;
-         localStorage.setItem('recordNumberPage', recordNumber);
-         this.reload();
+    getRecordPage(recordNumber) {
+      this.recordNumber = recordNumber;
+      localStorage.setItem("recordNumberPage", recordNumber);
+      this.reload();
     },
-     /*
+    /*
      * Hàm dùng để  xử lý phân trang
      * PCTUANANH(26/09/2022)
      */
-     pagingEmployee( numPage){
+    pagingEmployee(numPage) {
       this.numPage = numPage;
-       this.reload();
-     },
+      this.reload();
+    },
+
+    /*
+     * Hàm dùng để  load lại dữ liệu
+     * PCTUANANH(28/09/2022)
+     */
+    reload() {
+      this.isLoading = true;
+      this.getListEmployee();
+    },
     ///
     /// Các hàm dùng để gọi đển API
     ///
     /*
-     * Hàm dùng để  lấy danh sách nhân viên
-     * PCTUANANH(12/09/2022)
+     * Hàm dùng để lấy danh sách nhân viên
+     * PCTUANANH(28/09/2022)
      */
-    reload(){
-         this.isLoading = true;
-         this.getListEmployee();
-    },
     getListEmployee() {
       try {
-        let url = `${urlBase}/Employees?limit=${this.recordNumber}&offset=${this.numPage}&search=${this.search}`;
+        let offset = (this.numPage - 1) * this.recordNumber;
+        let url = `${urlBase}/Employees/filter?limit=${this.recordNumber}&offset=${offset}&search=${this.search}`;
         fetch(url)
           .then((res) => res.json())
           .then((res) => {
             this.employees = res.data;
             this.totalRecords = res.totalCount;
-            this.pageCount = parseInt(this.totalRecords/this.recordNumber) +1;
-            setTimeout(() => (this.isLoading = false), 500);
+            this.pageCount =
+              parseInt(this.totalRecords / this.recordNumber) + 1;
+            setTimeout(() => (this.isLoading = false), 1500);
             setTimeout(() => (this.isLoadingData = false), 1000);
             this.indexEmployee = 0;
-            this.isShowFunction =false;
+            this.isShowFunction = false;
+            this.$refs.scrollbar.scrollTo(0, 0);
           })
           .catch((error) => {
             console.log("Error! Could not reach the API. " + error);
@@ -507,8 +518,6 @@ export default {
       }
     },
   },
- beforeUnmount (){
-  
-  }
+  beforeUnmount() {},
 };
 </script>

@@ -6,6 +6,6 @@
 <script>
 
 export default {
-    name:"ContentComponents"
+    name:"TheContent"
 }
 </script>

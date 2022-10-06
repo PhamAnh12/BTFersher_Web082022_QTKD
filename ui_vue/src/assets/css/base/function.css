@@ -2,11 +2,12 @@
     right: 0;
   }
 .function__content{
-    padding: 14px;
+   height: 44px;
 }
 .function-text{
    color:  var( --function-text-color);
    margin-right: 8px;
+   font-weight: 600;
 }
 .function__icon{
     width: 24px;
@@ -25,13 +26,11 @@
 }
 .function__list{
     position: absolute;
-    top:36px;
-    right: 966px;
-    width: 120px;
     border:1px solid #D6D7DB;
     background-color: var(--background-color);
     border-radius: var(--border-radius);
     z-index: 12 !important;
+    width: 120px;
 }
 .function__item{
     float: left;

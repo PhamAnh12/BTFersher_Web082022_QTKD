@@ -36,6 +36,6 @@
 </template>
 <script>
 export default {
-  name: "HeaderComponent",
+  name: "TheHeader",
 };
 </script>

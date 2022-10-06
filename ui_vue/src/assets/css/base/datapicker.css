@@ -1,0 +1,53 @@
+
+.dp__input_icon{
+    left: 126px !important;
+    padding: 7px  5px  7px 7px !important;
+}
+.dp__icon:hover{
+    background-color: #e0e0e0; ; 
+}
+.dp__icon{
+    border-right-radius:4px ;
+    
+}
+.dp__clear_icon{
+    display: none !important;
+}
+.dp__input {
+    max-width: 160px;
+    height: var( --height-input);
+    outline: none;
+    border: 1px  solid  var(--border-color);
+    border-radius:var(--border-radius) !important;
+    padding-left: 12px !important;
+    box-sizing: border-box;
+    font-size: 14px !important;
+}
+.dp__input_focus{
+    border: 1px  solid  var( --primary-color) !important;
+}
+.dp__input_wrap{
+    font-size: 14px !important;
+}
+.dp__calendar_header_item,.dp__cell_inner {
+    font-size: 14px !important;
+}
+.dp__cell_inner {
+       border-radius: 20px !important;
+       width: 30px !important;
+       height: 30px !important;
+       cursor: pointer !important;
+}
+.dp__cell_inner:hover{
+    border: 1px  solid  var( --primary-color) !important;
+    color: var( --primary-color) !important;
+    background-color: #fff !important;
+}
+.dp__active_date {
+     color: var( --primary-color) !important;
+    background-color: #D7F4EC !important;
+}
+.dp__today{
+    color: var( --primary-color) !important;
+    border: none !important;
+}
