@@ -76,6 +76,20 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
 
         #endregion
 
+        #region Deletelist Employee
+
+        /// <summary>
+        /// Hàm xóa nhiều nhân viên
+        /// </summary>
+        /// <returns>Số dòng thay đổi</returns>
+        /// Created by: PCTUANANH(05/10/2022)
+        public List<Guid> DeleteListEmployee(List<Guid> listEmployeeID)
+        {
+            return _employeeDL.DeleteListEmployee(listEmployeeID);
+        }
+
+        #endregion
+
         #endregion
 
     }

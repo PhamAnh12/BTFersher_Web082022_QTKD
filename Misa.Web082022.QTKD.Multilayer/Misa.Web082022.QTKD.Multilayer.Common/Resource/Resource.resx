@@ -173,6 +173,10 @@
     <value>Proc_DeleteByID_{0}</value>
     <comment>Tên Proc xóa một bản ghi</comment>
   </data>
+  <data name="Proc_DeleteListID_Employee" xml:space="preserve">
+    <value>Proc_DeleteListID_Employee</value>
+    <comment>Proc xóa nhiều nhân viên</comment>
+  </data>
   <data name="Proc_Employee_GetByEmployeeID" xml:space="preserve">
     <value>Proc_Employee_GetByEmployeeID</value>
     <comment>Templatte string cho Procedure lấy một bản ghi trong bảng trong một bảng</comment>

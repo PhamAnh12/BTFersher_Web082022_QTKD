@@ -14,7 +14,7 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
         #region Filter IEmployee DL
 
         /// <summary>
-        /// API Lấy danh sách nhân viên cho phép lọc và phân trang
+        ///  Lấy danh sách nhân viên cho phép lọc và phân trang
         /// </summary>
         /// <param name="search">Tìm kiếm theo Số điện thoại, tên, Mã nhân viên</param>
         /// <param name="sort">  Sắp xếp</param>
@@ -31,11 +31,22 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
         #region Get New EmployeeCode
 
         /// <summary>
-        /// API Lấy mã nhân viên mới tự động tăng
+        ///  Lấy mã nhân viên mới tự động tăng
         /// </summary>
         /// <returns>Mã nhân viên mới tự động tăng</returns>
         /// Created by: PCTUANANH(29/09/2022)
         public string GetNewEmployeeCode();
+
+        #endregion
+
+        #region Deletelist Employee
+
+        /// <summary>
+        /// Hàm xóa nhiều nhân viên
+        /// </summary>
+        /// <returns>Số dòng thay đổi</returns>
+        /// Created by: PCTUANANH(05/10/2022)
+        public List<Guid> DeleteListEmployee(List<Guid> listEmployeeID);
 
         #endregion
 

@@ -102,6 +102,42 @@ namespace Misa.Web082022.QTKD.Multilayer.API
 
         #endregion
 
+        #region Deletelist Employee
+
+        /// <summary>
+        /// API xóa nhiều nhân viên
+        /// </summary>
+        /// <returns>Số dòng thay đổi</returns>
+        /// Created by: PCTUANANH(05/10/2022)
+        [HttpPost("delete-batch")]
+        public IActionResult DeleteListEmployee([FromBody] List<Guid> listEmployeeID)
+        {
+            try
+            {
+                var listEmployeeIDs = _employeeBL.DeleteListEmployee(listEmployeeID);
+                if (listEmployeeIDs != null)
+                {
+                    // Trả về dữ liệu cho client
+                    return StatusCode(StatusCodes.Status200OK, listEmployeeIDs);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest,
+                     responeErrorResult.ErrorResultDelete(HttpContext.TraceIdentifier)
+                    );
+                }
+            }
+            catch (Exception exception)
+            {
+                // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
+                Console.WriteLine(exception.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+            }
+        }
+
+        #endregion
+
         #region  Export-Excel
 
         /// <summary>
