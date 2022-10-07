@@ -100,7 +100,12 @@
                   type="date"
                   :max="maxDate"
                   v-model="employee.dateOfBirth"
+                  :class="{ input__error: errors.errorDate }"
+                  dateError="dateError"
                 />
+               <div :class="{ input__show__error: errors.errorDate }">
+                  {{ errors.errorDate }}
+                </div>
               </div>
               <div class="container__input input__margin_16 input__320">
                 <label class="input__label" for=""> Giới tính </label>
@@ -325,23 +330,29 @@
           </div>
         </div>
         <div class="modal__footer">
-          <div class="btn__base content__center" @click="closeModal">Hủy</div>
+          <div class="btn__base content__center" 
+           tabindex="21"
+          @click="closeModal">Hủy</div>
           <div class="modal__footer__rigth">
             <div
               class="btn__base content__center"
+               tabindex="19"
               v-tooltip="{
                 content: 'Cất (Ctrl + S)',
               }"
               @click="saveModal"
+              @keypress.enter="saveModal"
             >
               Cất
             </div>
             <div
               class="btn margin__letf_8"
+               tabindex="20"
               v-tooltip="{
                 content: 'Cất (Ctrl + Shift + S)',
               }"
               @click="saveModalAdd"
+              @keypress.enter="saveModalAdd"
             >
               Cất và thêm
             </div>
@@ -390,9 +401,6 @@ export default {
   ],
   created() {
     this.employee = this.employeeSelect;
-    this.employeeOld = this.employee;
-    console.log(this.employeeOld);
-    console.log(this.employeeNew);
     
   },
   mounted() {
@@ -422,15 +430,21 @@ export default {
         errorCode: "",
         errorName: "",
         errorDepartment: "",
+        errorDate:"",
       },
       urlDepartment: `${urlBase}/Departments`,
       saveMode: Enum.SaveMode.Save,
       isErrorFrom: false,
       textErrorPopup: "",
-      employeeOld :{},
-      employeeNew: {},
     };
   },
+  watch:{
+     employee: function(newValue,oldValue){
+      console.log('Thay đổi', newValue,oldValue);
+      
+     }
+  }
+  ,
   methods: {
     ///
     /// Các hàm  dùng để format
@@ -554,6 +568,12 @@ export default {
         this.errors.errorDepartment = Enum.Errors.errorDepartment;
         isValidate = false;
       }
+      if(this.employee.dateOfBirth > new Date()){
+        this.errors.errorDate = Enum.Errors.errorDate;
+        console.log("123");
+        isValidate = false;
+      }
+     
       return isValidate;
     },
     /*
@@ -580,16 +600,11 @@ export default {
         this.isErrorFrom = true;
         this.textPopupError = `${Enum.textErrorBackend.textCodeLeft} <${employeeCode}> ${Enum.textErrorBackend.textCodeRight}`;
       } else {
-        if (this.saveMode === Enum.SaveMode.Save) {
+        if (this.saveMode === Enum.SaveMode.SaveAdd) {
           this.$emit("loadingData");
           this.$emit("hideModal");
         }
-        else {
-              this.$emit("loadingData");
-              setTimeout(()=>{
-               this.$emit("notLoadingData");
-              },500)
-        }
+        
       }
     },
     /*

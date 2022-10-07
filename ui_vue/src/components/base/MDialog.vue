@@ -15,7 +15,9 @@
                     </div>
                 </div>
                 <div class="dialog__footer align__items__center">
-                    <div class="btn " @click="hideErrorFrom" >Đồng ý</div>
+                    <div class="btn " @click="hideErrorFrom"
+                     @keypress.enter="hideErrorFrom"
+                     >Đồng ý</div>
                 </div>
               </div>
             </div>

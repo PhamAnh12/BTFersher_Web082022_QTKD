@@ -215,6 +215,7 @@
     class="function__list"
     v-if="isShowFunction"
     :style="{ top: `${topDropList}px`, left: `${leftDorpList}px` }"
+    
   >
     <div class="function__item" @click="replication">Nhân bản</div>
     <div
@@ -518,6 +519,5 @@ export default {
       }
     },
   },
-  beforeUnmount() {},
 };
 </script>

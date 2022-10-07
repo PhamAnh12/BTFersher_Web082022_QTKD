@@ -20,7 +20,8 @@ export default {
     Errors: {
         errorName: "Tên không được để trống",
         errorCode: "Mã không được để trống",
-        errorDepartment: "Đơn vị không được để trống"
+        errorDepartment: "Đơn vị không được để trống",
+        errorDate: "Ngày nhập không được lớn hơn ngày hiện tại"
     },
     keyCode: { //sk bàn phím
         LEFT: 37,

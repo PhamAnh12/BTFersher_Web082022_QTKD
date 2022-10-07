@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="dialog__footer align__items__center dialog__footer-delete">
-                    <div class="btn__base content__center" @click="hideDialog"> Không </div>
+                    <div class="btn__base content__center" @click="hideDialog" @keypress.enter="hideDialog"> Không </div>
                     <div class="btn  content__center" @click="isDeleteEmployee" @dblclick.stop @click.stop>Có</div>
                 </div>
               </div>
