@@ -78,23 +78,25 @@
             <div class="body__row__rigth">
               <div class="container__input input__160">
                 <label class="input__label" for=""> Ngày sinh </label>
-                <!-- <datePicker
-                 
+                <datePicker
+                  tabindex="5"
                   placeholder="DD/MM/YYYY"
                   :enterSubmit="true"
                   :tabSubmit="true"
                   :maxDate="new Date()"
                   locale="vn"
                   format="dd/MM/yyyy"
-                  textInput
+                  :textInput="date"
+                  autocomplete
                   :dayNames="['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']"
                   autoApply
                   utc
                   v-model="employee.dateOfBirth"
                   inputClassName="input"
-                /> -->
-
-                <input
+                  :clearable="false"
+                >
+                </datePicker>
+                <!-- <input
                   tabindex="5"
                   class="input input_date"
                   type="date"
@@ -102,8 +104,8 @@
                   v-model="employee.dateOfBirth"
                   :class="{ input__error: errors.errorDate }"
                   dateError="dateError"
-                />
-               <div :class="{ input__show__error: errors.errorDate }">
+                /> -->
+                <div :class="{ input__show__error: errors.errorDate }">
                   {{ errors.errorDate }}
                 </div>
               </div>
@@ -157,6 +159,7 @@
                   @blurValidate="blurValidate"
                   :departmentName="employee.departmentName"
                   :errorDepartment="errors.errorDepartment"
+                  ref="empDepartment"
                 ></MCombobox>
               </div>
             </div>
@@ -181,8 +184,8 @@
               </div>
               <div class="container__input input__margin_6 input__160">
                 <label class="input__label" for="">Ngày cấp</label>
-                 <!-- <datePicker
-                  :tabIndex="5"
+                <datePicker
+                  :tabIndex="10"
                   placeholder="DD/MM/YYYY"
                   :enterSubmit="true"
                   :tabSubmit="true"
@@ -194,14 +197,14 @@
                   autoApply
                   utc
                   v-model="employee.identityIssuedDate"
-                /> -->
-                <input
+                />
+                <!-- <input
                   tabindex="10"
                   class="input input_date"
                   :max="maxDate"
                   type="date"
                   v-model="employee.identityIssuedDate"
-                />
+                /> -->
               </div>
             </div>
           </div>
@@ -330,13 +333,17 @@
           </div>
         </div>
         <div class="modal__footer">
-          <div class="btn__base content__center" 
-           tabindex="21"
-          @click="closeModal">Hủy</div>
+          <div
+            class="btn__base content__center"
+            tabindex="21"
+            @click="closeModal"
+          >
+            Hủy
+          </div>
           <div class="modal__footer__rigth">
             <div
               class="btn__base content__center"
-               tabindex="19"
+              tabindex="19"
               v-tooltip="{
                 content: 'Cất (Ctrl + S)',
               }"
@@ -347,7 +354,7 @@
             </div>
             <div
               class="btn margin__letf_8"
-               tabindex="20"
+              tabindex="20"
               v-tooltip="{
                 content: 'Cất (Ctrl + Shift + S)',
               }"
@@ -401,17 +408,16 @@ export default {
   ],
   created() {
     this.employee = this.employeeSelect;
-    
   },
   mounted() {
     /*
      *Dùng để focus vào ô đầu tiên
      */
     this.$refs.empCode.focus();
-    /*
-     *Dùng để thêm một mã nhân viên tự động tăng
-     */
-    this.newEmployeeCode();
+    //Thêm mã nhân viên mới khi mới from thêm mới
+    if (this.formMode === Enum.FormMode.Add) {
+      this.newEmployeeCode();
+    }
     /*
      *Dùng để format ngày tháng
      */
@@ -424,27 +430,19 @@ export default {
     return {
       employee: {},
       isCloseForm: false,
-      changeData: false,
-      maxDate: Common.maxDate(),
       errors: {
         errorCode: "",
         errorName: "",
         errorDepartment: "",
-        errorDate:"",
+        errorDate: "",
       },
       urlDepartment: `${urlBase}/Departments`,
       saveMode: Enum.SaveMode.Save,
       isErrorFrom: false,
       textErrorPopup: "",
+      refName: " ",
     };
   },
-  watch:{
-     employee: function(newValue,oldValue){
-      console.log('Thay đổi', newValue,oldValue);
-      
-     }
-  }
-  ,
   methods: {
     ///
     /// Các hàm  dùng để format
@@ -461,17 +459,13 @@ export default {
      * PCTUANANH(16/09/2022)
      */
     formatDateEmployee() {
-      try {
-        if (this.formMode == Enum.FormMode.Edit) {
-          this.employee.dateOfBirth = Common.formatDate2(
-            this.employee.dateOfBirth
-          );
-          this.employee.identityIssuedDate = Common.formatDate2(
-            this.employee.identityIssuedDate
-          );
-        }
-      } catch (error) {
-        console.log(error);
+      if (this.formMode == Enum.FormMode.Edit) {
+        this.employee.dateOfBirth = Common.formatDate2(
+          this.employee.dateOfBirth
+        );
+        this.employee.identityIssuedDate = Common.formatDate2(
+          this.employee.identityIssuedDate
+        );
       }
     },
 
@@ -492,16 +486,14 @@ export default {
      */
     newEmployeeCode() {
       try {
-        if (this.formMode == Enum.FormMode.Add) {
-          fetch(`${urlBase}/Employees/new-code`)
-            .then((res) => res.text())
-            .then((res) => {
-              this.employee.employeeCode = res;
-            })
-            .catch((error) => {
-              console.log("Error! Could not reach the API. " + error);
-            });
-        }
+        fetch(`${urlBase}/Employees/new-code`)
+          .then((res) => res.text())
+          .then((res) => {
+            this.employee.employeeCode = res;
+          })
+          .catch((error) => {
+            console.log("Error! Could not reach the API. " + error);
+          });
       } catch (error) {
         console.log(error);
       }
@@ -516,15 +508,19 @@ export default {
     closeModal() {
       this.$emit("notLoadingData");
       this.$emit("hideModal");
-    
     },
     /*
      * Hàm dùng để đóng modal bằng nút X
      * PCTUANANH(18/09/2022)
      */
     isCloseModal() {
-      if (!this.changeData) {
-        this.closeModal();
+      if (this.formMode === Enum.FormMode.Add) {
+        if (this.employee != {}) {
+          this.isCloseForm = true;
+        } else {
+          this.isCloseForm = false;
+          this.closeModal();
+        }
       } else {
         this.isCloseForm = true;
       }
@@ -543,6 +539,13 @@ export default {
     hideErrorFrom() {
       this.isErrorFrom = false;
       this.$refs.empCode.focus();
+      if (this.refName) {
+        if (this.refName === "empDepartment") {
+          this.$refs.empDepartment.departmentForcus();
+        } else {
+          this.$refs[this.refName].focus();
+        }
+      }
     },
     /*
      * Hàm dùng để validate
@@ -557,7 +560,6 @@ export default {
       };
       if (!this.employee.employeeCode) {
         this.errors.errorCode = Enum.Errors.errorCode;
-
         isValidate = false;
       }
       if (!this.employee.employeeName) {
@@ -568,13 +570,33 @@ export default {
         this.errors.errorDepartment = Enum.Errors.errorDepartment;
         isValidate = false;
       }
-      if(this.employee.dateOfBirth > new Date()){
-        this.errors.errorDate = Enum.Errors.errorDate;
-        console.log("123");
-        isValidate = false;
-      }
-     
+
+      this.validateSave();
       return isValidate;
+    },
+    /*
+     * Hàm dùng để  validate khi cất
+     * PCTUANANH(10/10/2022)
+     */
+    validateSave() {
+      if (!this.employee.employeeCode) {
+        this.isErrorFrom = true;
+        this.textPopupError = Enum.Errors.errorCode;
+        this.refName = "empCode";
+        return;
+      }
+      if (!this.employee.employeeName) {
+        this.isErrorFrom = true;
+        this.textPopupError = Enum.Errors.errorName;
+        this.refName = "empName";
+        return;
+      }
+      if (!this.employee.departmentID) {
+        this.isErrorFrom = true;
+        this.textPopupError = Enum.Errors.errorDepartment;
+        this.refName = "empDepartment";
+        return;
+      }
     },
     /*
      * Hàm dùng để blur validate
@@ -600,11 +622,18 @@ export default {
         this.isErrorFrom = true;
         this.textPopupError = `${Enum.textErrorBackend.textCodeLeft} <${employeeCode}> ${Enum.textErrorBackend.textCodeRight}`;
       } else {
-        if (this.saveMode === Enum.SaveMode.SaveAdd) {
-          this.$emit("loadingData");
-          this.$emit("hideModal");
+        {
+          if (this.saveMode === Enum.SaveMode.Save) {
+            this.$emit("loadingData");
+            this.$emit("hideModal");
+          }
+          if (this.saveMode === Enum.SaveMode.SaveAdd) {
+            this.$emit("loadingData");
+            setTimeout(() => {
+              this.$emit("notLoadingData");
+            }, 500);
+          }
         }
-        
       }
     },
     /*
@@ -645,26 +674,23 @@ export default {
      * PCTUANANH(12/09/2022)
      */
     saveModal() {
-      try {
-        this.SaveMode = Enum.SaveMode.Save;
-        this.handleSave();
-      } catch (error) {
-        console.log(error);
-      }
+      this.saveMode = Enum.SaveMode.Save;
+      this.handleSave();
+      this.$emit("showModal");
     },
     /*
      * Hàm dùng để lưu  modal và thêm mới modal
      * PCTUANANH(12/09/2022)
      */
     saveModalAdd() {
-      try {
-        this.SaveMode = Enum.SaveMode.SaveAdd;
-        this.handleSave();
-        this.employee = {};
-        this.newEmployeeCode();
-      } catch (error) {
-        console.log(error);
-      }
+      this.saveMode = Enum.SaveMode.SaveAdd;
+      this.handleSave();
+      this.$emit("resetModal");
+      this.employee = {};
+      this.$refs.empDepartment.textInput = "";
+      this.$refs.empDepartment.indexItemSelected = null;
+      this.newEmployeeCode();
+      this.$refs.empCode.focus();
     },
     /*
      * Hàm dùng để lưu  modal và thêm mới modal

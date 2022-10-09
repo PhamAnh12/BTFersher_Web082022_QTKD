@@ -20,7 +20,7 @@
                     </div>
                     <div class="navbar__item-text">Tổng quan</div>
                 </router-link>
-                <router-link to="/employee" class="navbar__item " refs="item__navbar" 
+                <router-link to="/employees" class="navbar__item " refs="item__navbar" 
                 v-tooltip="{
                  content:'Nhân viên',
                 

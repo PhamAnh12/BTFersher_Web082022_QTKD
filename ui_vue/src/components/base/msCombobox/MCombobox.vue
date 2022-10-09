@@ -11,8 +11,7 @@
       :class="{ input__error: errorDepartment }"
       tabindex="3"
       errorCode="errorDepartment"
-      ref="empDepartment"
-      
+      ref="departmentInput"
     />
      <div class="show__error__department" :class="{ input__show__error: errorDepartment }">
                   {{ errorDepartment }}
@@ -279,6 +278,9 @@ export default {
       this.$emit("blurValidate",e);
       this.isShowListData = false;
     },
+    departmentForcus(){
+       this.$refs.departmentInput.focus();
+    }
     
   },
   created() {

@@ -19,7 +19,7 @@ import {createRouter,createWebHistory} from "vue-router"
 // Định nghĩa router:
 const routers = [
     {path:"/",component: Overview },
-    {path:"/employee",component: EmployeeList},
+    {path:"/employees",component: EmployeeList},
     {path:"/deposits",component: Deposits },
     {path:"/purchase",component:  Purchase },
     {path:"/sale",component: Sale },

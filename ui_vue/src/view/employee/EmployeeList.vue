@@ -26,21 +26,21 @@
             <div class="btn__sidebar">
               <div
                 class="item__icon btn__sidebar__item"
+                @click="reload"
                 v-tooltip="{
                   content: 'Lấy lại dữ liệu',
                 }"
               >
-                <div class="icon__24 icon__load" @click="reload"></div>
+                <div class="icon__24 icon__load"></div>
               </div>
               <div
                 class="item__icon btn__sidebar__item"
+                @click="exportEmployee"
                 v-tooltip="{
                   content: 'Xuất ra Excel',
                 }"
               >
-                <a :href="exportLink">
-                  <div class="icon__24 icon__export"></div>
-                </a>
+                <div class="icon__24 icon__export"></div>
               </div>
             </div>
           </div>
@@ -215,9 +215,8 @@
     class="function__list"
     v-if="isShowFunction"
     :style="{ top: `${topDropList}px`, left: `${leftDorpList}px` }"
-    
   >
-    <div class="function__item" @click="replication">Nhân bản</div>
+    <div class="function__item" @click="replicationEmployee">Nhân bản</div>
     <div
       class="function__item function__item--active"
       @click="showDialogDelete"
@@ -278,7 +277,7 @@ export default {
       topDropList: 0,
       leftDorpList: 0,
       empReplication: {},
-      exportLink : `${urlBase}/Employees/export-excel`
+      exportLink: `${urlBase}/Employees/export-excel`,
     };
   },
   methods: {
@@ -313,12 +312,12 @@ export default {
       this.formMode = Enum.FormMode.Add;
       this.employeeSelect = {};
     },
-    /*
-     * Hàm dùng để resetForm
-     * PCTUANANH(26/09/2022)
+     /*
+     * Hàm dùng để reset  modal thêm mới nhân viên
+     * PCTUANANH(10/10/2022)
      */
-    resetModal() {
-      this.employeeSelect = {};
+    resetModal(){
+      this.formMode = Enum.FormMode.Add;
     },
     /*
      * Hàm dùng hiển thị các chức năng
@@ -351,7 +350,7 @@ export default {
      */
     hideModal() {
       this.isShow = false;
-      if (this.isLoadingData == true) {
+      if (this.isLoadingData) {
         this.getListEmployee();
       }
     },
@@ -419,7 +418,7 @@ export default {
      * Hàm dùng  để nhân bản nhân viên
      * PCTUANANH(04/10/2022)
      */
-    replication() {
+    replicationEmployee() {
       try {
         this.isShow = true;
         this.formMode = Enum.FormMode.Add;
@@ -462,6 +461,25 @@ export default {
     reload() {
       this.isLoading = true;
       this.getListEmployee();
+    },
+    /*
+     * Hàm dùng để export
+     * PCTUANANH(28/09/2022)
+     */
+    exportEmployee() {
+      let url = `${urlBase}/Employees/export-excel`;
+      this.isLoadingData = true;
+      fetch(url)
+        .then((res) => {
+          return res.blob();
+        })
+        .then((data) => {
+          var a = document.createElement("a");
+          a.href = window.URL.createObjectURL(data);
+          a.download = "Danh_sach_nhan_vien.xlsx";
+          a.click();
+        })
+        setTimeout(() => (this.isLoadingData = false), 1500);
     },
     ///
     /// Các hàm dùng để gọi đển API
