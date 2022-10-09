@@ -105,14 +105,22 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
 
                 // Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_DeleteListID_Employee";
-                var parameters = new DynamicParameters();
-                parameters.Add("v_listID", listEmployeeID);
+              string listEmpIDStr = "";
+
+            foreach (var employee in listEmployeeID)
+            {
+                listEmpIDStr += employee.ToString() + ",";
+            }
+
+            var str = listEmpIDStr.Substring(0, listEmpIDStr.Length - 1);
+
+            var parameters = new DynamicParameters();
+                parameters.Add("v_listID", str);
               using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
                {
                 using (var mysqlTransaction = mySqlConnection.BeginTransaction())
                 {
-                   try
-                    {
+                 
                         var numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, mysqlTransaction, commandType: System.Data.CommandType.StoredProcedure);
                         if (numberOfAffectedRows > 0)
                         {
@@ -124,13 +132,8 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
                             mysqlTransaction.Rollback();
                             return null;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        mysqlTransaction.Rollback();
-                        return null;
-                    }
+                   
+                 
                 }
                 
 

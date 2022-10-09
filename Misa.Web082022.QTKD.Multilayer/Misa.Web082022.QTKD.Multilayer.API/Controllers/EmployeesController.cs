@@ -279,7 +279,21 @@ namespace Misa.Web082022.QTKD.Multilayer.API
 
                     xlPackage.Workbook.Properties.Author = " Phạm Công Tuấn Anh";
 
+            
+                    //format widtd and float 
                     worksheet.Cells.AutoFitColumns();
+                    worksheet.Column(1).Width = 5;
+                    worksheet.Column(2).Width = 16;
+                    worksheet.Column(3).Width = 26;
+                    worksheet.Column(4).Width = 12;
+                    worksheet.Column(5).Width = 16;
+                    worksheet.Column(6).Width = 20;
+                    worksheet.Column(7).Width = 26;
+                    worksheet.Column(8).Width = 16;
+                    worksheet.Column(9).Width = 45;
+                    worksheet.Column(10).Width = 26;
+                    worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
 
                     worksheet.Cells.Style.Font.Name = "Arial";
 
