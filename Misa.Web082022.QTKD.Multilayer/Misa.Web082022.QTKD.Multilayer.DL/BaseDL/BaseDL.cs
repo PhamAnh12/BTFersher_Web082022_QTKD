@@ -166,13 +166,11 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
         {
             string storedProcedureName = String.Format(Resource.Proc_DeleteByID, typeof(T).Name);
             // chuẩn bị các tham số truyền vào proc
-
             var parameters = new DynamicParameters();
             parameters.Add($"v_{typeof(T).Name}ID", ID);
             int numberOfAffectedRows = 0;
             using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
             {
-
                 numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
             }
             if (numberOfAffectedRows > 0)

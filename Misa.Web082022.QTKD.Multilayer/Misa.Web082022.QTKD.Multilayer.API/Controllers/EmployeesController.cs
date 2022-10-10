@@ -114,11 +114,11 @@ namespace Misa.Web082022.QTKD.Multilayer.API
         {
             try
             {
-                var listEmployeeIDs = _employeeBL.DeleteListEmployee(listEmployeeID);
-                if (listEmployeeIDs != null)
+                var numberOfAffectedRows = _employeeBL.DeleteListEmployee(listEmployeeID);
+                if (numberOfAffectedRows > 0)
                 {
                     // Trả về dữ liệu cho client
-                    return StatusCode(StatusCodes.Status200OK, listEmployeeIDs);
+                    return StatusCode(StatusCodes.Status200OK, listEmployeeID);
                 }
                 else
                 {
@@ -293,8 +293,6 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                     worksheet.Column(9).Width = 45;
                     worksheet.Column(10).Width = 26;
                     worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                    worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
-
                     worksheet.Cells.Style.Font.Name = "Arial";
 
                     xlPackage.Save();

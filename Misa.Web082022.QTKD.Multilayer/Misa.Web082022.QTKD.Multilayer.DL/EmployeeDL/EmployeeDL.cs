@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
+using System.Data.Common;
 
 namespace Misa.Web082022.QTKD.Multilayer.DL
 {
@@ -100,51 +102,40 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
         /// </summary>
         /// <returns>Số dòng thay đổi</returns>
         /// Created by: PCTUANANH(05/10/2022)
-        public List<Guid> DeleteListEmployee( List<Guid> listEmployeeID)
+        public int DeleteListEmployee( List<Guid> listEmployeeID)
         {
 
                 // Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_DeleteListID_Employee";
-              string listEmpIDStr = "";
-
-            foreach (var employee in listEmployeeID)
-            {
-                listEmpIDStr += employee.ToString() + ",";
-            }
-
-            var str = listEmpIDStr.Substring(0, listEmpIDStr.Length - 1);
-
             var parameters = new DynamicParameters();
-                parameters.Add("v_listID", str);
+                parameters.Add("v_listID", string.Join(",",listEmployeeID));
               using (var mySqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
-               {
-                using (var mysqlTransaction = mySqlConnection.BeginTransaction())
+            {
+                    mySqlConnection.Open();
+                    using(var mysqlTransaction = mySqlConnection.BeginTransaction())
                 {
-                 
+                    try {
                         var numberOfAffectedRows = mySqlConnection.Execute(storedProcedureName, parameters, mysqlTransaction, commandType: System.Data.CommandType.StoredProcedure);
-                        if (numberOfAffectedRows > 0)
-                        {
-                            mysqlTransaction.Commit();
-                            return listEmployeeID;
-                        }
-                        else
-                        {
-                            mysqlTransaction.Rollback();
-                            return null;
-                        }
+                        mysqlTransaction.Commit();
+                        mySqlConnection.Close();
+                        return numberOfAffectedRows;
+                    } 
+                    catch
+                    {
+                        mysqlTransaction.Rollback();
+                        mySqlConnection.Close();
+                        return 0;
+                    }
+                }  
                    
-                 
-                }
+
+
+                
                 
 
                
               }
             
-
-
-
-       
-          
             
         }
 

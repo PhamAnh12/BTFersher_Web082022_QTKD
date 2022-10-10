@@ -46,7 +46,7 @@ namespace Misa.Web082022.QTKD.Multilayer.DL
         /// </summary>
         /// <returns>Số dòng thay đổi</returns>
         /// Created by: PCTUANANH(05/10/2022)
-        public List<Guid> DeleteListEmployee(List<Guid> listEmployeeID);
+        public int DeleteListEmployee(List<Guid> listEmployeeID);
 
         #endregion
 
