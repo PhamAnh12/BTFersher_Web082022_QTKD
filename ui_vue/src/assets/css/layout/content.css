@@ -59,13 +59,17 @@
     z-index: 9;
     display: flex;
     align-items: center;
-    display: none;
+    justify-content: space-between;
+   
 }
 .delete__list:hover{
     background-color: #d2d3d6;
 }
 .sidebar__delete__list:hover{
     background-color: #d2d3d6;
+}
+.delete__list__text{
+    margin-right: 4px;
 }
 .sidebar__right{
     display: flex;

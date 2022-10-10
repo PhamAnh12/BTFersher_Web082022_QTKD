@@ -12,46 +12,59 @@
           <div class="container__sidebar">
             <Toast></Toast>
             <div class="sidebar__left">
-             <div class="sidebar__delete__list">Thực hiện hàng loạt
-             <div class="dropList__icon__drop "></div>
-             </div>
-               <div class="delete__list">Xóa</div>
+              <div class="sidebar__delete__list">
+                <div class="delete__list__text"
+                  @click="showDeleteMultiple"
+                >Thực hiện hàng loạt</div>
+                <div class="item__icon icon__16">
+                  <div
+                    :class="{
+                      icon__delete__list: listSelectedEmp.length <= 1,
+                      'icon__delete__list--acv': listSelectedEmp.length > 1,
+                    }"
+                  
+                  ></div>
+                </div>
+              </div>
+              <div class="delete__list" v-if="isShowDeleteMultiple" @click="deleteMultiple">Xóa</div>
             </div>
-            <div class="sidebar__right"> 
+            <div class="sidebar__right">
               <div class="container__input input__search">
-              <input
-                id="search"
-                class="input input__icon"
-                type="text"
-                placeholder="Tìm theo mã, tên nhân viên "
-                v-model="search"
-                @input="searchEmployee"
-                @keyup.enter="searchEmployee"
-              />
-              <div class="icon__18 icon__search" @click="searchEmployee"></div>
-            </div>
-            <div class="btn__sidebar">
-              <div
-                class="item__icon btn__sidebar__item"
-                @click="reload"
-                v-tooltip="{
-                  content: 'Lấy lại dữ liệu',
-                }"
-              >
-                <div class="icon__24 icon__load"></div>
+                <input
+                  id="search"
+                  class="input input__icon"
+                  type="text"
+                  placeholder="Tìm theo mã, tên nhân viên "
+                  v-model="search"
+                  @input="searchEmployee"
+                  @keyup.enter="searchEmployee"
+                />
+                <div
+                  class="icon__18 icon__search"
+                  @click="searchEmployee"
+                ></div>
               </div>
-              <div
-                class="item__icon btn__sidebar__item"
-                @click="exportEmployee"
-                v-tooltip="{
-                  content: 'Xuất ra Excel',
-                }"
-              >
-                <div class="icon__24 icon__export"></div>
+              <div class="btn__sidebar">
+                <div
+                  class="item__icon btn__sidebar__item"
+                  @click="reload"
+                  v-tooltip="{
+                    content: 'Lấy lại dữ liệu',
+                  }"
+                >
+                  <div class="icon__24 icon__load"></div>
+                </div>
+                <div
+                  class="item__icon btn__sidebar__item"
+                  @click="exportEmployee"
+                  v-tooltip="{
+                    content: 'Xuất ra Excel',
+                  }"
+                >
+                  <div class="icon__24 icon__export"></div>
+                </div>
               </div>
             </div>
-            </div>
-          
           </div>
           <div class="container__table" ref="scrollbar">
             <table class="table">
@@ -60,7 +73,12 @@
                   <th
                     class="checkbox__tb__container sticky__col th__sticky__col sticky__col__checkbox"
                   >
-                    <input type="checkbox" class="checkbox__table" />
+                    <input
+                      type="checkbox"
+                      class="checkbox__table"
+                      @click="selectAllEmployee"
+                      :checked="isCheckedAll"
+                    />
                   </th>
                   <th class="th__wd__code">MÃ NHÂN VIÊN</th>
                   <th class="th__wd">TÊN NHÂN VIÊN</th>
@@ -68,7 +86,6 @@
                   <th class="align-center th__wd__date">NGÀY SINH</th>
                   <th
                     class="th__wd"
-                    style=""
                     v-tooltip.left-start="{
                       content: 'Số chứng minh nhân dân',
                     }"
@@ -105,6 +122,8 @@
                     <input
                       class="checkbox__table"
                       type="checkbox"
+                      :checked="isCheckedAll"
+                      @input="selectEmployee(employee.employeeID)"
                       @dblclick.stop
                     />
                     <div class="loading__container" v-if="isLoading">
@@ -261,23 +280,25 @@ export default {
     this.recordNumber = JSON.parse(localStorage.getItem("recordNumberPage"));
     this.getListEmployee();
   },
-  mounted() {
-    this.$refs.scrollbar.scrollTo(0, 300);
-  },
   data() {
     return {
+      //Object Employee
       employees: [],
       employeeSelect: {},
-      isShow: false,
-      isLoading: false,
-      isLoadingData: false,
-      isShowFunction: false,
+      empReplication: {},
       indexEmployee: null,
-      formMode: Enum.FormMode.Add,
-      isClick: false,
-      isShowDelete: false,
       employeeID: "",
       employeeCode: "",
+      //Show
+      isShow: false,
+      isShowFunction: false,
+      isShowDelete: false,
+      //Loading
+      isLoading: false,
+      isLoadingData: false,
+      formMode: Enum.FormMode.Add,
+      isClick: false,
+      //Filter
       search: "",
       totalRecords: 0,
       recordNumber: 0,
@@ -285,8 +306,10 @@ export default {
       pageCount: 1,
       topDropList: 0,
       leftDorpList: 0,
-      empReplication: {},
-      exportLink: `${urlBase}/Employees/export-excel`,
+      //Xóa nhiều
+      isShowDeleteMultiple: false,
+      isCheckedAll: false,
+      listSelectedEmp: [],
     };
   },
   methods: {
@@ -321,11 +344,11 @@ export default {
       this.formMode = Enum.FormMode.Add;
       this.employeeSelect = {};
     },
-     /*
+    /*
      * Hàm dùng để reset  modal thêm mới nhân viên
      * PCTUANANH(10/10/2022)
      */
-    resetModal(){
+    resetModal() {
       this.formMode = Enum.FormMode.Add;
     },
     /*
@@ -441,9 +464,11 @@ export default {
      * PCTUANANH(26/09/2022)
      */
     searchEmployee() {
-      this.isLoading = true;
+      if(this.search){
+       this.isLoading = true;
       this.getListEmployee();
-      this.$refs.scrollbar.scrollTo(0, 0);
+      }
+      
     },
     /*
      * Hàm dùng để  xử lý lựa chọn số bản ghi trên một trang
@@ -469,6 +494,7 @@ export default {
      */
     reload() {
       this.isLoading = true;
+      this.isCheckedAll = false;
       this.getListEmployee();
     },
     /*
@@ -487,8 +513,8 @@ export default {
           a.href = window.URL.createObjectURL(data);
           a.download = "Danh_sach_nhan_vien.xlsx";
           a.click();
-        })
-        setTimeout(() => (this.isLoadingData = false), 1500);
+        });
+      setTimeout(() => (this.isLoadingData = false), 2000);
     },
     ///
     /// Các hàm dùng để gọi đển API
@@ -538,12 +564,74 @@ export default {
             this.getListEmployee();
           })
           .catch((error) => {
-           console.log("Error! Could not reach the API. " + error);
+            console.log("Error! Could not reach the API. " + error);
           });
       } catch (error) {
         console.log(error);
       }
     },
+    /*
+     * Hàm dùng  chọn tất cả
+     * PCTUANANH(10/10/2022)
+     */
+    selectAllEmployee() {
+      this.isCheckedAll = !this.isCheckedAll;
+    },
+    /*
+     * Hàm dùng  thêm từng employeeID
+     * PCTUANANH(10/10/2022)
+     */
+    selectEmployee(employeeID) {
+      if (this.listSelectedEmp.includes(employeeID)) {
+        this.listSelectedEmp = this.listSelectedEmp.filter(function (value) {
+          return value != employeeID;
+        });
+      } else {
+        this.listSelectedEmp.push(employeeID);
+      }
+      if(this.listSelectedEmp.length <=1){
+         this.isShowDeleteMultiple = false;
+      }
+    },
+    /*
+     * Hàm dùng  show xóa nhiều
+     * PCTUANANH(10/10/2022)
+     */
+    showDeleteMultiple() {
+      if (this.listSelectedEmp.length > 1) {
+        this.isShowDeleteMultiple = !this.isShowDeleteMultiple;
+      }
+    },
+       /*
+     * Hàm dùng  show gọi đến Api xóa nhiều
+     * PCTUANANH(10/10/2022)
+     */
+    deleteMultiple(){
+       try {
+        let url = `${urlBase}/Employees/delete-batch`;
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.listSelectedEmp),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+             console.log(response);
+             this.reload();
+             this.isCheckedAll = false;
+             this.isShowDeleteMultiple = false;
+             this.listSelectedEmp= []
+             
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
 };
 </script>

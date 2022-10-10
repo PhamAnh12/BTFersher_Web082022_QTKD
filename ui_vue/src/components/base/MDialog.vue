@@ -8,15 +8,16 @@
                 </div>
                 <div class="dialog__body align__items__center">
                      
-                        <div class="icon__error"></div>
+                        <div :class="class__icon"
+                        ></div>
                      
                     <div class="dialog__body__text">
                          {{textPopupError}} 
                     </div>
                 </div>
-                <div class="dialog__footer align__items__center">
+                  <div class=" dialog__footer  align__items__center" :class="{'dialog__footer__valiFrontend':isFooterFE}">
                     <div class="btn " @click="hideErrorFrom"                 
-                     >Đồng ý</div>
+                     >{{textFooterBtn}}</div>
                 </div>
               </div>
             </div>
@@ -31,6 +32,24 @@ export default {
    emits: ["hideErrorFrom"],
    props:{
     textPopupError:String,
+    isFooterFE:Boolean,
+    isFooterBE:Boolean,
+   },
+   created(){
+    if(this.isFooterFE){
+      this.class__icon = "icon__error";
+      this.textFooterBtn= "Đóng"
+    }
+    else{
+      this.class__icon ="icon__warning"
+      this.textFooterBtn= "Đồng ý"
+    }
+   },
+   data() {
+    return {
+      class__icon:"",
+      textFooterBtn:""
+    }
    },
    methods:{
      /*

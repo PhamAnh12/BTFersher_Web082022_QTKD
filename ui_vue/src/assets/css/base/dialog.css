@@ -42,6 +42,10 @@
     display:  flex;
     justify-content: space-between;
   }
+  .dialog__footer__valiFrontend{
+    display: flex;
+    justify-content: center;
+  }
   .wd__dialog__error{
     width: 480px;
     z-index: 9;

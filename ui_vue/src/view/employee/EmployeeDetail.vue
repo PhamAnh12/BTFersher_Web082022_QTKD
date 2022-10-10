@@ -39,7 +39,6 @@
                   >Mã <span class="required">*</span>
                 </label>
                 <input
-                
                   class="input"
                   type="text"
                   placeholder="Mã nhân viên "
@@ -59,7 +58,6 @@
                   >Họ và tên <span class="required">*</span></label
                 >
                 <input
-                 
                   class="input"
                   type="text"
                   maxlength="100"
@@ -78,7 +76,7 @@
             <div class="body__row__rigth">
               <div class="container__input input__160">
                 <label class="input__label" for=""> Ngày sinh </label>
-                 <datePicker
+                <datePicker
                   placeholder="DD/MM/YYYY"
                   :enterSubmit="true"
                   :tabSubmit="true"
@@ -272,7 +270,6 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">Email </label>
               <input
-               
                 class="input"
                 type="text"
                 maxlength="100"
@@ -315,17 +312,10 @@
           </div>
         </div>
         <div class="modal__footer">
-          <div
-            class="btn__base content__center"
-          
-            @click="closeModal"
-          >
-            Hủy
-          </div>
+          <div class="btn__base content__center" @click="closeModal">Hủy</div>
           <div class="modal__footer__rigth">
             <div
               class="btn__base content__center"
-             
               v-tooltip="{
                 content: 'Cất (Ctrl + S)',
               }"
@@ -359,6 +349,8 @@
     v-if="isErrorFrom"
     @hideErrorFrom="hideErrorFrom"
     :textPopupError="textPopupError"
+    :isFooterFE="isFooterFE"
+    :isFooterBE="isFooterBE"
   ></DialogError>
 </template>
 <script>
@@ -422,6 +414,8 @@ export default {
       isErrorFrom: false,
       textErrorPopup: "",
       refName: " ",
+      isFooterFE: false,
+      isFooterBE:false
     };
   },
   methods: {
@@ -519,14 +513,20 @@ export default {
      */
     hideErrorFrom() {
       this.isErrorFrom = false;
-      this.$refs.empCode.focus();
-      if (this.refName) {
+      if(this.isFooterFE){
+         if (this.refName) {
         if (this.refName === "empDepartment") {
           this.$refs.empDepartment.departmentForcus();
         } else {
           this.$refs[this.refName].focus();
         }
       }
+      }
+      else{
+      this.$refs.empCode.focus();
+     
+      }
+      
     },
     /*
      * Hàm dùng để validate
@@ -564,18 +564,21 @@ export default {
         this.isErrorFrom = true;
         this.textPopupError = Enum.Errors.errorCode;
         this.refName = "empCode";
+        this.isFooterFE = true;
         return;
       }
       if (!this.employee.employeeName) {
         this.isErrorFrom = true;
         this.textPopupError = Enum.Errors.errorName;
         this.refName = "empName";
+        this.isFooterFE = true;
         return;
       }
       if (!this.employee.departmentID) {
         this.isErrorFrom = true;
         this.textPopupError = Enum.Errors.errorDepartment;
         this.refName = "empDepartment";
+        this.isFooterFE = true;
         return;
       }
     },
@@ -601,6 +604,7 @@ export default {
         response.errorCode === Enum.resErrorCodes.errorDuplicate
       ) {
         this.isErrorFrom = true;
+        this.isFooterBE = true;
         this.textPopupError = `${Enum.textErrorBackend.textCodeLeft} <${employeeCode}> ${Enum.textErrorBackend.textCodeRight}`;
       } else {
         {
@@ -672,7 +676,6 @@ export default {
       this.$refs.empCode.focus();
       this.$refs.empDepartment.textInput = "";
       this.$refs.empDepartment.indexItemSelected = null;
-     
     },
     /*
      * Hàm dùng để lưu  modal và thêm mới modal

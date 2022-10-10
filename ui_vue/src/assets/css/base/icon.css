@@ -181,3 +181,13 @@
 	width: 23px;
 	height: 20px;
 }
+.icon__delete__list{
+  background: url("../../img/Sprites.64af8f61.svg") no-repeat -1756px -317px;
+	width: 8px;
+	height: 5px;
+}
+.icon__delete__list--acv{
+  background: url("../../img/Sprites.64af8f61.svg") no-repeat -564px -365px;
+	width: 8px;
+	height: 5px;
+}
