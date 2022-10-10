@@ -42,7 +42,9 @@ td {
 .th__wd {
   min-width: 212px;
 }
-
+.th__150{
+  min-width: 150px;
+}
 .th__wd__date {
   min-width: 150px;
 }

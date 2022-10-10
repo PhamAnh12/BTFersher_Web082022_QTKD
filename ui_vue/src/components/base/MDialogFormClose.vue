@@ -1,7 +1,7 @@
 <template>
   <!-- dialog input -->
   <div class="dialog">
-    <div class="dialog__container content__center">
+    <div class="dialog__container content__center" @keyup.enter="saveModal" >
       <div class="dialog__content">
         <div class="dialog__header"></div>
         <div class="dialog__body align__items__center">

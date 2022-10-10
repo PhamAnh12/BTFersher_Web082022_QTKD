@@ -6,10 +6,8 @@
       v-model="textInput"
       @input="inputOnChange"
       @keydown="selecItemUpDown"
-      @blur="blurValidate"
-      placeholder="<None>"
+      @blur="blurValidate"    
       :class="{ input__error: errorDepartment }"
-      tabindex="3"
       errorCode="errorDepartment"
       ref="departmentInput"
     />

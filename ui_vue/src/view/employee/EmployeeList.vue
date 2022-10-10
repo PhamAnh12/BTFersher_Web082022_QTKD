@@ -11,7 +11,14 @@
         <div class="content__body__wrapper">
           <div class="container__sidebar">
             <Toast></Toast>
-            <div class="container__input input__search">
+            <div class="sidebar__left">
+             <div class="sidebar__delete__list">Thực hiện hàng loạt
+             <div class="dropList__icon__drop "></div>
+             </div>
+               <div class="delete__list">Xóa</div>
+            </div>
+            <div class="sidebar__right"> 
+              <div class="container__input input__search">
               <input
                 id="search"
                 class="input input__icon"
@@ -43,6 +50,8 @@
                 <div class="icon__24 icon__export"></div>
               </div>
             </div>
+            </div>
+          
           </div>
           <div class="container__table" ref="scrollbar">
             <table class="table">
@@ -68,9 +77,9 @@
                   </th>
                   <th class="th__wd" style="">CHỨC DANH</th>
                   <th class="th__wd" style="">TÊN ĐƠN VỊ</th>
-                  <th class="th__wd" style="">SỐ TÀI KHOẢN</th>
-                  <th class="th__wd" style="">TÊN NGÂN HÀNG</th>
-                  <th class="th__wd" style="border-right: none !important">
+                  <th class="th__150" style="">SỐ TÀI KHOẢN</th>
+                  <th class="th__150" style="">TÊN NGÂN HÀNG</th>
+                  <th class="th__150" style="border-right: none !important">
                     CHI NHÁNH NGÂN HÀNG
                   </th>
                   <th
@@ -503,7 +512,6 @@ export default {
             setTimeout(() => (this.isLoadingData = false), 1000);
             this.indexEmployee = 0;
             this.isShowFunction = false;
-            this.$refs.scrollbar.scrollTo(0, 0);
           })
           .catch((error) => {
             console.log("Error! Could not reach the API. " + error);
@@ -530,7 +538,7 @@ export default {
             this.getListEmployee();
           })
           .catch((error) => {
-            throw error;
+           console.log("Error! Could not reach the API. " + error);
           });
       } catch (error) {
         console.log(error);

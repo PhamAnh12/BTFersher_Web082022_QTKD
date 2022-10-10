@@ -7,7 +7,9 @@
     line-height: 20px;
     cursor: pointer;
     padding: 10px 20px;
-    outline-color: rgba(0, 0, 0, 0.4)
+    outline-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
 
 }
 .btn__base{
@@ -20,7 +22,9 @@
     color: #1F2229;
     font-weight: 500;
     border: 1px solid #D3D7DE;
-    outline-color: rgba(0, 0, 0, 0.4)
+    outline-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
     
 }
 

@@ -39,7 +39,7 @@
                   >Mã <span class="required">*</span>
                 </label>
                 <input
-                  tabindex="1"
+                
                   class="input"
                   type="text"
                   placeholder="Mã nhân viên "
@@ -59,7 +59,7 @@
                   >Họ và tên <span class="required">*</span></label
                 >
                 <input
-                  tabindex="2"
+                 
                   class="input"
                   type="text"
                   maxlength="100"
@@ -78,24 +78,19 @@
             <div class="body__row__rigth">
               <div class="container__input input__160">
                 <label class="input__label" for=""> Ngày sinh </label>
-                <datePicker
-                  tabindex="5"
+                 <datePicker
                   placeholder="DD/MM/YYYY"
                   :enterSubmit="true"
                   :tabSubmit="true"
                   :maxDate="new Date()"
                   locale="vn"
                   format="dd/MM/yyyy"
-                  :textInput="date"
-                  autocomplete
+                  textInput
                   :dayNames="['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']"
                   autoApply
                   utc
                   v-model="employee.dateOfBirth"
-                  inputClassName="input"
-                  :clearable="false"
-                >
-                </datePicker>
+                />
                 <!-- <input
                   tabindex="5"
                   class="input input_date"
@@ -117,7 +112,6 @@
                     name="gender"
                     id="male"
                     value="0"
-                    tabindex="6"
                     checked
                     v-model="employee.gender"
                   />
@@ -127,7 +121,6 @@
                     name="gender"
                     id="female"
                     value="1"
-                    tabindex="7"
                     v-model="employee.gender"
                   />
                   <label for="">Nữ</label>
@@ -136,7 +129,6 @@
                     name="gender"
                     id="other"
                     value="2"
-                    tabindex="8"
                     v-model="employee.gender"
                   />
                   <label for="other">Khác</label>
@@ -174,7 +166,6 @@
                   >Số CMND</label
                 >
                 <input
-                  tabindex="9"
                   class="input"
                   type="text"
                   maxlength="15"
@@ -185,7 +176,6 @@
               <div class="container__input input__margin_6 input__160">
                 <label class="input__label" for="">Ngày cấp</label>
                 <datePicker
-                  :tabIndex="10"
                   placeholder="DD/MM/YYYY"
                   :enterSubmit="true"
                   :tabSubmit="true"
@@ -213,7 +203,6 @@
               <div class="container__input input__480">
                 <label class="input__label" for="">Chức danh</label>
                 <input
-                  tabindex="4"
                   class="input"
                   type="text"
                   maxlength="50"
@@ -226,7 +215,6 @@
               <div class="container__input input__480">
                 <label class="input__label" for="">Nơi cấp</label>
                 <input
-                  tabindex="11"
                   class="input"
                   type="text"
                   maxlength="150"
@@ -240,7 +228,6 @@
             <div class="container__input">
               <label class="input__label" for="">Địa chỉ</label>
               <input
-                tabindex="12"
                 class="input"
                 type="text"
                 maxlength="255"
@@ -260,7 +247,6 @@
                 >ĐT di động
               </label>
               <input
-                tabindex="13"
                 class="input"
                 type="text"
                 placeholder="Số địa thoại di động"
@@ -277,7 +263,6 @@
                 >ĐT cố định
               </label>
               <input
-                tabindex="14"
                 class="input"
                 type="text"
                 placeholder="Số điện thoại cố định"
@@ -287,7 +272,7 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">Email </label>
               <input
-                tabindex="15"
+               
                 class="input"
                 type="text"
                 maxlength="100"
@@ -300,7 +285,6 @@
             <div class="container__input input__240">
               <label class="input__label" for="">Tài khoản ngân hàng </label>
               <input
-                tabindex="16"
                 class="input"
                 type="text"
                 maxlength="20"
@@ -311,7 +295,6 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for="">Tên ngân hàng </label>
               <input
-                tabindex="17"
                 class="input"
                 type="text"
                 maxlength="50"
@@ -322,7 +305,6 @@
             <div class="container__input input__margin_6 input__240">
               <label class="input__label" for=""> Chi nhánh </label>
               <input
-                tabindex="18"
                 class="input"
                 type="text"
                 maxlength="50"
@@ -335,7 +317,7 @@
         <div class="modal__footer">
           <div
             class="btn__base content__center"
-            tabindex="21"
+          
             @click="closeModal"
           >
             Hủy
@@ -343,7 +325,7 @@
           <div class="modal__footer__rigth">
             <div
               class="btn__base content__center"
-              tabindex="19"
+             
               v-tooltip="{
                 content: 'Cất (Ctrl + S)',
               }"
@@ -354,7 +336,6 @@
             </div>
             <div
               class="btn margin__letf_8"
-              tabindex="20"
               v-tooltip="{
                 content: 'Cất (Ctrl + Shift + S)',
               }"
@@ -684,13 +665,14 @@ export default {
      */
     saveModalAdd() {
       this.saveMode = Enum.SaveMode.SaveAdd;
-      this.handleSave();
       this.$emit("resetModal");
+      this.handleSave();
       this.employee = {};
-      this.$refs.empDepartment.textInput = "";
-      this.$refs.empDepartment.indexItemSelected = null;
       this.newEmployeeCode();
       this.$refs.empCode.focus();
+      this.$refs.empDepartment.textInput = "";
+      this.$refs.empDepartment.indexItemSelected = null;
+     
     },
     /*
      * Hàm dùng để lưu  modal và thêm mới modal
