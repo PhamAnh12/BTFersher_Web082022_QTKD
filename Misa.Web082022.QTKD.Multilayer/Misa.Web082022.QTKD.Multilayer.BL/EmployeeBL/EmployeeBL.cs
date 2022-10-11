@@ -62,7 +62,14 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
             }
             else if (maxEmployeeCode.Substring(0, 3) == "NV0")
             {
-                newEmployeeCode = "NV0" + (Int64.Parse(maxEmployeeCode.Substring(3)) + 1).ToString();
+                if (Int64.Parse(maxEmployeeCode.Substring(3)) == 999)
+                {
+                    newEmployeeCode = "NV1000";
+                }
+                else
+                {
+                    newEmployeeCode = "NV0" + (Int64.Parse(maxEmployeeCode.Substring(3)) + 1).ToString();
+                }
 
             }
             else if (maxEmployeeCode.Substring(0, 2) == "NV")
