@@ -1,8 +1,9 @@
 <template>
         <!-- dialog input -->
         <div class="dialog" >
-            <div class="dialog__container content__center"   >
-              <div class="dialog__content wd__dialog__error"  @keypress="handleKeyDialog" >
+            <div class="dialog__container content__center" 
+             >
+              <div class="dialog__content wd__dialog__error"   >
                 <div class="dialog__header">
                
                 </div>
@@ -64,10 +65,11 @@ export default {
      * PCTUANANH(30/09/2022)
      */
     handleKeyDialog(e){
-      if(e.keyCode === Enum.keyCode.ENTER ){
-           e.preventDefault();
-          this.$emit("hideErrorFrom");
-      }
+      // if(e.keyCode === Enum.keyCode.ENTER ){
+      //      e.preventDefault();
+      //     this.$emit("hideErrorFrom");
+      // }
+      console.log("Click",e,Enum.keyCode.ENTER);
     }
    }
    

@@ -10,23 +10,25 @@
       <div class="content__body__wrapper">
         <div class="content__body__wrapper">
           <div class="container__sidebar">
-            <Toast></Toast>
             <div class="sidebar__left">
-              <div class="sidebar__delete__list">
-                <div class="delete__list__text"
-                  @click="showDeleteMultiple"
-                >Thực hiện hàng loạt</div>
+              <div class="sidebar__delete__list" @click="showDeleteMultiple">
+                <div class="delete__list__text">Thực hiện hàng loạt</div>
                 <div class="item__icon icon__16">
                   <div
                     :class="{
                       icon__delete__list: listSelectedEmp.length <= 1,
                       'icon__delete__list--acv': listSelectedEmp.length > 1,
                     }"
-                  
                   ></div>
                 </div>
               </div>
-              <div class="delete__list" v-if="isShowDeleteMultiple" @click="deleteMultiple">Xóa</div>
+              <div
+                class="delete__list"
+                v-if="isShowDeleteMultiple"
+                @click="deleteMultiple"
+              >
+                Xóa
+              </div>
             </div>
             <div class="sidebar__right">
               <div class="container__input input__search">
@@ -71,7 +73,12 @@
               <thead>
                 <tr>
                   <th
-                    class="checkbox__tb__container sticky__col th__sticky__col sticky__col__checkbox"
+                    class="
+                      checkbox__tb__container
+                      sticky__col
+                      th__sticky__col
+                      sticky__col__checkbox
+                    "
                   >
                     <input
                       type="checkbox"
@@ -100,7 +107,13 @@
                     CHI NHÁNH NGÂN HÀNG
                   </th>
                   <th
-                    class="align-center function th__wd__function sticky__col th__sticky__col th__border__left"
+                    class="
+                      align-center
+                      function
+                      th__wd__function
+                      sticky__col
+                      th__sticky__col th__border__left
+                    "
                   >
                     CHỨC NĂNG
                   </th>
@@ -116,7 +129,11 @@
                   :class="{ trClick: isClick && indexEmployee == index }"
                 >
                   <td
-                    class="checkbox__tb__container td__checkbox__sticky sticky__col sticky__col__checkbox"
+                    class="
+                      checkbox__tb__container
+                      td__checkbox__sticky
+                      sticky__col sticky__col__checkbox
+                    "
                     :class="{ trClick: isClick && indexEmployee == index }"
                   >
                     <input
@@ -132,48 +149,53 @@
                   </td>
                   <td class="td__loading">
                     {{ employee.employeeCode }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="td__loading">
                     {{ employee.employeeName }}
 
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="td__loading">
                     {{ showGenderName(employee.gender) }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="align-center td__loading">
                     {{ formatDateEmployee(employee.dateOfBirth) }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="td__loading">
                     {{ employee.identityNumber }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="td__loading">
                     {{ employee.positionName }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="td__loading">
                     {{ employee.departmentName }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="td__loading">
                     {{ employee.accountBank }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="td__loading">
                     {{ employee.nameBank }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                   <td class="td__loading" style="border-right: none">
                     {{ employee.branchBank }}
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
 
                   <td
-                    class="align-center function function__sticky sticky__col td__border__left"
+                    class="
+                      align-center
+                      function function__sticky
+                      sticky__col
+                      td__border__left
+                    "
                     :class="{ trClick: isClick && indexEmployee == index }"
                     @dblclick.stop
                   >
@@ -201,32 +223,32 @@
                         }"
                       ></div>
                     </div>
-                    <Loading v-if="isLoading"></Loading>
+                    <loading v-if="isLoading"></loading>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <PageComponent
+        <pageComponent
           :totalRecords="totalRecords"
           :recordNumber="recordNumber"
           :pageCount="pageCount"
           @getRecordPage="getRecordPage"
           @pagingEmployee="pagingEmployee"
         >
-        </PageComponent>
+        </pageComponent>
       </div>
     </div>
   </div>
-  <DialogDelete
+  <dialogDelete
     v-if="isShowDelete"
     :employeeCode="employeeCode"
     @hideDialogDelete="hideDialogDelete"
     @handleDeleteEmployee="handleDeleteEmployee"
     @click.stop
-  ></DialogDelete>
-  <EmployeeDetail
+  ></dialogDelete>
+  <employeeDetail
     v-if="isShow"
     :employeeSelect="employeeSelect"
     :formMode="formMode"
@@ -235,9 +257,14 @@
     @hideModal="hideModal"
     @showModal="showModal"
     @resetModal="resetModal"
-  ></EmployeeDetail>
-
-  <LoadData v-if="isLoadingData"></LoadData>
+    @handleToast="handleToast"
+  ></employeeDetail>
+  <toast
+    v-if="isShowToast"
+    :textToast="textToast"
+ 
+  ></toast>
+  <loadData v-if="isLoadingData"></loadData>
 
   <div
     class="function__list"
@@ -251,29 +278,29 @@
     >
       Xóa
     </div>
-    <div class="function__item">Ngưng sử dụng</div>
+    <!-- <div class="function__item">Ngưng sử dụng</div> -->
   </div>
 </template>
 <script>
 import Common from "../../script/common/common";
 import Enum from "../../script/common/enumeration";
-import EmployeeDetail from "./EmployeeDetail.vue";
-import PageComponent from "../../components/base/MPage.vue";
-import Loading from "../../components/base/MLoad.vue";
-import DialogDelete from "../../components/base/MDialogDelete.vue";
-import LoadData from "../../components/base/MLoadData.vue";
-import Toast from "../../components/base/MToast.vue";
+import employeeDetail from "./EmployeeDetail.vue";
+import pageComponent from "../../components/base/MPage.vue";
+import loading from "../../components/base/MLoad.vue";
+import dialogDelete from "../../components/base/MDialogDelete.vue";
+import loadData from "../../components/base/MLoadData.vue";
+import toast from "../../components/base/MToast.vue";
 
 const urlBase = process.env.VUE_APP_URL;
 export default {
   name: "EmployeeList",
   components: {
-    EmployeeDetail,
-    PageComponent,
-    Loading,
-    DialogDelete,
-    LoadData,
-    Toast,
+    employeeDetail,
+    pageComponent,
+    loading,
+    dialogDelete,
+    loadData,
+    toast,
   },
   created() {
     this.isLoading = true;
@@ -293,6 +320,7 @@ export default {
       isShow: false,
       isShowFunction: false,
       isShowDelete: false,
+      isShowToast: false,
       //Loading
       isLoading: false,
       isLoadingData: false,
@@ -306,6 +334,7 @@ export default {
       pageCount: 1,
       topDropList: 0,
       leftDorpList: 0,
+      textToast: "",
       //Xóa nhiều
       isShowDeleteMultiple: false,
       isCheckedAll: false,
@@ -373,6 +402,16 @@ export default {
       this.isShowDelete = true;
       this.isShowFunction = false;
     },
+    /*
+     * Hàm dùng  để hiện Toast
+     * PCTUANANH(16/09/2022)
+     */
+    showToast() {
+      this.isShowToast = true;
+      setTimeout(() => {
+        this.isShowToast = false;
+      }, 1500);
+    },
     ///
     /// Các hàm dùng để hide, ẩn đi
     ///
@@ -394,6 +433,13 @@ export default {
       this.isShowDelete = false;
       this.getListEmployee();
     },
+    /*
+     * Hàm dùng  để ẩn  Toast
+     * PCTUANANH(16/09/2022)
+     */
+    hideToast() {
+      this.isShowToast = false;
+    },
     ///
     /// Các hàm xử lý loading dữ liệu
     ///
@@ -410,6 +456,14 @@ export default {
      */
     loadingData() {
       this.isLoadingData = true;
+    },
+     /*
+     * Hàm dùng để  xử show toast
+     * PCTUANANH(10/10/2022)
+     */
+    handleToast(textToast){
+      this.showToast();
+      this.textToast = textToast;
     },
     ///
     /// Các hàm để sử lý các sự kiện
@@ -464,11 +518,10 @@ export default {
      * PCTUANANH(26/09/2022)
      */
     searchEmployee() {
-      if(this.search){
-       this.isLoading = true;
-      this.getListEmployee();
+      if (this.search) {
+        this.isLoading = true;
+        setTimeout(() => this.getListEmployee(), 1000);
       }
-      
     },
     /*
      * Hàm dùng để  xử lý lựa chọn số bản ghi trên một trang
@@ -514,7 +567,7 @@ export default {
           a.download = "Danh_sach_nhan_vien.xlsx";
           a.click();
         });
-      setTimeout(() => (this.isLoadingData = false), 2000);
+      setTimeout(() => (this.isLoadingData = false), 1000);
     },
     ///
     /// Các hàm dùng để gọi đển API
@@ -533,11 +586,11 @@ export default {
             this.employees = res.data;
             this.totalRecords = res.totalCount;
             this.pageCount =
-              parseInt(this.totalRecords / this.recordNumber) + 1;
-            setTimeout(() => (this.isLoading = false), 1500);
-            setTimeout(() => (this.isLoadingData = false), 1000);
+            parseInt(this.totalRecords / this.recordNumber) + 1;
+            setTimeout(() => (this.isLoading = false), 0);
+            setTimeout(() => (this.isLoadingData = false), 500);
             this.indexEmployee = 0;
-            this.isShowFunction = false;
+            this.isShowFunction = false;          
           })
           .catch((error) => {
             console.log("Error! Could not reach the API. " + error);
@@ -561,6 +614,8 @@ export default {
           .then(() => {
             this.isShowFunction = false;
             this.loadingData();
+            this.textToast = Enum.textToast.deleteSuccess;
+            this.showToast();
             this.getListEmployee();
           })
           .catch((error) => {
@@ -589,8 +644,8 @@ export default {
       } else {
         this.listSelectedEmp.push(employeeID);
       }
-      if(this.listSelectedEmp.length <=1){
-         this.isShowDeleteMultiple = false;
+      if (this.listSelectedEmp.length <= 1) {
+        this.isShowDeleteMultiple = false;
       }
     },
     /*
@@ -602,12 +657,12 @@ export default {
         this.isShowDeleteMultiple = !this.isShowDeleteMultiple;
       }
     },
-       /*
+    /*
      * Hàm dùng  show gọi đến Api xóa nhiều
      * PCTUANANH(10/10/2022)
      */
-    deleteMultiple(){
-       try {
+    deleteMultiple() {
+      try {
         let url = `${urlBase}/Employees/delete-batch`;
         fetch(url, {
           method: "POST",
@@ -618,12 +673,13 @@ export default {
         })
           .then((response) => response.json())
           .then((response) => {
-             console.log(response);
-             this.reload();
-             this.isCheckedAll = false;
-             this.isShowDeleteMultiple = false;
-             this.listSelectedEmp= []
-             
+            console.log(response);
+            this.isCheckedAll = false;
+            this.isShowDeleteMultiple = false;
+            this.listSelectedEmp = [];
+            this.reload();
+            console.log(this.listSelectedEmp)
+           
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -631,7 +687,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
   },
 };
 </script>

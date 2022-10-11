@@ -10,6 +10,7 @@
       :class="{ input__error: errorDepartment }"
       errorCode="errorDepartment"
       ref="departmentInput"
+      placeholder="Đơn vị"
     />
      <div class="show__error__department" :class="{ input__show__error: errorDepartment }">
                   {{ errorDepartment }}
@@ -61,7 +62,7 @@
             height="11"
           />
         </div>
-        <span>{{ item[this.propText] }}</span>
+        <span> {{item.departmentCode}}  {{ item[this.propText] }}</span>
       </a>
     </div>
   </div>

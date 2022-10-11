@@ -21,6 +21,7 @@ export default {
         errorName: "Tên không được để trống",
         errorCode: "Mã không được để trống",
         errorDepartment: "Đơn vị không được để trống",
+        errorEmail:"Email không đúng định dạng",
         errorDate: "Ngày nhập không được lớn hơn ngày hiện tại"
     },
     keyCode: { //sk bàn phím
@@ -57,13 +58,19 @@ export default {
     ],
     textErrorBackend:{
         textCodeLeft: "Mã nhân viên ",
-        textCodeRight:"đã tồn tại vui lòng kiểm tra lại"
+        textCodeRight:"đã tồn tại vui lòng kiểm tra lại",
+        textServer:"Đã có lỗi Xảy ra vui lòng liên hệ MISA"
     },
     resErrorCodes:{
         errorDuplicate : 3,
     },
     nameFileExport: "Danh sách nhân viên",
-    textDelete: " Bạn muốn thực sự muốn xóa Nhân viên có mã là"
+    textDelete: " Bạn muốn thực sự muốn xóa Nhân viên có mã là",
+    textToast:{
+        addSuccess:"Thêm thành công",
+        updateSuccess:"Sửa thành công",
+        deleteSuccess:"Xóa thành công"
+    }
     
 
 

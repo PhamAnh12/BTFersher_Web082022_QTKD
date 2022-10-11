@@ -4,11 +4,18 @@
       <div class="item__icon">
         <div class="icon__16 icon__menu"></div>
       </div>
-      <select name="" id="">
-        <option value="">
+      <div class="header__option"
+      v-tooltip="{
+          content: 'Chức năng đang thi công',
+        }"
+      >
+        <div class="header__option__text">
           CÔNG TY TNHH SẢN XUẤT-THƯƠNG MẠI-DỊCH VỤ QUI PHÚC
-        </option>
-      </select>
+        </div>
+        <div class="icon__16 item__icon">
+        <div class="icon__option"></div>
+        </div>
+      </div>
     </div>
     <div class="header__account">
       <div

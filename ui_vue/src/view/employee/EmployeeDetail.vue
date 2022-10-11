@@ -1,7 +1,7 @@
 <template>
   <!-- Form nhập -->
   <div class="modal">
-    <div class="modal__container" @keydown="handleKeyModel" :draggable="true">
+    <div class="modal__container" @keydown="handleKeyModel">
       <div class="modal__content">
         <div class="modal__header">
           <div class="modal__header__left">
@@ -81,6 +81,7 @@
                   :enterSubmit="true"
                   :tabSubmit="true"
                   :maxDate="new Date()"
+                  :minDate="minDate"
                   locale="vn"
                   format="dd/MM/yyyy"
                   textInput
@@ -178,6 +179,7 @@
                   :enterSubmit="true"
                   :tabSubmit="true"
                   :maxDate="new Date()"
+                  :minDate="minDate"
                   locale="vn"
                   format="dd/MM/yyyy"
                   textInput
@@ -274,8 +276,15 @@
                 type="text"
                 maxlength="100"
                 placeholder="Email"
+                errorCode="errorEmail"
+                ref="empEmail"
                 v-model="employee.email"
+                :class="{ input__error: errors.errorEmail }"
+                @blur="blurValidate"
               />
+              <div :class="{ input__show__error: errors.errorEmail }">
+                {{ errors.errorEmail }}
+              </div>
             </div>
           </div>
           <div class="modal__body__row">
@@ -378,6 +387,7 @@ export default {
     "hideModal",
     "showModal",
     "resetModal",
+    "handleToast",
   ],
   created() {
     this.employee = this.employeeSelect;
@@ -407,6 +417,7 @@ export default {
         errorCode: "",
         errorName: "",
         errorDepartment: "",
+        errorEmail: "",
         errorDate: "",
       },
       urlDepartment: `${urlBase}/Departments`,
@@ -415,7 +426,8 @@ export default {
       textErrorPopup: "",
       refName: " ",
       isFooterFE: false,
-      isFooterBE:false
+      isFooterBE: false,
+      minDate: new Date("1900-01-01"),
     };
   },
   methods: {
@@ -468,6 +480,7 @@ export default {
           })
           .catch((error) => {
             console.log("Error! Could not reach the API. " + error);
+            this.showErrorServer();
           });
       } catch (error) {
         console.log(error);
@@ -513,20 +526,17 @@ export default {
      */
     hideErrorFrom() {
       this.isErrorFrom = false;
-      if(this.isFooterFE){
-         if (this.refName) {
-        if (this.refName === "empDepartment") {
-          this.$refs.empDepartment.departmentForcus();
-        } else {
-          this.$refs[this.refName].focus();
+      if (this.isFooterFE) {
+        if (this.refName) {
+          if (this.refName === "empDepartment") {
+            this.$refs.empDepartment.departmentForcus();
+          } else {
+            this.$refs[this.refName].focus();
+          }
         }
+      } else {
+        this.$refs.empCode.focus();
       }
-      }
-      else{
-      this.$refs.empCode.focus();
-     
-      }
-      
     },
     /*
      * Hàm dùng để validate
@@ -535,9 +545,10 @@ export default {
     validate() {
       let isValidate = true;
       this.errors = {
-        code: "",
+        errorCode: "",
         errorName: "",
         errorDepartment: "",
+        errorEmail: "",
       };
       if (!this.employee.employeeCode) {
         this.errors.errorCode = Enum.Errors.errorCode;
@@ -550,6 +561,12 @@ export default {
       if (!this.employee.departmentID) {
         this.errors.errorDepartment = Enum.Errors.errorDepartment;
         isValidate = false;
+      }
+      if (this.employee.email) {
+        if (!/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(this.employee.email)) {
+          this.errors.errorEmail = Enum.Errors.errorEmail;
+          isValidate = false;
+        }
       }
 
       this.validateSave();
@@ -581,6 +598,15 @@ export default {
         this.isFooterFE = true;
         return;
       }
+      if (this.employee.email) {
+        if (!/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(this.employee.email)) {
+          this.isErrorFrom = true;
+          this.textPopupError = Enum.Errors.errorEmail;
+          this.refName = "empEmail";
+          this.isFooterFE = true;
+          return;
+        }
+      }
     },
     /*
      * Hàm dùng để blur validate
@@ -588,7 +614,16 @@ export default {
      */
     blurValidate(e) {
       let errorCode = e.currentTarget.getAttribute("errorCode");
-      if (e.currentTarget.value) {
+      if (errorCode === "errorEmail") {
+        if (e.currentTarget.value) {
+          let valueEmial = e.currentTarget.value;
+          if (!/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(valueEmial)) {
+            this.errors[errorCode] = Enum.Errors[errorCode];
+          } else {
+            this.errors[errorCode] = "";
+          }
+        }
+      } else if (e.currentTarget.value) {
         this.errors[errorCode] = "";
       } else {
         this.errors[errorCode] = Enum.Errors[errorCode];
@@ -604,7 +639,6 @@ export default {
         response.errorCode === Enum.resErrorCodes.errorDuplicate
       ) {
         this.isErrorFrom = true;
-        this.isFooterBE = true;
         this.textPopupError = `${Enum.textErrorBackend.textCodeLeft} <${employeeCode}> ${Enum.textErrorBackend.textCodeRight}`;
       } else {
         {
@@ -612,14 +646,29 @@ export default {
             this.$emit("loadingData");
             this.$emit("hideModal");
           }
+          // Nếu là Cất và thêm thì sẽ reset lại from, và mã nhân viên tăng thêm
           if (this.saveMode === Enum.SaveMode.SaveAdd) {
             this.$emit("loadingData");
             setTimeout(() => {
               this.$emit("notLoadingData");
             }, 500);
+            this.$emit("resetModal");
+            this.employee = {};
+            this.newEmployeeCode();
+            this.$refs.empCode.focus();
+            this.$refs.empDepartment.textInput = "";
+            this.$refs.empDepartment.indexItemSelected = null;
           }
         }
       }
+    },
+    /*
+     * Hàm dùng  hiện lỗi khi có lỗi từ server
+     * PCTUANANH(10/10/2022)
+     */
+    showErrorServer() {
+      this.isErrorFrom = true;
+      this.textPopupError = Enum.textErrorBackend.textServer;
     },
     /*
      * Hàm dùng để giá trị của Department
@@ -644,10 +693,12 @@ export default {
           // sửa nhân viên
           if (this.formMode === Enum.FormMode.Edit) {
             this.saveEditEmployee();
+            this.$emit("handleToast", Enum.textToast.updateSuccess);
           }
           // thêm mới nhân viên
           else if (this.formMode === Enum.FormMode.Add) {
             this.saveAddEmployee();
+            this.$emit("handleToast", Enum.textToast.addSuccess);
           }
         }
       } catch (error) {
@@ -661,7 +712,6 @@ export default {
     saveModal() {
       this.saveMode = Enum.SaveMode.Save;
       this.handleSave();
-      this.$emit("showModal");
     },
     /*
      * Hàm dùng để lưu  modal và thêm mới modal
@@ -669,28 +719,27 @@ export default {
      */
     saveModalAdd() {
       this.saveMode = Enum.SaveMode.SaveAdd;
-      this.$emit("resetModal");
       this.handleSave();
-      this.employee = {};
-      this.newEmployeeCode();
-      this.$refs.empCode.focus();
-      this.$refs.empDepartment.textInput = "";
-      this.$refs.empDepartment.indexItemSelected = null;
     },
     /*
      * Hàm dùng để lưu  modal và thêm mới modal
      * PCTUANANH(03/10/2022)
      */
     handleKeyModel(e) {
-      if (e.keyCode === Enum.keyCode.S && e.ctrlKey) {
-        e.preventDefault();
-        this.saveModal();
-      }
       if (e.keyCode === Enum.keyCode.ESC) {
         e.preventDefault();
         this.isCloseModal();
       }
-    },
+      if (e.keyCode === Enum.keyCode.S && e.ctrlKey) {
+          e.preventDefault();
+          this.saveModal();
+        }
+      if (e.keyCode === (Enum.keyCode.S && e.ctrlKey && e.shiftKey)) {
+          e.preventDefault();
+          this.saveModalAdd();
+        }
+      }
+    ,
     ///
     /// Các hàm  để  thêm, sửa  gọi đến API
     ///
@@ -716,6 +765,7 @@ export default {
           })
           .catch((error) => {
             console.error("Error:", error);
+            this.showErrorServer();
           });
       } catch (error) {
         console.log(error);
@@ -743,6 +793,7 @@ export default {
           })
           .catch((error) => {
             console.error("Error:", error);
+            this.showErrorServer();
           });
       } catch (error) {
         console.log(error);

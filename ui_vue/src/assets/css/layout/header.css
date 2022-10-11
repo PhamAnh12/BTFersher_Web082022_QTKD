@@ -12,11 +12,15 @@
     align-items: center;
 
 }
-select{
-    border: none;
-    outline: none;
+.header__option{
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
     cursor: pointer;
-   
+}
+.header__option__text{
+    margin-right: 6px;
+    font-weight: 600;
 }
 .header__account{
  display: flex;
@@ -28,11 +32,12 @@ select{
 .account__container{
     display: flex;
     align-items: center;
-    padding-left: 24px;
+    margin-left: 22px;
     justify-content: space-around;
 }
 .account__img{
     border-radius: 32px;
+    margin-right: 6px;
 }
 .account__text{
   padding-left: 4px;

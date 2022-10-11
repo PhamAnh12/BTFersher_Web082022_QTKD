@@ -74,6 +74,7 @@
 .sidebar__right{
     display: flex;
     align-items: center;
+   margin-right: 4px;
 }
 .btn__sidebar{
     display: flex;

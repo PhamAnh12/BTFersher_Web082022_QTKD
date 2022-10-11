@@ -1,8 +1,31 @@
-/* .toast{
+.toast{
     min-width: 450px;
     height: 56px;
-    background-color: #FFFFFF;
+    background-color: #ffff;
     border-radius:  var( --border-radius);
-    box-shadow:  0 1px rgba(0,0,0,0.078);
+    box-shadow:  0 4px 40px rgba(0,0,0,0.078);
+    position: fixed;
+    top:28px;
+    left: calc((100% - 450px)/2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px;
+    z-index: 99;
 
-} */
+}
+.toast__left{
+    display: flex;
+    align-items: center;
+}
+.toast__text{
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    color: #1F1F1F;
+}
+.toast__text--success{
+    margin-right: 6px;
+    font-weight: 600;
+    color:     #2ca01c ;
+}
