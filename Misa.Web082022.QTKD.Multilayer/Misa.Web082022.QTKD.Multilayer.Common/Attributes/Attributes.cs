@@ -27,4 +27,5 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Attributes
             this.Msg = msg;
         }
     }
+
 }

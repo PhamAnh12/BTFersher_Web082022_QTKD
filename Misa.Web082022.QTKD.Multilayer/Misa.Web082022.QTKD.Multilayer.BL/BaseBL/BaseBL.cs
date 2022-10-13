@@ -58,29 +58,27 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
         public ServiceResponse InsertRecord(T record)
         {
             // validate dữ liệu đầu vào
-            List<string> ValidateErrors = Validation<T>.Validate(record);
-            if (ValidateErrors.Count > 0)
+            List<string> validateErrors = Validation<T>.Validate(record);
+            if (validateErrors.Count > 0)
             {
-                string listValidateErrors = string.Join(", ", ValidateErrors);
+
                 return new ServiceResponse
                 {
                     IsValidate = false,
-                    strValidate = listValidateErrors,
                     Success = false,
-                    Data = listValidateErrors
+                    Data = validateErrors
                 };
             }
             else
             {
-               var ID = _recordDL.InsertRecord(record);
-                if (ID != null)
+               var id = _recordDL.InsertRecord(record);
+                if (id != null)
                 {
                     return new ServiceResponse
                     {
                         IsValidate = true,
-                        strValidate = "",
                         Success = true,
-                        Data = ID
+                        Data = id
                     };
                 }
                 else
@@ -88,9 +86,8 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
                     return new ServiceResponse
                     {
                         IsValidate = true,
-                        strValidate = "",
                         Success = false,
-                        Data = null,
+                        Data = "",
                     };
                 }
 
@@ -107,16 +104,15 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
         public ServiceResponse UpdateRecord(Guid ID,T record)
         {
             // validate dữ liệu đầu vào
-            List<string> ValidateErrors = Validation<T>.Validate(record);
-            if (ValidateErrors.Count > 0)
+            List<string> validateErrors = Validation<T>.Validate(record);
+            if (validateErrors.Count > 0)
             {
-                string listValidateErrors = string.Join(", ", ValidateErrors);
+               
                 return new ServiceResponse
                 {
-                    IsValidate = false,
-                    strValidate = listValidateErrors,
+                    IsValidate = false, 
                     Success = false,
-                    Data = listValidateErrors
+                    Data = validateErrors
                 };
             }
             else
@@ -127,7 +123,6 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
                     return new ServiceResponse
                     {
                         IsValidate = true,
-                        strValidate = "",
                         Success = true,
                         Data = id
                     };
@@ -137,9 +132,8 @@ namespace Misa.Web082022.QTKD.Multilayer.BL
                     return new ServiceResponse
                     {
                         IsValidate = true,
-                        strValidate = "",
                         Success = false,
-                        Data = null,
+                        Data = "",
                     };
                 }
 

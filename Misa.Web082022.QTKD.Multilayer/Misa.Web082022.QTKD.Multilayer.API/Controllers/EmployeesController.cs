@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Misa.Web082022.QTKD.Multilayer.BL;
 using Misa.Web082022.QTKD.Multilayer.Common.Entities;
+using Misa.Web082022.QTKD.Multilayer.Common.Entities.DTO;
 using Misa.Web082022.QTKD.Multilayer.Common.Enums;
 
 using MySqlConnector;
@@ -22,6 +23,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
 
         private IEmployeeBL _employeeBL;
         private ResponeErrorResult responeErrorResult;
+        HandleResponeResult handleResponeResult;
 
         #endregion
 
@@ -31,8 +33,8 @@ namespace Misa.Web082022.QTKD.Multilayer.API
         {
             _employeeBL = employeeBL;
             responeErrorResult = new ResponeErrorResult();
+            handleResponeResult = new HandleResponeResult();
         }
-
         #endregion
 
         #region GetFilter API
@@ -57,17 +59,24 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 var filterEmployee = _employeeBL.FilterEmployees(search, sort, limit, offset);
                 if (filterEmployee != null)
                 {
-                    return StatusCode(StatusCodes.Status200OK, filterEmployee);
+                    return StatusCode(StatusCodes.Status200OK,
+                    handleResponeResult.ResponeResult(QTKDCode.Success, 200, true, "[]", filterEmployee)
+                       );
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, responeErrorResult.ErrorResultGet(HttpContext.TraceIdentifier));
+                    return StatusCode(StatusCodes.Status404NotFound,
+                     handleResponeResult.ResponeResult(QTKDCode.ResultDatabaseFailed, 404, false, "[]", "[]")
+                  );
                 }
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                       handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", "")
+
+                  );
             }
         }
 
@@ -87,7 +96,9 @@ namespace Misa.Web082022.QTKD.Multilayer.API
             {
                 string newEmployeeCode = _employeeBL.GetNewEmployeeCode();
                 // Trả về dữ liệu cho client
-                return StatusCode(StatusCodes.Status200OK, newEmployeeCode);
+                return StatusCode(StatusCodes.Status200OK,
+                    handleResponeResult.ResponeResult(QTKDCode.Success, 200, true, "[]", newEmployeeCode)
+                      );
             }
 
             catch (Exception exception)
@@ -95,7 +106,9 @@ namespace Misa.Web082022.QTKD.Multilayer.API
 
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                        handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", "")
+
+                   );
 
             }
         }
@@ -117,14 +130,15 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 var numberOfAffectedRows = _employeeBL.DeleteListEmployee(listEmployeeID);
                 if (numberOfAffectedRows > 0)
                 {
-                    // Trả về dữ liệu cho client
-                    return StatusCode(StatusCodes.Status200OK, listEmployeeID);
+                    return StatusCode(StatusCodes.Status200OK,
+                    handleResponeResult.ResponeResult(QTKDCode.Success, 200, true, "[]", listEmployeeID)
+                       );
                 }
                 else
                 {
                     return StatusCode(StatusCodes.Status400BadRequest,
-                     responeErrorResult.ErrorResultDelete(HttpContext.TraceIdentifier)
-                    );
+                     handleResponeResult.ResponeResult(QTKDCode.ResultDatabaseFailed, 400, false, "[]", listEmployeeID)
+                     );
                 }
             }
             catch (Exception exception)
@@ -132,7 +146,9 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                      handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", "")
+
+                 );
             }
         }
 
@@ -297,7 +313,10 @@ namespace Misa.Web082022.QTKD.Multilayer.API
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                     handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", "")
+
+                );
             }
         }
 

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Misa.Web082022.QTKD.Multilayer.BL;
 using Misa.Web082022.QTKD.Multilayer.Common.Entities;
+using Misa.Web082022.QTKD.Multilayer.Common.Entities.DTO;
+using Misa.Web082022.QTKD.Multilayer.Common.Enums;
 using MySqlConnector;
 using NSwag.Annotations;
 
@@ -15,7 +17,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
 
         private IBaseBL<T> _recordBL;
         ResponeErrorResult responeErrorResult;
-
+        HandleResponeResult handleResponeResult;
         #endregion
 
         #region Controctor
@@ -24,6 +26,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
         {
             _recordBL = recordBL;
             responeErrorResult = new ResponeErrorResult();
+            handleResponeResult = new HandleResponeResult();
         }
 
         #endregion
@@ -45,19 +48,26 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 // Thành công
                 if (records != null)
                 {
-                    return StatusCode(StatusCodes.Status200OK, records);
+                    return StatusCode(StatusCodes.Status200OK,
+                      handleResponeResult.ResponeResult(QTKDCode.Success, 200, true, "[]", records)
+                       );
                 }
                 else
                 {
 
-                    return StatusCode(StatusCodes.Status404NotFound, responeErrorResult.ErrorResultGet(HttpContext.TraceIdentifier));
+                    return StatusCode(StatusCodes.Status404NotFound,
+                       handleResponeResult.ResponeResult(QTKDCode.ResultDatabaseFailed, 404, false,"[]", "[]")
+                    );
                 }
             }
             // Try catch exception
             catch (Exception exception)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                       handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false,"[]", "")
+
+                  );
 
             }
         }
@@ -78,24 +88,29 @@ namespace Misa.Web082022.QTKD.Multilayer.API
             try
             {
 
-                var record =  _recordBL.RecordByID(ID);
+                var record = _recordBL.RecordByID(ID);
                 // Thành công
                 if (record != null)
                 {
-                    return StatusCode(StatusCodes.Status200OK, record);
+                    return StatusCode(StatusCodes.Status200OK,
+                        handleResponeResult.ResponeResult(QTKDCode.Success, 200, true, "[]", record)
+                         );
                 }
                 else
                 {
-
-                    return StatusCode(StatusCodes.Status404NotFound, responeErrorResult.ErrorResultGet(HttpContext.TraceIdentifier));
+                    return StatusCode(StatusCodes.Status404NotFound,
+                       handleResponeResult.ResponeResult(QTKDCode.ResultDatabaseFailed, 404, false, "[]",ID)
+                    );
                 }
             }
             // Try catch exception
             catch (Exception exception)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false,"[]", "")
 
+                   );
             }
         }
 
@@ -117,21 +132,27 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 var recordBLResponse = _recordBL.InsertRecord(record);
                 if (!recordBLResponse.IsValidate)
                 {
-                    string? strValidate = recordBLResponse.strValidate;
+
                     return StatusCode(StatusCodes.Status400BadRequest,
-                    responeErrorResult.ErrorResultValidate(HttpContext.TraceIdentifier, strValidate));
+                    handleResponeResult.ResponeResult(QTKDCode.InputValidation, 400, false, recordBLResponse.Data, record)
+                    );
+
+
                 }
 
                 if (recordBLResponse.IsValidate && recordBLResponse.Success)
                 {
                     // Trả về dữ liệu cho client
-                    return StatusCode(StatusCodes.Status201Created, recordBLResponse.Data);
+                    return StatusCode(StatusCodes.Status201Created,
+                    handleResponeResult.ResponeResult(QTKDCode.Success, 201, true, "[]", recordBLResponse.Data)
+                    );
                 }
                 else
                 {
 
                     return StatusCode(StatusCodes.Status400BadRequest,
-                    responeErrorResult.ErrorResultInsert(HttpContext.TraceIdentifier)
+                    handleResponeResult.ResponeResult(QTKDCode.ResultDatabaseFailed, 400, false, "[]", record)
+
                );
                 }
 
@@ -143,18 +164,21 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 {
                     Console.WriteLine(mySqlException.Message);
                     return StatusCode(StatusCodes.Status400BadRequest,
-                        responeErrorResult.ErrorResultDuplicateCode(HttpContext.TraceIdentifier)
+                    handleResponeResult.ResponeResult(QTKDCode.DuplicateCode, 400, false, "[]", record)
+
                  );
                 }
                 Console.WriteLine(mySqlException.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                    handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", "")
+               );
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                    handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", "")
+               );
 
             }
         }
@@ -176,24 +200,28 @@ namespace Misa.Web082022.QTKD.Multilayer.API
 
             try
             {
-                var recordBLResponse = _recordBL.UpdateRecord(ID,record);
+                var recordBLResponse = _recordBL.UpdateRecord(ID, record);
                 if (!recordBLResponse.IsValidate)
                 {
-                    string? strValidate = recordBLResponse.strValidate;
                     return StatusCode(StatusCodes.Status400BadRequest,
-                    responeErrorResult.ErrorResultValidate(HttpContext.TraceIdentifier, strValidate));
+                    handleResponeResult.ResponeResult(QTKDCode.InputValidation, 400, false, recordBLResponse.Data, record)
+                    );
                 }
 
                 if (recordBLResponse.IsValidate && recordBLResponse.Success)
                 {
                     // Trả về dữ liệu cho client
-                    return StatusCode(StatusCodes.Status201Created, recordBLResponse.Data);
+                    return StatusCode(StatusCodes.Status200OK,
+                    handleResponeResult.ResponeResult(QTKDCode.Success, 200, true, "[]", recordBLResponse.Data)
+                        );
+
                 }
                 else
                 {
 
                     return StatusCode(StatusCodes.Status400BadRequest,
-                    responeErrorResult.ErrorResultInsert(HttpContext.TraceIdentifier)
+                    handleResponeResult.ResponeResult(QTKDCode.ResultDatabaseFailed, 400, false, "[]", record)
+
                );
                 }
 
@@ -205,21 +233,21 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 {
                     Console.WriteLine(mySqlException.Message);
                     return StatusCode(StatusCodes.Status400BadRequest,
-                        responeErrorResult.ErrorResultDuplicateCode(HttpContext.TraceIdentifier)
+                    handleResponeResult.ResponeResult(QTKDCode.DuplicateCode, 400, false, "[]", record)
                  );
                 }
                 Console.WriteLine(mySqlException.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", ""));
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", ""));
 
             }
-            
+
         }
 
         #endregion
@@ -242,12 +270,14 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 if (id != null)
                 {
                     // Trả về dữ liệu cho client
-                    return StatusCode(StatusCodes.Status200OK, id);
+                    return StatusCode(StatusCodes.Status200OK,
+                    handleResponeResult.ResponeResult(QTKDCode.Success, 200, true, "[]", id)
+                        );
                 }
                 else
                 {
                     return StatusCode(StatusCodes.Status400BadRequest,
-                     responeErrorResult.ErrorResultDelete(HttpContext.TraceIdentifier)
+                    handleResponeResult.ResponeResult(QTKDCode.ResultDatabaseFailed, 400, false, "[]", ID)
                     );
                 }
             }
@@ -256,7 +286,7 @@ namespace Misa.Web082022.QTKD.Multilayer.API
                 // TODO: Sau này có thể bổ sung log lỗi ở đây để khi gặp exception trace lỗi cho dễ
                 Console.WriteLine(exception.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                 responeErrorResult.ErrorResultException(HttpContext.TraceIdentifier));
+                handleResponeResult.ResponeResult(QTKDCode.Exception, 500, false, "[]", ""));
             }
 
         }

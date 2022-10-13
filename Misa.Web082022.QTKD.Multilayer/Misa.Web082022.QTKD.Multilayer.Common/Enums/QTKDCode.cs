@@ -9,8 +9,14 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Enums
     /// <summary>
     /// Các mã lỗi
     /// </summary>
-    public enum QTKDErrorCode
+    public enum QTKDCode
     {
+        /// <summary>
+        /// Mã thành công 
+        /// </summary>
+       Success = 0,
+
+
         /// <summary>
         /// Lỗi do Exception
         /// </summary>
@@ -29,7 +35,12 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Enums
         /// <summary>
         /// Lỗi do các trường để trống
         /// </summary>
-        InputValidation = 4
+        InputValidation = 4,
+
+         /// <summary>
+         /// Lỗi do do Email không đúng định dạng
+         /// </summary>
+        ValidationEmail = 5
 
 
     }

@@ -13,7 +13,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         public ErrorResult ErrorResultGet(string traceIdentifier)
         {
             return new ErrorResult(
-                     QTKDErrorCode.ResultDatabaseFailed,
+                    QTKDCode.ResultDatabaseFailed,
                     Resource.DevMsg_GetFailed,
                     Resource.UserMsg_GetFailed,
                     Resource.MoreInfo_GetFailed,
@@ -28,7 +28,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         public ErrorResult ErrorResultInsert(string traceIdentifier)
         {
             return new ErrorResult(
-                    QTKDErrorCode.ResultDatabaseFailed,
+                    QTKDCode.ResultDatabaseFailed,
                      Resource.DevMsg_InsertFailed,
                      Resource.UserMsg_InsertFailed,
                      Resource.MoreInfo_InsertFailed,
@@ -43,7 +43,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         public ErrorResult ErrorResultUpdate(string traceIdentifier)
         {
             return new ErrorResult(
-                     QTKDErrorCode.ResultDatabaseFailed,
+                     QTKDCode.ResultDatabaseFailed,
                      Resource.DevMsg_UpdateFailed,
                      Resource.UserMsg_UpdateFailed,
                      Resource.MoreInfo_UpdateFailed,
@@ -58,7 +58,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         public ErrorResult ErrorResultDelete(string traceIdentifier)
         {
             return new ErrorResult(
-                     QTKDErrorCode.ResultDatabaseFailed,
+                     QTKDCode.ResultDatabaseFailed,
                     Resource.DevMsg_DeleteFailed,
                     Resource.UserMsg_DeleteFailed,
                     Resource.MoreInfo_DeleteFailed,
@@ -73,7 +73,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         public ErrorResult ErrorResultValidate(string traceIdentifier, string strValidate)
         {
            return  new ErrorResult(
-                           QTKDErrorCode.InputValidation,
+                           QTKDCode.InputValidation,
                            Resource.DevMsg_ValidateFailed,
                            Resource.UserMsg_ValidateFailed,
                            strValidate,
@@ -88,7 +88,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         public ErrorResult ErrorResultDuplicateCode(string traceIdentifier)
         {
             return new ErrorResult(
-                      QTKDErrorCode.DuplicateCode,
+                      QTKDCode.DuplicateCode,
                       Resource.DevMsg_DuplicateCode,
                       Resource.UserMsg_DuplicateCode,
                       Resource.MoreInfo_DuplicateCode,
@@ -104,7 +104,7 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         public ErrorResult ErrorResultException(string traceIdentifier)
         {
             return new ErrorResult(
-                      QTKDErrorCode.Exception,
+                      QTKDCode.Exception,
                       Resource.DevMsg_Exception,
                       Resource.UserMsg_Exception,
                       Resource.MoreInfo_Exception,

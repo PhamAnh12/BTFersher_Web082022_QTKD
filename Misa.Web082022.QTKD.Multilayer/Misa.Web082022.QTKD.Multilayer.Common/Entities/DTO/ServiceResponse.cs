@@ -15,12 +15,6 @@ namespace Misa.Web082022.QTKD.Multilayer.Common.Entities
         /// </summary>
         public bool IsValidate { get; set; }
 
-
-        /// <summary>
-        /// Chuỗi Valiadte
-        /// </summary>
-        public string? strValidate { get; set; }
-
         /// <summary>
         /// Thành công hay Thất bại
         /// </summary>
